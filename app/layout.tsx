@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     title: "King Jagad's Personal Website",
     description: "Combination of Next.js, TypeScript, and Tailwind CSS",
   },
+  verification: {
+    google: 'gMYC1Q1nQW9hg2eHsWm58lKeXF0NqrasHEsGQbaIynA',
+  },
 };
 
 export default function RootLayout({

@@ -77,6 +77,7 @@ export default function Footer() {
                 {/* Copyright */}
                 <div className="border-t border-gray-800 dark:border-gray-900 mt-8 pt-8 text-center text-gray-400 dark:text-gray-500">
                     <p>&copy; {currentYear} JGDT. All rights reserved.</p>
+                    <p className="text-sm mt-2">jgarinarka.vercel.app</p>
                 </div>
             </div>
         </footer>

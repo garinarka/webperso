@@ -69,6 +69,7 @@ export default function ContactPage() {
                         <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Informasi Kontak</h2>
                         <div className="space-y-2 text-gray-600 dark:text-gray-400">
                             <p>📧 Email: jagaddhitajalu@gmail.com</p>
+                            <p>🌐 Website: jgarinarka.vercel.app</p>
                             <p>📍 Location: Yogyakarta, Indonesia</p>
                         </div>
                     </div>
