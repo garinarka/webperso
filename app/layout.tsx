@@ -11,6 +11,20 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "King Jagad's Personal Website",
   description: "Combination of Next.js, TypeScript, and Tailwind CSS",
+  metadataBase: new URL('https://jgarinarka.vercel.app/'),
+  openGraph: {
+    title: "King Jagad's Personal Website",
+    description: "Combination of Next.js, TypeScript, and Tailwind CSS",
+    url: 'https://jgarinarka.vercel.app/',
+    siteName: 'King Jagad',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "King Jagad's Personal Website",
+    description: "Combination of Next.js, TypeScript, and Tailwind CSS",
+  },
 };
 
 export default function RootLayout({
@@ -19,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="id">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <Navbar />
         <main className="flex-grow">
