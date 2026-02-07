@@ -1,82 +1,547 @@
 @import "tailwindcss";
 
+/* ==================== PUNK/BRUTALIST THEME ==================== */
+
+@theme {
+  /* Color Palette - Punk/Brutalist */
+  --color-punk-black: #000000;
+  --color-punk-white: #ffffff;
+  --color-punk-gray-100: #1a1a1a;
+  --color-punk-gray-200: #2a2a2a;
+  --color-punk-gray-300: #3a3a3a;
+  --color-punk-gray-400: #808080;
+
+  --color-neon-yellow: #ffff00;
+  --color-neon-green: #00ff00;
+  --color-neon-pink: #ff00ff;
+  --color-neon-red: #ff0000;
+  --color-neon-cyan: #00ffff;
+
+  /* Fonts */
+  --font-sans: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-brutal: var(--font-space-grotesk), sans-serif;
+
+  /* Font Sizes - Brutal Typography */
+  --font-size-brutal-xs: 0.75rem;
+  --font-size-brutal-sm: 0.875rem;
+  --font-size-brutal-base: 1rem;
+  --font-size-brutal-lg: 1.125rem;
+  --font-size-brutal-xl: 1.25rem;
+  --font-size-brutal-2xl: 1.5rem;
+  --font-size-brutal-3xl: 1.875rem;
+  --font-size-brutal-4xl: 2.25rem;
+  --font-size-brutal-5xl: 3rem;
+  --font-size-brutal-6xl: 3.75rem;
+  --font-size-brutal-7xl: 4.5rem;
+
+  /* Border Widths */
+  --border-width-3: 3px;
+  --border-width-6: 6px;
+
+  /* Shadows - Brutal & Neon */
+  --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-neon-yellow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00;
+  --shadow-neon-green: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+  --shadow-neon-pink: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+
+  /* Animations */
+  --animate-glitch: glitch 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  --animate-scan: scan 8s linear infinite;
+  --animate-flicker: flicker 2s linear infinite;
+  --animate-shake: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  --animate-noise: noise 0.2s infinite;
+}
+
+/* CSS Variables for light/dark */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-/* Smooth transitions */
-@layer base {
-  a,
-  button,
-  input,
-  textarea {
-    @apply transition-colors duration-200;
-  }
-}
-
-/* Focus visible for accessibility */
-@layer base {
-  *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-foreground;
-  }
-}
-
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-track {
-    background: #1a1a1a;
-  }
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-thumb {
-    background: #555;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #777;
-  }
-}
-
+/* Body styling - ALWAYS DARK */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Remove smooth transitions - punk is INSTANT */
+* {
+  transition: none !important;
+}
+
+/* Selection color - neon yellow */
+::selection {
+  background: var(--color-neon-yellow);
+  color: var(--color-punk-black);
+}
+
+::-moz-selection {
+  background: var(--color-neon-yellow);
+  color: var(--color-punk-black);
+}
+
+/* Custom scrollbar - brutal style */
+::-webkit-scrollbar {
+  width: 12px;
+  background: var(--color-punk-black);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-punk-black);
+  border-left: 2px solid var(--color-punk-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-punk-white);
+  border: 2px solid var(--color-punk-black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-yellow);
+}
+
+/* NO smooth scroll */
+html {
+  scroll-behavior: auto;
+}
+
+/* Brutal focus states */
+*:focus-visible {
+  outline: 4px solid var(--color-neon-yellow);
+  outline-offset: 2px;
+}
+
+/* ==================== KEYFRAMES ==================== */
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  41.99% {
+    opacity: 1;
+  }
+  42% {
+    opacity: 0;
+  }
+  43% {
+    opacity: 0;
+  }
+  43.01% {
+    opacity: 1;
+  }
+  47.99% {
+    opacity: 1;
+  }
+  48% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 0;
+  }
+  49.01% {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes noise {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  10% {
+    background-position: -5% -10%;
+  }
+  20% {
+    background-position: -15% 5%;
+  }
+  30% {
+    background-position: 7% -25%;
+  }
+  40% {
+    background-position: 20% 25%;
+  }
+  50% {
+    background-position: -25% 10%;
+  }
+  60% {
+    background-position: 15% 5%;
+  }
+  70% {
+    background-position: 0% 15%;
+  }
+  80% {
+    background-position: 25% 35%;
+  }
+  90% {
+    background-position: -10% 10%;
+  }
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Noise texture */
+.noise {
+  position: relative;
+}
+
+.noise::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: noise 0.2s infinite;
+}
+
+/* Scan lines */
+.scan-lines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-lines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Glitch text - FIXED VERSION */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  color: currentColor;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #00ffff;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow:
+    2px 0 #ff00ff,
+    -2px 0 #ff00ff;
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  animation: glitch-anim 2s infinite linear alternate;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 5%, 0 5%);
+  }
+  10% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 25%, 0 25%);
+  }
+  20% {
+    clip-path: polygon(0 35%, 100% 35%, 100% 45%, 0 45%);
+  }
+  30% {
+    clip-path: polygon(0 55%, 100% 55%, 100% 65%, 0 65%);
+  }
+  40% {
+    clip-path: polygon(0 75%, 100% 75%, 100% 85%, 0 85%);
+  }
+  50% {
+    clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%);
+  }
+  60% {
+    clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%);
+  }
+  70% {
+    clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%);
+  }
+  80% {
+    clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
+  }
+  90% {
+    clip-path: polygon(0 25%, 100% 25%, 100% 35%, 0 35%);
+  }
+  100% {
+    clip-path: polygon(0 90%, 100% 90%, 100% 100%, 0 100%);
+  }
+}
+
+/* Brutal borders */
+.border-brutal {
+  border: 3px solid currentColor;
+}
+
+.border-brutal-thick {
+  border: 6px solid currentColor;
+}
+
+/* Terminal cursor */
+.cursor-blink::after {
+  content: "█";
+  animation: blink 1s infinite;
+}
+
+/* Text punk (uppercase + spaced) */
+.text-punk {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+/* Animation classes */
+.animate-glitch {
+  animation: glitch 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.animate-scan {
+  animation: scan 8s linear infinite;
+}
+
+.animate-flicker {
+  animation: flicker 2s linear infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.animate-noise {
+  animation: noise 0.2s infinite;
+}
+
+/* ==================== CUSTOM UTILITY CLASSES ==================== */
+
+/* Font Sizes */
+.text-brutal-xs {
+  font-size: var(--font-size-brutal-xs);
+}
+.text-brutal-sm {
+  font-size: var(--font-size-brutal-sm);
+}
+.text-brutal-base {
+  font-size: var(--font-size-brutal-base);
+}
+.text-brutal-lg {
+  font-size: var(--font-size-brutal-lg);
+}
+.text-brutal-xl {
+  font-size: var(--font-size-brutal-xl);
+}
+.text-brutal-2xl {
+  font-size: var(--font-size-brutal-2xl);
+}
+.text-brutal-3xl {
+  font-size: var(--font-size-brutal-3xl);
+}
+.text-brutal-4xl {
+  font-size: var(--font-size-brutal-4xl);
+}
+.text-brutal-5xl {
+  font-size: var(--font-size-brutal-5xl);
+}
+.text-brutal-6xl {
+  font-size: var(--font-size-brutal-6xl);
+}
+.text-brutal-7xl {
+  font-size: var(--font-size-brutal-7xl);
+}
+
+/* Font Families */
+.font-brutal {
+  font-family: var(--font-brutal);
+}
+.font-mono-custom {
+  font-family: var(--font-mono);
+}
+
+/* Colors */
+.text-neon-yellow {
+  color: var(--color-neon-yellow);
+}
+.text-neon-green {
+  color: var(--color-neon-green);
+}
+.text-neon-pink {
+  color: var(--color-neon-pink);
+}
+.text-neon-red {
+  color: var(--color-neon-red);
+}
+.text-neon-cyan {
+  color: var(--color-neon-cyan);
+}
+
+.bg-neon-yellow {
+  background-color: var(--color-neon-yellow);
+}
+.bg-neon-green {
+  background-color: var(--color-neon-green);
+}
+.bg-neon-pink {
+  background-color: var(--color-neon-pink);
+}
+.bg-neon-red {
+  background-color: var(--color-neon-red);
+}
+.bg-neon-cyan {
+  background-color: var(--color-neon-cyan);
+}
+
+.bg-punk-black {
+  background-color: var(--color-punk-black);
+}
+.bg-punk-white {
+  background-color: var(--color-punk-white);
+}
+.bg-punk-gray-100 {
+  background-color: var(--color-punk-gray-100);
+}
+.bg-punk-gray-200 {
+  background-color: var(--color-punk-gray-200);
+}
+.bg-punk-gray-300 {
+  background-color: var(--color-punk-gray-300);
+}
+
+.text-punk-black {
+  color: var(--color-punk-black);
+}
+.text-punk-white {
+  color: var(--color-punk-white);
+}
+
+/* Borders */
+.border-neon-yellow {
+  border-color: var(--color-neon-yellow);
+}
+.border-neon-green {
+  border-color: var(--color-neon-green);
+}
+.border-neon-pink {
+  border-color: var(--color-neon-pink);
+}
+.border-neon-red {
+  border-color: var(--color-neon-red);
+}
+
+.border-punk-white {
+  border-color: var(--color-punk-white);
+}
+.border-punk-black {
+  border-color: var(--color-punk-black);
+}
+
+/* Shadows */
+.shadow-brutal {
+  box-shadow: var(--shadow-brutal);
+}
+.shadow-brutal-sm {
+  box-shadow: var(--shadow-brutal-sm);
+}
+.shadow-brutal-lg {
+  box-shadow: var(--shadow-brutal-lg);
+}
+.shadow-neon-yellow {
+  box-shadow: var(--shadow-neon-yellow);
+}
+.shadow-neon-green {
+  box-shadow: var(--shadow-neon-green);
+}
+.shadow-neon-pink {
+  box-shadow: var(--shadow-neon-pink);
 }
