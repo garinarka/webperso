@@ -8,7 +8,7 @@ interface NoiseOverlayProps {
 }
 
 export default function NoiseOverlay({
-    opacity = 0.03,
+    opacity = 0.15,
     className = ''
 }: NoiseOverlayProps) {
     return (
