@@ -475,6 +475,27 @@ html {
   color: var(--color-neon-cyan);
 }
 
+.title-neon-yellow {
+  color: var(--color-neon-yellow);
+  font-size: var(--font-size-brutal-2xl);
+}
+.title-neon-green {
+  color: var(--color-neon-green);
+  font-size: var(--font-size-brutal-2xl);
+}
+.title-neon-pink {
+  color: var(--color-neon-pink);
+  font-size: var(--font-size-brutal-2xl);
+}
+.title-neon-red {
+  color: var(--color-neon-red);
+  font-size: var(--font-size-brutal-2xl);
+}
+.title-neon-cyan {
+  color: var(--color-neon-cyan);
+  font-size: var(--font-size-brutal-2xl);
+}
+
 .bg-neon-yellow {
   background-color: var(--color-neon-yellow);
 }
@@ -559,4 +580,30 @@ html {
 }
 .shadow-neon-white {
   box-shadow: var(--shadow-neon-white);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Smaller glitch effect on mobile */
+  .glitch-text::before,
+  .glitch-text::after {
+    left: 1px;
+    text-shadow:
+      -1px 0 #00ffff,
+      1px 0 #ff00ff;
+  }
+
+  /* Adjust brutal borders on mobile */
+  .border-brutal {
+    border-width: 2px;
+  }
+
+  .border-brutal-thick {
+    border-width: 4px;
+  }
 }
