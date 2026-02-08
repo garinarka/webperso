@@ -1,182 +1,221 @@
 import type { Metadata } from 'next'
+import GlitchText from '@/components/GlitchText'
+import NeonButton from '@/components/NeonButton'
+import TerminalBox from '@/components/TerminalBox'
+import BrutalCard from '@/components/BrutalCard'
+import NoiseOverlay from '@/components/NoiseOverlay'
+import ScanLinesOverlay from '@/components/ScanLinesOverlay'
+import CustomCursor from '@/components/CustomCursor'
+import InteractiveDemo from '@/components/InteractiveDemo'
 
 export const metadata: Metadata = {
-  title: 'Home | Punk Portfolio',
-  description: 'Brutalist personal website',
+  title: 'Component Showcase | Punk Portfolio',
+  description: 'Brutalist component library',
 }
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-punk-black text-punk-white noise scan-lines">
-      <div className="max-w-7xl mx-auto px-4 py-20 relative z-20">
+    <>
+      {/* Custom Cursor - OPTIONAL, comment out kalau tidak suka */}
+      <CustomCursor color="yellow" />
 
-        {/* Quick Test */}
-        <div className="mb-12 p-8 bg-neon-yellow text-punk-black border-brutal">
-          <h1 className="text-brutal-4xl font-brutal text-punk">
-            ✅ CONFIG TEST
-          </h1>
-          <p className="font-mono mt-2">
-            Kalau ini kuning dengan border tebal = SUCCESS!
-          </p>
+      <div className="min-h-screen bg-punk-black text-punk-white relative">
+        {/* Background Effects */}
+        <NoiseOverlay />
+        <ScanLinesOverlay />
+
+        <div className="max-w-7xl mx-auto px-4 py-20 relative z-20">
+
+          {/* Hero */}
+          <section className="mb-20 text-center">
+            <GlitchText
+              as="h1"
+              className="text-brutal-7xl font-brutal mb-4"
+              intensity="high"
+            >
+              PUNK COMPONENTS
+            </GlitchText>
+            <p className="text-brutal-lg font-mono text-punk-white/70">
+              Brutalist React Components • Built with Next.js & Framer Motion
+            </p>
+          </section>
+
+          {/* Buttons Section */}
+          <section className="mb-20">
+            <h2 className="text-brutal-4xl font-brutal text-punk mb-8">
+              NEON BUTTONS
+            </h2>
+
+            <div className="space-y-6">
+              {/* Sizes */}
+              <div>
+                <p className="font-mono text-brutal-sm mb-4 text-punk-white/50">
+                  SIZE COMPARISON (hover to see better):
+                </p>
+                <div className="flex items-end gap-4">
+                  <div className="text-center">
+                    <NeonButton size="sm" variant="yellow">SM</NeonButton>
+                    <p className="text-xs mt-2 font-mono text-punk-white/30">0.5rem / 0.875rem</p>
+                  </div>
+                  <div className="text-center">
+                    <NeonButton size="md" variant="green">MD</NeonButton>
+                    <p className="text-xs mt-2 font-mono text-punk-white/30">0.75rem / 1rem</p>
+                  </div>
+                  <div className="text-center">
+                    <NeonButton size="lg" variant="pink">LG</NeonButton>
+                    <p className="text-xs mt-2 font-mono text-punk-white/30">1rem / 1.125rem</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Variants */}
+              <div>
+                <p className="font-mono text-brutal-sm mb-4 text-punk-white/50">COLORS:</p>
+                <div className="flex flex-wrap gap-4">
+                  <NeonButton variant="yellow">YELLOW</NeonButton>
+                  <NeonButton variant="green">GREEN</NeonButton>
+                  <NeonButton variant="pink">PINK</NeonButton>
+                  <NeonButton variant="red">RED</NeonButton>
+                  <NeonButton variant="white">WHITE</NeonButton>
+                </div>
+              </div>
+
+              {/* States */}
+              <InteractiveDemo />
+            </div>
+          </section>
+
+          {/* Cards Section */}
+          <section className="mb-20">
+            <h2 className="text-brutal-4xl font-brutal text-punk mb-8">
+              BRUTAL CARDS
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Lift hover */}
+              <BrutalCard
+                title="LIFT EFFECT"
+                subtitle="Hover me"
+                borderColor="yellow"
+                hover="lift"
+                tags={['HOVER', 'LIFT']}
+              >
+                <p className="text-punk-white/70 font-mono text-brutal-sm">
+                  Card lifts up on hover. Clean and simple.
+                </p>
+              </BrutalCard>
+
+              {/* Glow hover */}
+              <BrutalCard
+                title="GLOW EFFECT"
+                subtitle="Hover me"
+                borderColor="green"
+                hover="glow"
+                tags={['HOVER', 'GLOW']}
+              >
+                <p className="text-punk-white/70 font-mono text-brutal-sm">
+                  Neon glow appears on hover. Cyberpunk vibes.
+                </p>
+              </BrutalCard>
+
+              {/* Glitch hover */}
+              <BrutalCard
+                title="GLITCH EFFECT"
+                subtitle="Hover me"
+                borderColor="pink"
+                hover="glitch"
+                tags={['HOVER', 'GLITCH']}
+              >
+                <p className="text-punk-white/70 font-mono text-brutal-sm">
+                  Glitches when hovered. Chaotic energy.
+                </p>
+              </BrutalCard>
+            </div>
+          </section>
+
+          {/* Terminal Box Section */}
+          <section className="mb-20">
+            <h2 className="text-brutal-4xl font-brutal text-punk mb-8">
+              TERMINAL BOX
+            </h2>
+
+            <TerminalBox title="SYSTEM.LOG" prompt="$">
+              <div className="space-y-2">
+                <p>Initializing punk protocol...</p>
+                <p className="text-neon-yellow">WARNING: Maximum brutalism detected</p>
+                <p>Loading components... [OK]</p>
+                <p>System ready.</p>
+                <p className="cursor-blink inline-block">_</p>
+              </div>
+            </TerminalBox>
+          </section>
+
+          {/* Glitch Text Section */}
+          <section className="mb-20">
+            <h2 className="text-brutal-4xl font-brutal text-punk mb-8">
+              GLITCH TEXT
+            </h2>
+
+            <div className="space-y-8">
+              <div>
+                <p className="font-mono text-brutal-sm mb-4 text-punk-white/50">LOW INTENSITY:</p>
+                <GlitchText
+                  as="h3"
+                  className="text-brutal-4xl font-brutal"
+                  intensity="low"
+                >
+                  SUBTLE GLITCH
+                </GlitchText>
+              </div>
+
+              <div>
+                <p className="font-mono text-brutal-sm mb-4 text-punk-white/50">MEDIUM INTENSITY:</p>
+                <GlitchText
+                  as="h3"
+                  className="text-brutal-4xl font-brutal text-neon-green"
+                  intensity="medium"
+                >
+                  MODERATE CHAOS
+                </GlitchText>
+              </div>
+
+              <div>
+                <p className="font-mono text-brutal-sm mb-4 text-punk-white/50">HIGH INTENSITY:</p>
+                <GlitchText
+                  as="h3"
+                  className="text-brutal-4xl font-brutal text-neon-pink"
+                  intensity="high"
+                >
+                  MAXIMUM GLITCH
+                </GlitchText>
+              </div>
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="text-center py-20 border-brutal border-neon-yellow">
+            <GlitchText
+              as="h2"
+              className="text-brutal-5xl font-brutal mb-6"
+              intensity="medium"
+            >
+              READY TO BUILD?
+            </GlitchText>
+            <p className="text-brutal-lg font-mono mb-8 text-punk-white/70">
+              All components are reusable, customizable, and BRUTAL.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <NeonButton variant="yellow" size="lg">
+                LET'S GO
+              </NeonButton>
+              <NeonButton variant="white" size="lg">
+                DOCS
+              </NeonButton>
+            </div>
+          </section>
+
         </div>
-
-        {/* Typography Size Test */}
-        <section className="mb-16">
-          <h2 className="text-brutal-3xl font-brutal text-punk mb-4">
-            TYPOGRAPHY SIZES
-          </h2>
-          <div className="space-y-2">
-            <p className="text-brutal-xs font-brutal">Brutal XS - 0.75rem</p>
-            <p className="text-brutal-sm font-brutal">Brutal SM - 0.875rem</p>
-            <p className="text-brutal-base font-brutal">Brutal BASE - 1rem</p>
-            <p className="text-brutal-lg font-brutal">Brutal LG - 1.125rem</p>
-            <p className="text-brutal-xl font-brutal">Brutal XL - 1.25rem</p>
-            <p className="text-brutal-2xl font-brutal">Brutal 2XL - 1.5rem</p>
-            <p className="text-brutal-3xl font-brutal">Brutal 3XL - 1.875rem</p>
-            <p className="text-brutal-4xl font-brutal">Brutal 4XL - 2.25rem</p>
-            <p className="text-brutal-5xl font-brutal">Brutal 5XL - 3rem</p>
-            <p className="text-brutal-6xl font-brutal">Brutal 6XL - 3.75rem</p>
-          </div>
-        </section>
-
-        {/* Color Test */}
-        <section className="mb-16">
-          <h2 className="text-brutal-3xl font-brutal text-punk mb-4">
-            NEON COLORS
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <div className="h-24 bg-neon-yellow border-brutal border-punk-black flex items-center justify-center text-punk-black font-bold">
-              YELLOW
-            </div>
-            <div className="h-24 bg-neon-green border-brutal border-punk-black flex items-center justify-center text-punk-black font-bold">
-              GREEN
-            </div>
-            <div className="h-24 bg-neon-pink border-brutal border-punk-black flex items-center justify-center text-punk-black font-bold">
-              PINK
-            </div>
-            <div className="h-24 bg-neon-red border-brutal border-punk-black flex items-center justify-center text-punk-white font-bold">
-              RED
-            </div>
-            <div className="h-24 bg-punk-white border-brutal border-punk-black flex items-center justify-center text-punk-black font-bold">
-              WHITE
-            </div>
-          </div>
-        </section>
-
-        {/* Border Test */}
-        <section className="mb-16">
-          <h2 className="text-brutal-3xl font-brutal text-punk mb-4">
-            BRUTAL BORDERS
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-6 border-brutal border-punk-white">
-              <p className="font-mono">3px border</p>
-            </div>
-            <div className="p-6 border-brutal-thick border-neon-yellow">
-              <p className="font-mono">6px border</p>
-            </div>
-            <div className="p-6 border-brutal border-neon-green bg-punk-gray-100">
-              <p className="font-mono">With background</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Neon Glow Test */}
-        <section className="mb-16">
-          <h2 className="text-brutal-3xl font-brutal text-punk mb-4">
-            NEON GLOW
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 bg-punk-black border-brutal border-neon-yellow shadow-neon-yellow">
-              <p className="font-mono text-neon-yellow">Yellow glow</p>
-            </div>
-            <div className="p-6 bg-punk-black border-brutal border-neon-green shadow-neon-green">
-              <p className="font-mono text-neon-green">Green glow</p>
-            </div>
-            <div className="p-6 bg-punk-black border-brutal border-neon-pink shadow-neon-pink">
-              <p className="font-mono text-neon-pink">Pink glow</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Animation Test */}
-        <section className="mb-16">
-          <h2 className="text-brutal-3xl font-brutal text-punk mb-4">
-            ANIMATIONS
-          </h2>
-          <div className="space-y-4">
-            <div className="p-4 border-brutal border-punk-white animate-glitch">
-              <p className="font-mono">Glitch animation (auto)</p>
-            </div>
-            <div className="p-4 border-brutal border-punk-white hover:animate-shake cursor-pointer">
-              <p className="font-mono">Shake animation (HOVER ME!)</p>
-            </div>
-            <div className="p-4 border-brutal border-neon-yellow">
-              <p className="font-mono animate-flicker text-neon-yellow">
-                Flicker text (auto)
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Glitch Text - MULTIPLE SIZES */}
-        <section className="mb-16">
-          <h2 className="text-brutal-3xl font-brutal text-punk mb-4">
-            GLITCH TEXT (Different Sizes)
-          </h2>
-
-          <div className="space-y-12">
-            {/* 7XL */}
-            <div>
-              <p className="text-brutal-7xl glitch-text font-brutal" data-text="HUGE">
-                HUGE
-              </p>
-              <span className="text-sm text-punk-white/50 font-mono">7xl - 4.5rem</span>
-            </div>
-
-            {/* 6XL */}
-            <div>
-              <p className="text-brutal-6xl glitch-text font-brutal" data-text="LARGE">
-                LARGE
-              </p>
-              <span className="text-sm text-punk-white/50 font-mono">6xl - 3.75rem</span>
-            </div>
-
-            {/* 5XL */}
-            <div>
-              <p className="text-brutal-5xl glitch-text font-brutal" data-text="CORRUPTED">
-                CORRUPTED
-              </p>
-              <span className="text-sm text-punk-white/50 font-mono">5xl - 3rem</span>
-            </div>
-
-            {/* 4XL with color */}
-            <div>
-              <p className="text-brutal-4xl glitch-text font-brutal text-neon-yellow" data-text="ERROR 404">
-                ERROR 404
-              </p>
-              <span className="text-sm text-punk-white/50 font-mono">4xl - 2.25rem (with yellow color)</span>
-            </div>
-
-            {/* 3XL */}
-            <div>
-              <p className="text-brutal-3xl glitch-text font-mono" data-text="SYSTEM FAILURE">
-                SYSTEM FAILURE
-              </p>
-              <span className="text-sm text-punk-white/50 font-mono">3xl - 1.875rem (mono font)</span>
-            </div>
-
-            {/* 2XL with color */}
-            <div>
-              <p className="text-brutal-2xl glitch-text font-brutal text-neon-pink" data-text="ACCESS DENIED">
-                ACCESS DENIED
-              </p>
-              <span className="text-sm text-punk-white/50 font-mono">2xl - 1.5rem (pink color)</span>
-            </div>
-          </div>
-        </section>
-
       </div>
-    </div>
+    </>
   )
 }

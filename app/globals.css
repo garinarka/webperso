@@ -46,6 +46,8 @@
   --shadow-neon-yellow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00;
   --shadow-neon-green: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
   --shadow-neon-pink: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+  --shadow-neon-red: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+  --shadow-neon-white: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 
   /* Animations */
   --animate-glitch: glitch 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
@@ -392,6 +394,14 @@ html {
   animation: scan 8s linear infinite;
 }
 
+.animate-scan-slow {
+  animation: scan 12s linear infinite;
+}
+
+.animate-scan-fast {
+  animation: scan 4s linear infinite;
+}
+
 .animate-flicker {
   animation: flicker 2s linear infinite;
 }
@@ -544,4 +554,10 @@ html {
 }
 .shadow-neon-pink {
   box-shadow: var(--shadow-neon-pink);
+}
+.shadow-neon-red {
+  box-shadow: var(--shadow-neon-red);
+}
+.shadow-neon-white {
+  box-shadow: var(--shadow-neon-white);
 }
