@@ -8,7 +8,7 @@ export default function TypedText() {
 
     useEffect(() => {
         const options = {
-            strings: ['UNDERGRADUATE STUDENT', 'DEVELOPER(?)', 'PUNK!!!!!'],
+            strings: ['STUDENT', 'DEVELOPER(?)', 'PUNK!!!!!'],
             typeSpeed: 80,
             backSpeed: 50,
             backDelay: 1200,

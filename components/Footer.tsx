@@ -17,7 +17,7 @@ export default function Footer() {
                             [JxGxDDHxTx]
                         </h3>
                         <p className="font-mono text-brutal-sm text-punk-white/70">
-                            undergraduate student • developer(?) • punk!!!!!
+                            student • developer(?) • punk!!!!!
                         </p>
                         <p className="font-mono text-brutal-xs text-punk-white/50 mt-2">
                             breaking conventions.<br />
@@ -107,7 +107,7 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-punk-white/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="font-mono text-brutal-xs text-punk-white/50">
+                    <p className="text-center font-mono text-brutal-xs text-punk-white/50">
                         &copy; {currentYear} <a
                             href="https://github.com"
                             target="_blank"

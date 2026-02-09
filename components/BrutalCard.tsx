@@ -10,9 +10,9 @@ type Hover = 'lift' | 'glow' | 'glitch' | 'none'
 interface BrutalCardProps {
     theme?: Theme
     hover?: Hover
-    icon: React.ReactNode
-    title: string
-    description: string
+    icon?: React.ReactNode
+    title?: string
+    description?: string
     tags?: string[]
     className?: string
 }
@@ -33,28 +33,28 @@ export default function BrutalCard({
         glow: string
     }> = {
         yellow: {
-            border: 'border-neon-yellow',
+            border: 'border-brutal-yellow',
             text: 'title-neon-yellow',
             glow: '0 0 20px #FFFF00'
         },
         green: {
-            border: 'border-neon-green',
+            border: 'border-brutal-green',
             text: 'title-neon-green',
             glow: '0 0 20px #00FF00'
         },
         pink: {
-            border: 'border-neon-pink',
+            border: 'border-brutal-pink',
             text: 'title-neon-pink',
             glow: '0 0 20px #FF00FF'
         },
         red: {
-            border: 'border-neon-red',
+            border: 'border-brutal-red',
             text: 'title-neon-red',
             glow: '0 0 20px #FF0000'
         },
         white: {
-            border: 'border-punk-white',
-            text: 'title-punk-white',
+            border: 'border-brutal-white',
+            text: 'title-neon-white',
             glow: '0 0 20px #FFFFFF'
         }
     }
@@ -83,7 +83,7 @@ export default function BrutalCard({
             variants={hoverVariants[hover]}
             whileHover="hover"
             className={cn(
-                'border-brutal p-6 bg-punk-black transition-transform duration-0',
+                'p-6 bg-punk-black transition-transform duration-0',
                 themeStyles[theme].border,
                 className
             )}

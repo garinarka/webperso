@@ -5,7 +5,7 @@ import NoiseOverlay from '@/components/NoiseOverlay'
 import ScanLinesOverlay from '@/components/ScanLinesOverlay'
 import TerminalBox from '@/components/TerminalBox'
 import CustomCursor from '@/components/CustomCursor'
-import TerminalTyping from '@/components/TerminalTyping'
+import TerminalTyping, { Command } from '@/components/TerminalTyping'
 import TypedText from '@/components/TypedText'
 import BrutalCard from '@/components/BrutalCard'
 
@@ -13,6 +13,28 @@ export const metadata: Metadata = {
   title: 'Home | Punk Portfolio',
   description: 'Digital rebellion. Built with Next.js, TypeScript, and raw energy.',
 }
+
+const aboutCommands: Command[] = [
+  {
+    prompt: '$ whoami',
+    output: [
+      "hola! i'm jagaddhita",
+      "my role is full-stack developer(?)",
+      "i'm located at YKC",
+      "i'm available for projects, btw"
+    ],
+    color: 'text-neon-yellow'
+  },
+  {
+    prompt: '$ echo $vibe',
+    output: [
+      "i mix punk aesthetics with serious code",
+      "ignore rules that restrict self-expression",
+      "no templates, no corporate BS"
+    ],
+    color: 'text-neon-pink'
+  }
+]
 
 export default function HomePage() {
   return (
@@ -23,9 +45,9 @@ export default function HomePage() {
       <div className="min-h-screen bg-punk-black text-punk-white relative">
         {/* Background Effects */}
         <NoiseOverlay opacity={0.05} />
-        <ScanLinesOverlay opacity={0.02} />
+        <ScanLinesOverlay />
 
-        {/* Hero Section - Full Screen Statement */}
+        {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center relative">
           <div className="max-w-6xl mx-auto px-4 text-center relative z-20">
 
@@ -86,7 +108,12 @@ export default function HomePage() {
             </h2>
 
             <TerminalBox title="BIO.SH" prompt=">>">
-              <TerminalTyping />
+              <TerminalTyping
+                commands={aboutCommands}
+                typingSpeed={30}
+                lineDelay={500}
+                commandDelay={1000}
+              />
             </TerminalBox>
 
           </div>
