@@ -582,6 +582,11 @@ html {
   box-shadow: var(--shadow-neon-white);
 }
 
+.main-title {
+  background: var(--color-neon-yellow);
+  color: var(--color-punk-black)
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
   /* Prevent horizontal scroll */

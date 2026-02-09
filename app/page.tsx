@@ -30,10 +30,10 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto px-4 text-center relative z-20">
 
             {/* Main Title */}
-            <div className="mb-8">
+            <div className="mb-6">
               <GlitchText
                 as="h1"
-                className="text-brutal-7xl md:text-[6rem] lg:text-[8rem] font-brutal leading-none mb-4"
+                className="text-brutal-7xl main-title md:text-[6rem] lg:text-[8rem] font-brutal leading-none mb-6"
                 intensity="high"
               >
                 JxGxDDHxTx
@@ -220,7 +220,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="group text-punk-white"
               >
-                <span className="text-brutal-6xl">💻</span>
+                <span className="text-brutal-4xl">💻</span>
                 <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-green">GITHUB</p>
               </a>
               <a
@@ -229,7 +229,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="group text-punk-white"
               >
-                <span className="text-brutal-6xl">💼</span>
+                <span className="text-brutal-4xl">💼</span>
                 <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-yellow">LINKEDIN</p>
               </a>
               <a
@@ -238,7 +238,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="group text-punk-white"
               >
-                <span className="text-brutal-6xl">🐦</span>
+                <span className="text-brutal-4xl">🐦</span>
                 <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-pink">TWITTER</p>
               </a>
             </div>
