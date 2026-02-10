@@ -1,84 +1,141 @@
-import type { Metadata } from 'next'
-import type { Project } from '@/types'
+'use client'
 
-export const metadata: Metadata = {
-    title: 'Projects | King Jagad',
-    description: 'Check out my web development projects and work.',
-}
+import { useState, useMemo } from 'react'
+import type { Metadata } from 'next'
+import GlitchText from '@/components/GlitchText'
+import ProjectFilter from '@/components/ProjectFilter'
+import ProjectCard from '@/components/ProjectCard'
+import NoiseOverlay from '@/components/NoiseOverlay'
+import ScanLinesOverlay from '@/components/ScanLinesOverlay'
+import NeonButton from '@/components/NeonButton'
+import { projects } from '@/data/projects'
 
 export default function ProjectsPage() {
-    const projects: Project[] = [
-        {
-            id: 1,
-            title: "Personal Website",
-            description: "Website pribadi yang dibuat dengan Next.js, TypeScript, dan Tailwind CSS",
-            tech: ["Next.js", "TypeScript", "Tailwind"],
-            status: "In Progress"
-        },
-        {
-            id: 2,
-            title: "Future Project 1",
-            description: "Project amazing yang akan dibuat nanti",
-            tech: ["React", "Node.js"],
-            status: "Planning"
-        },
-        {
-            id: 3,
-            title: "Future Project 2",
-            description: "Ide project keren lainnya",
-            tech: ["Next.js", "MongoDB"],
-            status: "Planning"
+    const [activeFilter, setActiveFilter] = useState('all')
+
+    // Filter projects berdasarkan active filter
+    const filteredProjects = useMemo(() => {
+        if (activeFilter === 'all') {
+            return projects
         }
-    ]
+        if (activeFilter === 'featured') {
+            return projects.filter(p => p.featured)
+        }
+        return projects.filter(p => p.category === activeFilter)
+    }, [activeFilter])
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black py-12">
-            <div className="max-w-7xl mx-auto px-4">
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-                    My Projects
-                </h1>
-                <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-                    Berikut adalah beberapa project yang sedang dan akan saya kerjakan
-                </p>
+        <div className="min-h-screen bg-punk-black text-punk-white relative">
+            {/* Background Effects */}
+            <NoiseOverlay />
+            <ScanLinesOverlay />
+
+            <div className="max-w-7xl mx-auto px-4 py-20 relative z-20">
+
+                {/* Hero Section */}
+                <section className="mb-16 text-center">
+                    <GlitchText
+                        as="h1"
+                        className="text-brutal-6xl md:text-brutal-7xl font-brutal mb-6"
+                        intensity="medium"
+                    >
+                        PROJECTS
+                    </GlitchText>
+                    <p className="text-brutal-lg md:text-brutal-xl font-mono text-punk-white/70 max-w-3xl mx-auto mb-4">
+                        things i've built. from web apps to experiments
+                    </p>
+                    <div className="font-mono text-brutal-sm text-punk-white/50">
+                        <span className="text-neon-yellow">{filteredProjects.length}</span> projects found
+                    </div>
+                </section>
+
+                {/* Filter Section */}
+                <section className="mb-12">
+                    <ProjectFilter
+                        activeFilter={activeFilter}
+                        onFilterChange={setActiveFilter}
+                    />
+                </section>
 
                 {/* Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {projects.map((project) => (
-                        <div
-                            key={project.id}
-                            className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 hover:shadow-lg transition border border-gray-200 dark:border-gray-800"
-                        >
-                            <div className="flex justify-between items-start mb-4">
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                    {project.title}
-                                </h3>
-                                <span className={`px-3 py-1 rounded-full text-center text-xs font-medium ${project.status === 'In Progress'
-                                        ? 'bg-green-100 dark:bg-green-950 text-green-800 dark:text-green-300'
-                                        : 'bg-yellow-100 dark:bg-yellow-950 text-yellow-800 dark:text-yellow-300'
-                                    }`}>
-                                    {project.status}
-                                </span>
-                            </div>
-
-                            <p className="text-gray-600 dark:text-gray-400 mb-4">
-                                {project.description}
-                            </p>
-
-                            {/* Tech Stack */}
-                            <div className="flex flex-wrap gap-2">
-                                {project.tech.map((tech, index) => (
-                                    <span
-                                        key={index}
-                                        className="bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
+                <section>
+                    {filteredProjects.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filteredProjects.map((project, index) => (
+                                <ProjectCard
+                                    key={project.id}
+                                    project={project}
+                                    index={index}
+                                />
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    ) : (
+                        <div className="text-center py-20">
+                            <p className="text-brutal-3xl font-brutal text-punk-white/30 mb-4">
+                                NO PROJECTS FOUND
+                            </p>
+                            <p className="font-mono text-brutal-sm text-punk-white/50">
+                                try a different filter
+                            </p>
+                        </div>
+                    )}
+                </section>
+
+                {/* Stats Section */}
+                <section className="mt-20 border-t-brutal border-punk-white pt-12">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div className="text-center">
+                            <p className="text-brutal-4xl font-brutal text-neon-yellow mb-2">
+                                {projects.length}
+                            </p>
+                            <p className="font-mono text-brutal-sm text-punk-white/70">
+                                total projects
+                            </p>
+                        </div>
+                        <div className="text-center">
+                            <p className="text-brutal-4xl font-brutal text-neon-green mb-2">
+                                {projects.filter(p => p.status === 'completed').length}
+                            </p>
+                            <p className="font-mono text-brutal-sm text-punk-white/70">
+                                completed
+                            </p>
+                        </div>
+                        <div className="text-center">
+                            <p className="text-brutal-4xl font-brutal text-neon-pink mb-2">
+                                {projects.filter(p => p.status === 'in-progress').length}
+                            </p>
+                            <p className="font-mono text-brutal-sm text-punk-white/70">
+                                in progress
+                            </p>
+                        </div>
+                        <div className="text-center">
+                            <p className="text-brutal-4xl font-brutal text-punk-white mb-2">
+                                {new Date().getFullYear()}
+                            </p>
+                            <p className="font-mono text-brutal-sm text-punk-white/70">
+                                current year
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* CTA Section */}
+                <section className="mt-20 text-center border-brutal border-neon-yellow p-12 bg-punk-gray-100">
+                    <h2 className="text-brutal-4xl font-brutal mb-6">
+                        GOT A PROJECT IDEA?
+                    </h2>
+                    <p className="font-mono text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto">
+                        let's build something together
+                    </p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+
+                        <NeonButton href="/contact" variant="yellow" size="lg">
+                            START A PROJECT
+                        </NeonButton>
+                    </div>
+                </section>
+
             </div>
-        </div>
+        </div >
     )
 }

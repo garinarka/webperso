@@ -120,7 +120,7 @@ export default function HomePage() {
         </section>
 
         {/* What I Do Section */}
-        <section id="whatido" className="py-20 bg-punk-gray-100 relative">
+        <section id="whatido" className="py-20 relative">
           <NoiseOverlay opacity={0.03} />
 
           <div className="max-w-6xl mx-auto px-4 relative z-20">

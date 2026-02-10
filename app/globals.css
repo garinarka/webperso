@@ -272,6 +272,7 @@ html {
 .scan-lines {
   position: relative;
   overflow: hidden;
+  z-index: 100;
 }
 
 .scan-lines::after {
@@ -289,7 +290,7 @@ html {
     transparent 2px
   );
   pointer-events: none;
-  z-index: 10;
+  /* z-index: 10; */
 }
 
 /* Glitch text - FIXED VERSION */
