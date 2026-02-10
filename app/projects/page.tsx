@@ -12,17 +12,29 @@ import { projects } from '@/data/projects'
 
 export default function ProjectsPage() {
     const [activeFilter, setActiveFilter] = useState('all')
+    const [searchQuery, setSearchQuery] = useState('')
 
-    // Filter projects berdasarkan active filter
     const filteredProjects = useMemo(() => {
-        if (activeFilter === 'all') {
-            return projects
+        let filtered = projects
+
+        // Filter by category/featured
+        if (activeFilter !== 'all') {
+            filtered = activeFilter === 'featured'
+                ? filtered.filter(p => p.featured)
+                : filtered.filter(p => p.category === activeFilter)
         }
-        if (activeFilter === 'featured') {
-            return projects.filter(p => p.featured)
+
+        // Filter by search
+        if (searchQuery) {
+            filtered = filtered.filter(p =>
+                p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+            )
         }
-        return projects.filter(p => p.category === activeFilter)
-    }, [activeFilter])
+
+        return filtered
+    }, [activeFilter, searchQuery])
 
     return (
         <div className="min-h-screen bg-punk-black text-punk-white relative">
@@ -51,6 +63,16 @@ export default function ProjectsPage() {
 
                 {/* Filter Section */}
                 <section className="mb-12">
+                    <div className="max-w-md mx-auto mb-8">
+                        <input
+                            type="text"
+                            placeholder="Search projects..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full px-4 py-3 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-base focus:border-neon-yellow"
+                        />
+                    </div>
+
                     <ProjectFilter
                         activeFilter={activeFilter}
                         onFilterChange={setActiveFilter}
