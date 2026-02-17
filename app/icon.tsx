@@ -22,7 +22,7 @@ export default function Icon() {
                     borderRadius: '20%',
                 }}
             >
-                KJ
+                JJ
             </div>
         ),
         {
