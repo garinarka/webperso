@@ -1,8 +1,19 @@
+'use client'
+
 import Link from 'next/link'
 import GlitchText from './GlitchText'
+import { useEffect, useState } from 'react'
 
 export default function Footer() {
     const currentYear = new Date().getFullYear()
+    const [visits, setVisits] = useState(0)
+
+    useEffect(() => {
+        // get from local storage
+        const count = parseInt(localStorage.getItem('visitCount') || '0') + 1
+        setVisits(count)
+        localStorage.setItem('visitCount', count.toString())
+    }, [])
 
     return (
         <footer className="bg-punk-gray-100 border-t-brutal border-punk-white text-punk-white mt-auto">
@@ -142,6 +153,13 @@ export default function Footer() {
                             DIGITAL
                         </GlitchText>
                     </div>
+                </div>
+
+                {/* visit count */}
+                <div className="text-center mt-4">
+                    <p className="font-mono text-brutal-xs text-punk-white/30">
+                        you've visited this site {visits} time{visits !== 1 ? 's' : ''}
+                    </p>
                 </div>
 
             </div>

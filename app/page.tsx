@@ -8,6 +8,8 @@ import CustomCursor from '@/components/CustomCursor'
 import TerminalTyping, { Command } from '@/components/TerminalTyping'
 import TypedText from '@/components/TypedText'
 import BrutalCard from '@/components/BrutalCard'
+import PageTransition from '@/components/PageTransition'
+import ScrollReveal from '@/components/ScrollReveal'
 
 export const metadata: Metadata = {
   title: 'Home | Punk Portfolio',
@@ -38,7 +40,7 @@ const aboutCommands: Command[] = [
 
 export default function HomePage() {
   return (
-    <>
+    <PageTransition>
       {/* Custom Cursor */}
       <CustomCursor color="yellow" />
 
@@ -89,191 +91,191 @@ export default function HomePage() {
               <p className="font-mono text-brutal-xs mt-2 text-punk-white/50 ml-2">SCROLL</p>
             </div>
           </div>
-
-          {/* ESTD */}
-          <div className="fixed bottom-4 right-4 font-mono text-brutal-xs text-neon-green/30 lg:block z-40">
-            <div>
-              <p>EST. 2026</p>
-              <p>BUILT DIFF</p>
-            </div>
-          </div>
         </section>
 
         {/* About Section - Terminal Style */}
-        <section className="py-20 relative">
-          <div className="max-w-4xl mx-auto px-4 relative z-20">
+        <ScrollReveal>
+          <section className="py-20 relative">
+            <div className="max-w-4xl mx-auto px-4 relative z-20">
 
-            <h2 className="text-brutal-5xl font-brutal text-punk mb-8">
-              ABOUT.TXT
-            </h2>
+              <h2 className="text-brutal-5xl font-brutal text-punk mb-8">
+                ABOUT.TXT
+              </h2>
 
-            <TerminalBox title="BIO.SH" prompt=">>">
-              <TerminalTyping
-                commands={aboutCommands}
-                typingSpeed={30}
-                lineDelay={500}
-                commandDelay={1000}
-              />
-            </TerminalBox>
+              <TerminalBox title="BIO.SH" prompt=">>">
+                <TerminalTyping
+                  commands={aboutCommands}
+                  typingSpeed={30}
+                  lineDelay={500}
+                  commandDelay={1000}
+                />
+              </TerminalBox>
 
-          </div>
-        </section>
+            </div>
+          </section>
+        </ScrollReveal>
 
         {/* What I Do Section */}
-        <section id="whatido" className="py-20 relative">
-          <NoiseOverlay opacity={0.03} />
+        <ScrollReveal delay={0.2}>
+          <section id="whatido" className="py-20 relative">
+            <NoiseOverlay opacity={0.03} />
 
-          <div className="max-w-6xl mx-auto px-4 relative z-20">
+            <div className="max-w-6xl mx-auto px-4 relative z-20">
 
-            <h2 className="text-brutal-5xl font-brutal text-punk mb-12 text-center">
-              WHAT I DO
-            </h2>
+              <h2 className="text-brutal-5xl font-brutal text-punk mb-12 text-center">
+                WHAT I DO
+              </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-              {/* Development */}
-              <BrutalCard
-                theme="yellow"
-                hover="glow"
-                icon="⚡"
-                title="DEVELOPMENT"
-                description="Full-stack web apps with modern tech. React, Next.js, TypeScript, Node.js."
-                tags={[
-                  'Responsive web applications',
-                  'API development',
-                  'Performance optimization'
-                ]}
-              />
+                {/* Development */}
+                <BrutalCard
+                  theme="yellow"
+                  hover="glow"
+                  icon="⚡"
+                  title="DEVELOPMENT"
+                  description="Full-stack web apps with modern tech. React, Next.js, TypeScript, Node.js."
+                  tags={[
+                    'Responsive web applications',
+                    'API development',
+                    'Performance optimization'
+                  ]}
+                />
 
-              {/* Design */}
-              <BrutalCard
-                theme="green"
-                hover="glow"
-                icon="🎨"
-                title="DESIGN"
-                description="Interfaces that don't look like everyone else's. Bold, functional, memorable."
-                tags={[
-                  'UI/UX design',
-                  'Design systems',
-                  'Brutalist aesthetics'
-                ]}
-              />
+                {/* Design */}
+                <BrutalCard
+                  theme="green"
+                  hover="glow"
+                  icon="🎨"
+                  title="DESIGN"
+                  description="Interfaces that don't look like everyone else's. Bold, functional, memorable."
+                  tags={[
+                    'UI/UX design',
+                    'Design systems',
+                    'Brutalist aesthetics'
+                  ]}
+                />
 
-              {/* Creative Coding */}
-              <BrutalCard
-                theme="pink"
-                hover="glow"
-                icon="✨"
-                title="CREATIVE CODE"
-                description="Experimental projects, animations, interactive experiences."
-                tags={[
-                  'Generative art',
-                  'WebGL experiments',
-                  'Interactive installations'
-                ]}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Tech Stack Section */}
-        <section id="techstack" className="py-20 relative">
-          <div className="max-w-4xl mx-auto px-4 relative z-20">
-
-            <h2 className="text-brutal-5xl font-brutal text-punk mb-12 text-center">
-              TECH STACK
-            </h2>
-
-            <div className="border-brutal border-punk-white p-8 bg-punk-gray-100">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-
-                {[
-                  'NEXT.JS',
-                  'REACT',
-                  'TYPESCRIPT',
-                  'NODE.JS',
-                  'TAILWIND',
-                  'FRAMER',
-                  'GIT',
-                  'FIGMA'
-                ].map((tech, index) => (
-                  <div
-                    key={tech}
-                    className="border border-punk-white/30 p-4 text-center hover:border-neon-yellow hover:text-neon-yellow transition-colors duration-0"
-                  >
-                    <p className="font-brutal text-brutal-base">{tech}</p>
-                  </div>
-                ))}
-
+                {/* Creative Coding */}
+                <BrutalCard
+                  theme="pink"
+                  hover="glow"
+                  icon="✨"
+                  title="CREATIVE CODE"
+                  description="Experimental projects, animations, interactive experiences."
+                  tags={[
+                    'Generative art',
+                    'WebGL experiments',
+                    'Interactive installations'
+                  ]}
+                />
               </div>
             </div>
+          </section>
+        </ScrollReveal>
 
-          </div>
-        </section>
+        {/* Tech Stack Section */}
+        <ScrollReveal delay={0.2}>
+          <section id="techstack" className="py-20 relative">
+            <div className="max-w-4xl mx-auto px-4 relative z-20">
+
+              <h2 className="text-brutal-5xl font-brutal text-punk mb-12 text-center">
+                TECH STACK
+              </h2>
+
+              <div className="border-brutal border-punk-white p-8 bg-punk-gray-100">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                  {[
+                    'NEXT.JS',
+                    'REACT',
+                    'TYPESCRIPT',
+                    'NODE.JS',
+                    'TAILWIND',
+                    'FRAMER',
+                    'GIT',
+                    'FIGMA'
+                  ].map((tech, index) => (
+                    <div
+                      key={tech}
+                      className="border border-punk-white/30 p-4 text-center hover:border-neon-yellow hover:text-neon-yellow transition-colors duration-0"
+                    >
+                      <p className="font-brutal text-brutal-base">{tech}</p>
+                    </div>
+                  ))}
+
+                </div>
+              </div>
+
+            </div>
+          </section>
+        </ScrollReveal>
 
         {/* CTA Section */}
-        <section id="cta" className="py-32 relative border-t-brutal border-punk-white">
-          <NoiseOverlay opacity={0.08} />
+        <ScrollReveal delay={0.2}>
+          <section id="cta" className="py-32 relative border-t-brutal border-punk-white">
+            <NoiseOverlay opacity={0.08} />
 
-          <div className="max-w-4xl mx-auto px-4 text-center relative z-20">
+            <div className="max-w-4xl mx-auto px-4 text-center relative z-20">
 
-            <GlitchText
-              as="h2"
-              className="text-brutal-6xl font-brutal mb-6"
-              intensity="medium"
-            >
-              LET'S BUILD SOMETHING
-            </GlitchText>
+              <GlitchText
+                as="h2"
+                className="text-brutal-6xl font-brutal mb-6"
+                intensity="medium"
+              >
+                LET'S BUILD SOMETHING
+              </GlitchText>
 
-            <p className="text-brutal-xl font-mono text-punk-white/70 mb-12">
-              Got a project? Need a developer who thinks different?<br />
-              Let's talk.
-            </p>
+              <p className="text-brutal-xl font-mono text-punk-white/70 mb-12">
+                Got a project? Need a developer who thinks different?<br />
+                Let's talk.
+              </p>
 
-            <div className="flex flex-wrap gap-6 justify-center">
-              <NeonButton href="/contact" variant="yellow" size="lg">
-                START A PROJECT
-              </NeonButton>
-              <NeonButton href="/projects" variant="white" size="lg">
-                SEE MY WORK
-              </NeonButton>
+              <div className="flex flex-wrap gap-6 justify-center">
+                <NeonButton href="/contact" variant="yellow" size="lg">
+                  START A PROJECT
+                </NeonButton>
+                <NeonButton href="/projects" variant="white" size="lg">
+                  SEE MY WORK
+                </NeonButton>
+              </div>
+
+              {/* Social Links */}
+              <div className="mt-16 flex justify-center gap-8">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-punk-white"
+                >
+                  <span className="text-brutal-4xl">💻</span>
+                  <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-green">GITHUB</p>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-punk-white"
+                >
+                  <span className="text-brutal-4xl">💼</span>
+                  <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-yellow">LINKEDIN</p>
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-punk-white"
+                >
+                  <span className="text-brutal-4xl">🐦</span>
+                  <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-pink">TWITTER</p>
+                </a>
+              </div>
+
             </div>
-
-            {/* Social Links */}
-            <div className="mt-16 flex justify-center gap-8">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group text-punk-white"
-              >
-                <span className="text-brutal-4xl">💻</span>
-                <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-green">GITHUB</p>
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group text-punk-white"
-              >
-                <span className="text-brutal-4xl">💼</span>
-                <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-yellow">LINKEDIN</p>
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group text-punk-white"
-              >
-                <span className="text-brutal-4xl">🐦</span>
-                <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-pink">TWITTER</p>
-              </a>
-            </div>
-
-          </div>
-        </section>
+          </section>
+        </ScrollReveal>
 
       </div>
-    </>
+    </PageTransition>
   )
 }

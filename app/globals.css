@@ -82,10 +82,19 @@ body {
 ::selection {
   background: var(--color-neon-yellow);
   color: var(--color-punk-black);
+  text-shadow: none;
 }
 
 ::-moz-selection {
   background: var(--color-neon-yellow);
+  color: var(--color-punk-black);
+  text-shadow: none;
+}
+
+/* code block selection */
+code::selection,
+pre::selection {
+  background: var(--color-neon-green);
   color: var(--color-punk-black);
 }
 
@@ -361,6 +370,33 @@ html {
   100% {
     clip-path: polygon(0 90%, 100% 90%, 100% 100%, 0 100%);
   }
+}
+
+/* animated link underlines */
+a:not(.no-underline) {
+  position: relative;
+  text-decoration: none;
+}
+
+a:not(.no-underline)::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.2s ease;
+}
+
+a:not(.no-underline):hover::after {
+  width: 100%;
+}
+
+/* disable for buttons and specific elements */
+button a::after,
+.no-underline::after {
+  display: none;
 }
 
 /* Brutal borders */

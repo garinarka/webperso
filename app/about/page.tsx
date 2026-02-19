@@ -7,6 +7,8 @@ import ScanLinesOverlay from '@/components/ScanLinesOverlay'
 import CustomCursor from '@/components/CustomCursor'
 import TerminalTyping, { Command } from '@/components/TerminalTyping'
 import NeonButton from '@/components/NeonButton'
+import PageTransition from '@/components/PageTransition'
+import ScrollReveal from '@/components/ScrollReveal'
 
 export const metadata: Metadata = {
     title: 'About | Punk Portfolio',
@@ -37,7 +39,7 @@ const aboutCommands: Command[] = [
 
 export default function AboutPage() {
     return (
-        <>
+        <PageTransition>
             {/* Custom Cursor */}
             <CustomCursor color="yellow" />
 
@@ -121,186 +123,198 @@ export default function AboutPage() {
                     </section>
 
                     {/* Journey/Timeline Section */}
-                    <section className="mb-20">
-                        <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
-                            MY JOURNEY
-                        </h2>
+                    <ScrollReveal>
+                        <section className="mb-20">
+                            <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
+                                MY JOURNEY
+                            </h2>
 
-                        <div className="space-y-8">
+                            <div className="space-y-8">
 
-                            {/* Timeline Item 1 */}
-                            <div className="border-l-brutal border-neon-yellow pl-8 relative">
-                                <div className="absolute left-0 top-0 w-4 h-4 bg-neon-yellow -translate-x-[10px]"></div>
-                                <div className="mb-2">
-                                    <span className="font-mono text-brutal-sm text-neon-yellow">2022</span>
+                                {/* Timeline Item 1 */}
+                                <div className="border-l-brutal border-neon-yellow pl-8 relative">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-neon-yellow -translate-x-[10px]"></div>
+                                    <div className="mb-2">
+                                        <span className="font-mono text-brutal-sm text-neon-yellow">2022</span>
+                                    </div>
+                                    <h3 className="text-brutal-2xl font-brutal mb-2">started coding journey</h3>
+                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                        fell in love with web development. started with HTML, CSS, JavaScript basics.
+                                        built my first terrible website (we all start somewhere)
+                                    </p>
                                 </div>
-                                <h3 className="text-brutal-2xl font-brutal mb-2">started coding journey</h3>
-                                <p className="font-mono text-brutal-sm text-punk-white/70">
-                                    fell in love with web development. started with HTML, CSS, JavaScript basics.
-                                    built my first terrible website (we all start somewhere)
-                                </p>
-                            </div>
 
-                            {/* Timeline Item 2 */}
-                            <div className="border-l-brutal border-neon-green pl-8 relative">
-                                <div className="absolute left-0 top-0 w-4 h-4 bg-neon-green -translate-x-[10px]"></div>
-                                <div className="mb-2">
-                                    <span className="font-mono text-brutal-sm text-neon-green">2023</span>
+                                {/* Timeline Item 2 */}
+                                <div className="border-l-brutal border-neon-green pl-8 relative">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-neon-green -translate-x-[10px]"></div>
+                                    <div className="mb-2">
+                                        <span className="font-mono text-brutal-sm text-neon-green">2023</span>
+                                    </div>
+                                    <h3 className="text-brutal-2xl font-brutal mb-2">discovered React & Next.js</h3>
+                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                        leveled up to modern frameworks. started building actual projects.
+                                        learned TypeScript because type safety is punk rock
+                                    </p>
                                 </div>
-                                <h3 className="text-brutal-2xl font-brutal mb-2">discovered React & Next.js</h3>
-                                <p className="font-mono text-brutal-sm text-punk-white/70">
-                                    leveled up to modern frameworks. started building actual projects.
-                                    learned TypeScript because type safety is punk rock
-                                </p>
-                            </div>
 
-                            {/* Timeline Item 3 */}
-                            <div className="border-l-brutal border-neon-pink pl-8 relative">
-                                <div className="absolute left-0 top-0 w-4 h-4 bg-neon-pink -translate-x-[10px]"></div>
-                                <div className="mb-2">
-                                    <span className="font-mono text-brutal-sm text-neon-pink">2024</span>
+                                {/* Timeline Item 3 */}
+                                <div className="border-l-brutal border-neon-pink pl-8 relative">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-neon-pink -translate-x-[10px]"></div>
+                                    <div className="mb-2">
+                                        <span className="font-mono text-brutal-sm text-neon-pink">2024</span>
+                                    </div>
+                                    <h3 className="text-brutal-2xl font-brutal mb-2">found my style</h3>
+                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                        realized i don't have to follow boring design trends.
+                                        started experimenting with brutalism and punk aesthetics
+                                    </p>
                                 </div>
-                                <h3 className="text-brutal-2xl font-brutal mb-2">found my style</h3>
-                                <p className="font-mono text-brutal-sm text-punk-white/70">
-                                    realized i don't have to follow boring design trends.
-                                    started experimenting with brutalism and punk aesthetics
-                                </p>
-                            </div>
 
-                            {/* Timeline Item 4 */}
-                            <div className="border-l-brutal border-punk-white pl-8 relative">
-                                <div className="absolute left-0 top-0 w-4 h-4 bg-punk-white -translate-x-[10px]"></div>
-                                <div className="mb-2">
-                                    <span className="font-mono text-brutal-sm text-punk-white">2025-NOW</span>
+                                {/* Timeline Item 4 */}
+                                <div className="border-l-brutal border-punk-white pl-8 relative">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-punk-white -translate-x-[10px]"></div>
+                                    <div className="mb-2">
+                                        <span className="font-mono text-brutal-sm text-punk-white">2025-NOW</span>
+                                    </div>
+                                    <h3 className="text-brutal-2xl font-brutal mb-2">building different</h3>
+                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                        creating projects that stand out. helping others build cool stuff.
+                                        this website is proof of concept
+                                    </p>
                                 </div>
-                                <h3 className="text-brutal-2xl font-brutal mb-2">building different</h3>
-                                <p className="font-mono text-brutal-sm text-punk-white/70">
-                                    creating projects that stand out. helping others build cool stuff.
-                                    this website is proof of concept
-                                </p>
-                            </div>
 
-                        </div>
-                    </section>
+                            </div>
+                        </section>
+                    </ScrollReveal>
 
                     {/* Skills Section - Terminal Style */}
-                    <section className="mb-20">
-                        <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
-                            TECH STACK
-                        </h2>
+                    <ScrollReveal delay={0.2}>
+                        <section className="mb-20">
+                            <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
+                                TECH STACK
+                            </h2>
 
-                        <TerminalBox title="SKILLS.SH" prompt="$">
-                            <TerminalTyping
-                                commands={aboutCommands}
-                                typingSpeed={30}
-                                lineDelay={500}
-                                commandDelay={1000}
-                            />
-                        </TerminalBox>
-                    </section>
+                            <TerminalBox title="SKILLS.SH" prompt="$">
+                                <TerminalTyping
+                                    commands={aboutCommands}
+                                    typingSpeed={30}
+                                    lineDelay={500}
+                                    commandDelay={1000}
+                                />
+                            </TerminalBox>
+                        </section>
+                    </ScrollReveal>
 
                     {/* Values/Principles Section */}
-                    <section className="mb-20">
-                        <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
-                            WHAT I BELIEVE
-                        </h2>
+                    <ScrollReveal delay={0.2}>
+                        <section className="mb-20">
+                            <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
+                                WHAT I BELIEVE
+                            </h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                            <BrutalCard
-                                theme="yellow"
-                                hover="lift"
-                                title="DESIGN WITH PURPOSE"
-                                description="every design choice should have a reason. break rules intentionally, not randomly. form follows function, but function can be fun"
-                            />
+                                <BrutalCard
+                                    theme="yellow"
+                                    hover="lift"
+                                    title="DESIGN WITH PURPOSE"
+                                    description="every design choice should have a reason. break rules intentionally, not randomly. form follows function, but function can be fun"
+                                />
 
-                            <BrutalCard
-                                theme="green"
-                                hover="lift"
-                                title="CODE QUALITY MATTERS"
-                                description="clean code isn't boring - it's respectful. write code like someone (including future you) will read it. type safety saves lives"
-                            />
+                                <BrutalCard
+                                    theme="green"
+                                    hover="lift"
+                                    title="CODE QUALITY MATTERS"
+                                    description="clean code isn't boring - it's respectful. write code like someone (including future you) will read it. type safety saves lives"
+                                />
 
-                            <BrutalCard
-                                theme="pink"
-                                hover="lift"
-                                title="NO CORPORATE BS"
-                                description="be honest. be real. don't pretend to be a massive agency when you're one person. authenticity > fake professionalism"
-                            />
+                                <BrutalCard
+                                    theme="pink"
+                                    hover="lift"
+                                    title="NO CORPORATE BS"
+                                    description="be honest. be real. don't pretend to be a massive agency when you're one person. authenticity > fake professionalism"
+                                />
 
-                            <BrutalCard
-                                theme="white"
-                                hover="lift"
-                                title="ALWAYS LEARNING"
-                                description="tech moves fast. stay curious. experiment with new tools. share knowledge. we're all figuring this out together"
-                            />
-                        </div>
-                    </section>
+                                <BrutalCard
+                                    theme="white"
+                                    hover="lift"
+                                    title="ALWAYS LEARNING"
+                                    description="tech moves fast. stay curious. experiment with new tools. share knowledge. we're all figuring this out together"
+                                />
+                            </div>
+                        </section>
+                    </ScrollReveal>
 
                     {/* Fun Facts / Personality */}
-                    <section className="mb-20">
-                        <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
-                            RANDOM FACTS
-                        </h2>
+                    <ScrollReveal delay={0.2}>
+                        <section className="mb-20">
+                            <h2 className="text-brutal-4xl font-brutal text-punk mb-12 text-center">
+                                RANDOM FACTS
+                            </h2>
 
-                        <div className="border-brutal border-punk-white bg-punk-gray-100 p-8">
-                            <ul className="space-y-4 font-mono text-brutal-base">
-                                <li className="flex gap-3">
-                                    <span className="text-neon-yellow">→</span>
-                                    <span>favorite editor theme: dark mode, always. light mode is a crime</span>
-                                </li>
-                                <li className="flex gap-3">
-                                    <span className="text-neon-green">→</span>
-                                    <span>music while coding: PUNK, GRUNGE, ROCK and METAL keeps the flow going</span>
-                                </li>
-                                <li className="flex gap-3">
-                                    <span className="text-neon-yellow">→</span>
-                                    <span>(non)coffee order: red velvet, matcha or nothing</span>
-                                </li>
-                                <li className="flex gap-3">
-                                    <span className="text-neon-green">→</span>
-                                    <span>late night coder: best code happens after midnight</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
+                            <div className="border-brutal border-punk-white bg-punk-gray-100 p-8">
+                                <ul className="space-y-4 font-mono text-brutal-base">
+                                    <li className="flex gap-3">
+                                        <span className="text-neon-yellow">→</span>
+                                        <span>favorite editor theme: dark mode, always. light mode is a crime</span>
+                                    </li>
+                                    <li className="flex gap-3">
+                                        <span className="text-neon-green">→</span>
+                                        <span>music while coding: PUNK, GRUNGE, ROCK and METAL keeps the flow going</span>
+                                    </li>
+                                    <li className="flex gap-3">
+                                        <span className="text-neon-yellow">→</span>
+                                        <span>(non)coffee order: red velvet, matcha or nothing</span>
+                                    </li>
+                                    <li className="flex gap-3">
+                                        <span className="text-neon-green">→</span>
+                                        <span>late night coder: best code happens after midnight</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+                    </ScrollReveal>
 
                     {/* Contact Info */}
-                    <section className="mb-20">
-                        <h2 className="text-brutal-4xl font-brutal text-punk mb-8 text-center">
-                            REACH ME
-                        </h2>
-                        <div className="text-center font-mono">
-                            <p className="text-brutal-lg mb-2">
-                                <span className="text-neon-yellow">📧</span> jagaddhitajalu@gmail.com
-                            </p>
-                            <p className="text-brutal-lg">
-                                <span className="text-neon-green">📍</span> YOGYAKARTA, INDONESIA
-                            </p>
-                        </div>
-                    </section>
+                    <ScrollReveal delay={0.2}>
+                        <section className="mb-20">
+                            <h2 className="text-brutal-4xl font-brutal text-punk mb-8 text-center">
+                                REACH ME
+                            </h2>
+                            <div className="text-center font-mono">
+                                <p className="text-brutal-lg mb-2">
+                                    <span className="text-neon-yellow">📧</span> jagaddhitajalu@gmail.com
+                                </p>
+                                <p className="text-brutal-lg">
+                                    <span className="text-neon-green">📍</span> YOGYAKARTA, INDONESIA
+                                </p>
+                            </div>
+                        </section>
+                    </ScrollReveal>
 
                     {/* CTA Section */}
-                    <section className="text-center border-brutal border-neon-yellow p-12 bg-punk-gray-100">
-                        <h2 className="text-brutal-4xl font-brutal mb-6">
-                            WANT TO WORK TOGETHER?
-                        </h2>
-                        <p className="font-mono text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto">
-                            i'm always open to interesting projects and collaborations.
-                            let's build something different.
-                        </p>
-                        <div className="flex flex-wrap gap-4 justify-center">
+                    <ScrollReveal delay={0.2}>
+                        <section className="text-center border-brutal border-neon-yellow p-12 bg-punk-gray-100">
+                            <h2 className="text-brutal-4xl font-brutal mb-6">
+                                WANT TO WORK TOGETHER?
+                            </h2>
+                            <p className="font-mono text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto">
+                                i'm always open to interesting projects and collaborations.
+                                let's build something different.
+                            </p>
+                            <div className="flex flex-wrap gap-4 justify-center">
 
-                            <NeonButton href="/contact" variant="yellow" size="lg">
-                                GET IN TOUCH
-                            </NeonButton>
-                            <NeonButton href="/projects" variant="white" size="lg">
-                                VIEW PROJECT
-                            </NeonButton>
-                        </div>
-                    </section>
+                                <NeonButton href="/contact" variant="yellow" size="lg">
+                                    GET IN TOUCH
+                                </NeonButton>
+                                <NeonButton href="/projects" variant="white" size="lg">
+                                    VIEW PROJECT
+                                </NeonButton>
+                            </div>
+                        </section>
+                    </ScrollReveal>
                 </div >
             </div >
-        </>
+        </PageTransition>
     )
 }

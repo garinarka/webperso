@@ -5,6 +5,9 @@ import PunkNavbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
+import KonamiCode from "@/components/KonamiCode";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -48,11 +51,14 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body className="flex flex-col min-h-screen">
+        <KonamiCode />
         <PunkNavbar />
+        <ScrollProgress />
         <main className="flex-grow pt-16">
           {children}
         </main>
         <Footer />
+        <BackToTop />
         <SpeedInsights />
         <Analytics />
       </body>

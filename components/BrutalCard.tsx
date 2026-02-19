@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import React from 'react'
 
@@ -26,6 +27,18 @@ export default function BrutalCard({
     tags = [],
     className
 }: BrutalCardProps) {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        const x = (e.clientX - rect.left - rect.width / 2) / 20
+        const y = (e.clientY - rect.top - rect.width / 2) / 20
+        setMousePosition({ x, y })
+    }
+
+    const handleMouseLeave = () => {
+        setMousePosition({ x: 0, y: 0 })
+    }
 
     const themeStyles: Record<Theme, {
         border: string;
@@ -87,6 +100,14 @@ export default function BrutalCard({
                 themeStyles[theme].border,
                 className
             )}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            animate={{
+                rotateX: mousePosition.y,
+                rotateY: mousePosition.x,
+            }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            style={{ transformStyle: 'preserve-3d' }}
         >
 
             {/* Icon */}
