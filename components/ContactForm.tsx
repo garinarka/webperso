@@ -37,6 +37,49 @@ export default function ContactForm() {
         }))
     }
 
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        setStatus({
+            type: 'loading',
+            message: 'Sending message...'
+        })
+
+        try {
+            const response = await fetch('https://formspree.io/f/mnjbzepe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+
+            if (response.ok) {
+                setStatus({
+                    type: 'success',
+                    message: 'Message sent! I\'ll get back to you soon'
+                })
+                setFormData({
+                    name: '',
+                    email: '',
+                    subject: '',
+                    message: ''
+                })
+
+                setTimeout(() => {
+                    setStatus({ type: 'idle', message: '' })
+                }, 5000);
+            } else {
+                throw new Error('Failed to send')
+            }
+        } catch (error) {
+            setStatus({
+                type: 'error',
+                message: 'Failed to send. Please try again or email me directly'
+            })
+        }
+    }
+
     const statusColors = {
         idle: 'text-punk-white/50',
         loading: 'text-neon-yellow',
@@ -45,7 +88,7 @@ export default function ContactForm() {
     }
 
     return (
-        <form className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
 
             {/* Name */}
             <div>
