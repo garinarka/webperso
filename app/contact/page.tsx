@@ -2,10 +2,9 @@ import type { Metadata } from 'next'
 import GlitchText from '@/components/GlitchText'
 import TerminalBox from '@/components/TerminalBox'
 import ContactForm from '@/components/ContactForm'
-import NoiseOverlay from '@/components/NoiseOverlay'
-import ScanLinesOverlay from '@/components/ScanLinesOverlay'
 import PageTransition from '@/components/PageTransition'
 import ScrollReveal from '@/components/ScrollReveal'
+import NeonButton from '@/components/NeonButton'
 
 export const metadata: Metadata = {
     title: 'Contact | Punk Portfolio',
@@ -16,12 +15,7 @@ export default function ContactPage() {
     return (
         <PageTransition>
             <div className="min-h-screen bg-punk-black text-punk-white relative">
-                {/* Background Effects */}
-                <NoiseOverlay />
-                <ScanLinesOverlay />
-
                 <div className="max-w-5xl mx-auto px-4 py-20 relative z-20">
-
                     {/* Hero */}
                     <section className="mb-16 text-center">
                         <GlitchText
@@ -32,9 +26,9 @@ export default function ContactPage() {
                             GET IN TOUCH
                         </GlitchText>
                         <p className="text-brutal-lg font-mono text-punk-white/70 max-w-2xl mx-auto">
-                            Got a project? Question? Just want to say hi?
+                            got a project? question? just want to say hi?
                             <br />
-                            Drop me a message. I actually read and respond to all of them.
+                            drop me a message. i actually read and respond to all of them
                         </p>
                     </section>
 
@@ -90,7 +84,7 @@ export default function ContactPage() {
                                     <div>
                                         <p className="text-punk-white/50 mb-1">RESPONSE TIME</p>
                                         <p className="text-punk-white">
-                                            Usually within 24-48 hours
+                                            usually within 24-48 hours
                                         </p>
                                     </div>
 
@@ -115,7 +109,7 @@ export default function ContactPage() {
                                     </a>
 
 
-                                    <a href="https://linkedin.com/in/yourusername"
+                                    <a href="https://linkedin.com/in/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-3 font-mono text-brutal-sm text-punk-white hover:text-neon-yellow transition-colors duration-0"
@@ -125,7 +119,7 @@ export default function ContactPage() {
                                     </a>
 
 
-                                    <a href="https://twitter.com/yourusername"
+                                    <a href="https://twitter.com/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-3 font-mono text-brutal-sm text-punk-white hover:text-neon-pink transition-colors duration-0"
@@ -135,7 +129,7 @@ export default function ContactPage() {
                                     </a>
 
 
-                                    <a href="https://instagram.com/yourusername"
+                                    <a href="https://instagram.com/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-3 font-mono text-brutal-sm text-punk-white hover:text-neon-pink transition-colors duration-0"
@@ -158,7 +152,7 @@ export default function ContactPage() {
                                             OPEN FOR PROJECTS
                                         </p>
                                         <p className="text-punk-white/70 text-brutal-xs">
-                                            Currently accepting freelance work and collaborations.
+                                            currently accepting freelance work and collaborations
                                         </p>
                                     </div>
                                 </div>
@@ -180,44 +174,44 @@ export default function ContactPage() {
                                 {/* FAQ Item 1 */}
                                 <div className="border-brutal border-punk-white p-6 bg-punk-gray-100">
                                     <h3 className="text-brutal-xl font-brutal text-neon-yellow mb-3">
-                                        What's your rate?
+                                        what's your rate?
                                     </h3>
                                     <p className="font-mono text-brutal-sm text-punk-white/70">
-                                        Depends on the project scope. Send me details and I'll get back with a quote.
-                                        I prefer fixed-price for defined projects.
+                                        depends on the project scope. Send me details and i'll get back with a quote.
+                                        i prefer fixed-price for defined projects
                                     </p>
                                 </div>
 
                                 {/* FAQ Item 2 */}
                                 <div className="border-brutal border-punk-white p-6 bg-punk-gray-100">
                                     <h3 className="text-brutal-xl font-brutal text-neon-green mb-3">
-                                        How long does a project take?
+                                        how long does a project take?
                                     </h3>
                                     <p className="font-mono text-brutal-sm text-punk-white/70">
-                                        Simple landing page: 1-2 weeks. Full website: 4-8 weeks.
-                                        Complex web app: 2-3 months. Timeline varies by scope.
+                                        simple landing page: 1-2 weeks. full website: 4-8 weeks.
+                                        complex web app: 2-3 months. timeline varies by scope
                                     </p>
                                 </div>
 
                                 {/* FAQ Item 3 */}
                                 <div className="border-brutal border-punk-white p-6 bg-punk-gray-100">
                                     <h3 className="text-brutal-xl font-brutal text-neon-pink mb-3">
-                                        Do you do maintenance?
+                                        do you do maintenance?
                                     </h3>
                                     <p className="font-mono text-brutal-sm text-punk-white/70">
-                                        Yes! I offer ongoing support and maintenance packages.
-                                        Or I can train your team to manage it themselves.
+                                        yes! i offer ongoing support and maintenance packages.
+                                        or i can train your team to manage it themselves
                                     </p>
                                 </div>
 
                                 {/* FAQ Item 4 */}
                                 <div className="border-brutal border-punk-white p-6 bg-punk-gray-100">
                                     <h3 className="text-brutal-xl font-brutal text-punk-white mb-3">
-                                        What if I just have a question?
+                                        what if i just have a question?
                                     </h3>
                                     <p className="font-mono text-brutal-sm text-punk-white/70">
-                                        Ask away! I'm happy to help with quick questions or advice.
-                                        No commitment needed.
+                                        ask away! i'm happy to help with quick questions or advice.
+                                        no commitment needed
                                     </p>
                                 </div>
 
@@ -227,37 +221,27 @@ export default function ContactPage() {
 
                     {/* Alternative Contact Methods */}
                     <ScrollReveal delay={0.2}>
-                        <section className="text-center border-brutal border-punk-white p-12 bg-punk-black">
+                        <section className="text-center border-brutal border-punk-white p-12 bg-punk-gray-100">
                             <h2 className="text-brutal-3xl font-brutal mb-6">
                                 PREFER ANOTHER METHOD?
                             </h2>
                             <p className="font-mono text-brutal-base text-punk-white/70 mb-8 max-w-2xl mx-auto">
-                                Not a fan of forms? That's cool. Here are other ways to reach me:
+                                not a fan of forms? that's cool. here are other ways to reach me
                             </p>
 
                             <div className="flex flex-wrap gap-4 justify-center">
 
-                                <a href="mailto:hello@yourdomain.com"
-                                    className="px-6 py-3 bg-neon-green text-punk-black font-brutal text-brutal-base border-brutal border-punk-black hover:bg-punk-black hover:text-neon-green hover:border-neon-green transition-colors duration-0"
-                                >
+                                <NeonButton href="mailto:jagaddhitajalu@gmail.com" variant="green" size="lg">
                                     EMAIL ME
-                                </a>
+                                </NeonButton>
 
-                                <a href="https://cal.com/yourusername"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-6 py-3 bg-neon-yellow text-punk-black font-brutal text-brutal-base border-brutal border-punk-black hover:bg-punk-black hover:text-neon-yellow hover:border-neon-yellow transition-colors duration-0"
-                                >
+                                <NeonButton href="https://cal.com/" variant="yellow" size="lg">
                                     SCHEDULE CALL
-                                </a>
+                                </NeonButton>
 
-                                <a href="https://twitter.com/yourusername"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-6 py-3 bg-punk-black text-punk-white font-brutal text-brutal-base border-brutal border-punk-white hover:bg-punk-white hover:text-punk-black transition-colors duration-0"
-                                >
+                                <NeonButton href="https://twitter.com/" variant="white" size="lg">
                                     DM ON TWITTER
-                                </a>
+                                </NeonButton>
                             </div>
                         </section>
                     </ScrollReveal>

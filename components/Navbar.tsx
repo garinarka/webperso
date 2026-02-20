@@ -64,9 +64,6 @@ export default function PunkNavbar() {
                         transition={{ duration: 0 }}
                         className="fixed inset-0 z-40 bg-punk-black"
                     >
-                        {/* Background Effects */}
-                        <div className="absolute inset-0 noise opacity-10"></div>
-                        <div className="absolute inset-0 scan-lines"></div>
 
                         {/* Menu Content */}
                         <div className="relative z-50 min-h-[calc(100vh-4rem)] mt-16 flex items-center justify-center">
@@ -109,39 +106,6 @@ export default function PunkNavbar() {
                                         )
                                     })}
                                 </ul>
-
-                                {/* Social Links */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3, duration: 0 }}
-                                    className="flex justify-center gap-8"
-                                >
-
-                                    <a href="https://github.com"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-punk-white hover:text-neon-green transition-colors duration-0">
-                                        <span className="text-brutal-4xl">💻</span>
-                                        <p className="font-mono text-brutal-xs mt-2">GITHUB</p>
-                                    </a>
-
-                                    <a href="https://linkedin.com"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-punk-white hover:text-neon-yellow transition-colors duration-0">
-                                        <span className="text-brutal-4xl">💼</span>
-                                        <p className="font-mono text-brutal-xs mt-2">LINKEDIN</p>
-                                    </a>
-
-                                    <a href="https://twitter.com"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-punk-white hover:text-neon-pink transition-colors duration-0">
-                                        <span className="text-brutal-4xl">🐦</span>
-                                        <p className="font-mono text-brutal-xs mt-2">TWITTER</p>
-                                    </a>
-                                </motion.div>
                             </nav>
                         </div >
                     </motion.div >

@@ -37,7 +37,7 @@ export default function VisitCounter() {
     if (!mounted || visits === null) {
         return (
             <p className="font-mono text-brutal-xs text-punk-white/30">
-                Loading visit count...
+                loading visit count...
             </p>
         )
     }
@@ -45,7 +45,7 @@ export default function VisitCounter() {
     return (
         <div className="text-center">
             <p className="font-mono text-brutal-xs text-punk-white/30 inline">
-                You've visited this site {visits} time{visits !== 1 ? 's' : ''}{' '}
+                you've visited this site {visits} time{visits !== 1 ? 's' : ''}{' '}
                 <button
                     onClick={resetCount}
                     className="text-neon-yellow hover:text-punk-white transition-colors duration-0 ml-2"

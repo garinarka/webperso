@@ -3,11 +3,10 @@
 import { useState, useMemo } from 'react'
 import GlitchText from '@/components/GlitchText'
 import BlogCard from '@/components/BlogCard'
-import NoiseOverlay from '@/components/NoiseOverlay'
-import ScanLinesOverlay from '@/components/ScanLinesOverlay'
 import { blogPosts } from '@/data/blog'
 import PageTransition from '@/components/PageTransition'
 import ScrollReveal from '@/components/ScrollReveal'
+import NeonButton from '@/components/NeonButton'
 
 export default function BlogPage() {
     const [activeFilter, setActiveFilter] = useState('all')
@@ -31,12 +30,7 @@ export default function BlogPage() {
     return (
         <PageTransition>
             <div className="min-h-screen bg-punk-black text-punk-white relative">
-                {/* Background Effects */}
-                <NoiseOverlay />
-                <ScanLinesOverlay />
-
                 <div className="max-w-5xl mx-auto px-4 py-20 relative z-20">
-
                     {/* Hero */}
                     <section className="mb-16 text-center">
                         <GlitchText
@@ -127,13 +121,13 @@ export default function BlogPage() {
 
                     {/* Newsletter CTA */}
                     <ScrollReveal delay={0.2}>
-                        <section className="mt-20 border-brutal border-neon-green p-8 md:p-12">
+                        <section className="mt-20 border-brutal border-neon-green bg-punk-gray-100 p-8 md:p-12">
                             <div className="text-center">
                                 <h2 className="text-brutal-4xl font-brutal mb-4 text-neon-green">
                                     STAY UPDATED
                                 </h2>
                                 <p className="font-mono text-brutal-base text-punk-white/70 mb-8 max-w-lg mx-auto">
-                                    No spam. No newsletter BS. Just an email when I publish something worth reading.
+                                    no spam. no newsletter BS. just an email when i publish something worth reading
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                                     <input
@@ -141,9 +135,9 @@ export default function BlogPage() {
                                         placeholder="your@email.com"
                                         className="flex-1 px-4 py-3 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-base focus:border-neon-green placeholder:text-punk-white/30"
                                     />
-                                    <button className="px-6 py-3 bg-neon-green text-punk-black font-brutal text-brutal-base border-brutal border-punk-black hover:bg-punk-black hover:text-neon-green hover:border-neon-green transition-colors duration-0">
+                                    <NeonButton href="/contact" variant="green" size="lg">
                                         SUBSCRIBE
-                                    </button>
+                                    </NeonButton>
                                 </div>
                             </div>
                         </section>

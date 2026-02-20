@@ -202,7 +202,7 @@ export default function ContactForm() {
 
             {/* Helper Text */}
             <p className="font-mono text-brutal-xs text-punk-white/50 text-center">
-                Or email me directly at{' '}
+                or email me directly at{' '}
                 <a
                     href="mailto:jagaddhitajalu@gmail.com"
                     className="text-neon-yellow hover:text-punk-white transition-colors duration-0"

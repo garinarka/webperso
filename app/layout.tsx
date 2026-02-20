@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import NoiseOverlay from "@/components/NoiseOverlay";
+import ScanLinesOverlay from "@/components/ScanLinesOverlay";
 import PunkNavbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import ScrollProgress from "@/components/ScrollProgress";
-import BackToTop from "@/components/BackToTop";
-import KonamiCode from "@/components/KonamiCode";
+import ClientProviders from "@/components/ClientProviders";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -24,6 +24,8 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "King Jagad's Personal Website",
   description: "Combination of Next.js, TypeScript, and Tailwind CSS",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+  themeColor: "#000000",
   metadataBase: new URL('https://jgarinarka.vercel.app/'),
   openGraph: {
     title: "King Jagad's Personal Website",
@@ -50,15 +52,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        {/* performance hints */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      </head>
       <body className="flex flex-col min-h-screen">
-        <KonamiCode />
+        {/* Background Effects */}
+        <NoiseOverlay />
+        <ScanLinesOverlay />
+
+        {/* main navigation */}
         <PunkNavbar />
-        <ScrollProgress />
+
+        {/* main content */}
         <main className="flex-grow pt-16">
           {children}
         </main>
+
+        {/* footer */}
         <Footer />
-        <BackToTop />
+
+        {/* client-side only components */}
+        <ClientProviders />
+
+        {/* vercel analytics */}
         <SpeedInsights />
         <Analytics />
       </body>

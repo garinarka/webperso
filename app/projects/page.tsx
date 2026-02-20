@@ -5,8 +5,6 @@ import type { Metadata } from 'next'
 import GlitchText from '@/components/GlitchText'
 import ProjectFilter from '@/components/ProjectFilter'
 import ProjectCard from '@/components/ProjectCard'
-import NoiseOverlay from '@/components/NoiseOverlay'
-import ScanLinesOverlay from '@/components/ScanLinesOverlay'
 import NeonButton from '@/components/NeonButton'
 import { projects } from '@/data/projects'
 import PageTransition from '@/components/PageTransition'
@@ -41,12 +39,7 @@ export default function ProjectsPage() {
     return (
         <PageTransition>
             <div className="min-h-screen bg-punk-black text-punk-white relative">
-                {/* Background Effects */}
-                <NoiseOverlay />
-                <ScanLinesOverlay />
-
                 <div className="max-w-7xl mx-auto px-4 py-20 relative z-20">
-
                     {/* Hero Section */}
                     <section className="mb-16 text-center">
                         <GlitchText

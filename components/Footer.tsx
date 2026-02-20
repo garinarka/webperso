@@ -66,42 +66,32 @@ export default function Footer() {
                         <h3 className="text-brutal-xl font-brutal mb-4 text-neon-pink">
                             CONNECT
                         </h3>
-                        <div className="space-y-3">
-                            <a
-                                href="https://github.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-punk-white/70 hover:text-neon-green transition-colors duration-0 font-mono text-brutal-sm"
-                            >
-                                <span>💻</span>
-                                <span>GitHub</span>
-                            </a>
-                            <a
-                                href="https://linkedin.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-punk-white/70 hover:text-neon-yellow transition-colors duration-0 font-mono text-brutal-sm"
-                            >
-                                <span>💼</span>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a
-                                href="https://twitter.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-punk-white/70 hover:text-neon-pink transition-colors duration-0 font-mono text-brutal-sm"
-                            >
-                                <span>🐦</span>
-                                <span>Twitter</span>
-                            </a>
-                            <a
-                                href="mailto:hello@yourdomain.com"
-                                className="flex items-center gap-2 text-punk-white/70 hover:text-neon-cyan transition-colors duration-0 font-mono text-brutal-sm"
-                            >
-                                <span>📧</span>
-                                <span>Email</span>
-                            </a>
-                        </div>
+                        <ul className="space-y-3">
+                            <li>
+                                <Link href="https://github.com/garinarka" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-green transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>💻</span>
+                                    <span>GitHub</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-yellow transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>💼</span>
+                                    <span>LinkedIn</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-pink transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>🐦</span>
+                                    <span>Twitter</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="mailto:jagaddhitajalu@gmail.com" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-cyan transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>📧</span>
+                                    <span>Email</span>
+                                </Link>
+                            </li>
+                        </ul>
                     </div>
 
                 </div>
@@ -110,13 +100,13 @@ export default function Footer() {
                 <div className="border-t border-punk-white/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-center font-mono text-brutal-xs text-punk-white/50">
                         &copy; {currentYear} <a
-                            href="https://github.com"
+                            href="https://github.com/garinarka"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="underline hover:text-neon-green transition-colors duration-0"
                         >
-                            [JxGxDDHxTx]</a>.
-                        Built with Next.js & raw energy.
+                            garinarka</a>.
+                        built with Next.js & raw energy
                     </p>
                     <div className="flex gap-4 font-mono text-brutal-xs text-punk-white/50">
                         <GlitchText

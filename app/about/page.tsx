@@ -2,9 +2,6 @@ import type { Metadata } from 'next'
 import GlitchText from '@/components/GlitchText'
 import TerminalBox from '@/components/TerminalBox'
 import BrutalCard from '@/components/BrutalCard'
-import NoiseOverlay from '@/components/NoiseOverlay'
-import ScanLinesOverlay from '@/components/ScanLinesOverlay'
-import CustomCursor from '@/components/CustomCursor'
 import TerminalTyping, { Command } from '@/components/TerminalTyping'
 import NeonButton from '@/components/NeonButton'
 import PageTransition from '@/components/PageTransition'
@@ -40,16 +37,8 @@ const aboutCommands: Command[] = [
 export default function AboutPage() {
     return (
         <PageTransition>
-            {/* Custom Cursor */}
-            <CustomCursor color="yellow" />
-
             <div className="min-h-screen bg-punk-black text-punk-white relative">
-                {/* Background Effects */}
-                <NoiseOverlay />
-                <ScanLinesOverlay />
-
                 <div className="max-w-5xl mx-auto px-4 py-20 relative z-20">
-
                     {/* Hero Section */}
                     <section className="mb-20 text-center">
                         <GlitchText

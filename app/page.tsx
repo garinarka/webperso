@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import GlitchText from '@/components/GlitchText'
 import NeonButton from '@/components/NeonButton'
-import NoiseOverlay from '@/components/NoiseOverlay'
-import ScanLinesOverlay from '@/components/ScanLinesOverlay'
 import TerminalBox from '@/components/TerminalBox'
-import CustomCursor from '@/components/CustomCursor'
 import TerminalTyping, { Command } from '@/components/TerminalTyping'
 import TypedText from '@/components/TypedText'
 import BrutalCard from '@/components/BrutalCard'
@@ -41,14 +38,7 @@ const aboutCommands: Command[] = [
 export default function HomePage() {
   return (
     <PageTransition>
-      {/* Custom Cursor */}
-      <CustomCursor color="yellow" />
-
       <div className="min-h-screen bg-punk-black text-punk-white relative">
-        {/* Background Effects */}
-        <NoiseOverlay opacity={0.05} />
-        <ScanLinesOverlay />
-
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center relative">
           <div className="max-w-6xl mx-auto px-4 text-center relative z-20">
@@ -118,8 +108,6 @@ export default function HomePage() {
         {/* What I Do Section */}
         <ScrollReveal delay={0.2}>
           <section id="whatido" className="py-20 relative">
-            <NoiseOverlay opacity={0.03} />
-
             <div className="max-w-6xl mx-auto px-4 relative z-20">
 
               <h2 className="text-brutal-5xl font-brutal text-punk mb-12 text-center">
@@ -214,10 +202,7 @@ export default function HomePage() {
         {/* CTA Section */}
         <ScrollReveal delay={0.2}>
           <section id="cta" className="py-32 relative border-t-brutal border-punk-white">
-            <NoiseOverlay opacity={0.08} />
-
             <div className="max-w-4xl mx-auto px-4 text-center relative z-20">
-
               <GlitchText
                 as="h2"
                 className="text-brutal-6xl font-brutal mb-6"
@@ -227,8 +212,8 @@ export default function HomePage() {
               </GlitchText>
 
               <p className="text-brutal-xl font-mono text-punk-white/70 mb-12">
-                Got a project? Need a developer who thinks different?<br />
-                Let's talk.
+                got a project? need a developer who thinks different?<br />
+                let's talk
               </p>
 
               <div className="flex flex-wrap gap-6 justify-center">
@@ -239,38 +224,6 @@ export default function HomePage() {
                   SEE MY WORK
                 </NeonButton>
               </div>
-
-              {/* Social Links */}
-              <div className="mt-16 flex justify-center gap-8">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group text-punk-white"
-                >
-                  <span className="text-brutal-4xl">💻</span>
-                  <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-green">GITHUB</p>
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group text-punk-white"
-                >
-                  <span className="text-brutal-4xl">💼</span>
-                  <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-yellow">LINKEDIN</p>
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group text-punk-white"
-                >
-                  <span className="text-brutal-4xl">🐦</span>
-                  <p className="font-mono text-brutal-xs mt-2 group-hover:text-neon-pink">TWITTER</p>
-                </a>
-              </div>
-
             </div>
           </section>
         </ScrollReveal>

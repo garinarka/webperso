@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { useRef } from 'react'
 
 interface GlitchTextProps {
     children: string
@@ -17,28 +18,32 @@ export default function GlitchText({
     as = 'p'
 }: GlitchTextProps) {
     const Component = as
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: false, margin: "-100px" })
 
-    // Animation variants based on intensity
+    // Only animate when in view
     const glitchVariants = {
         low: {
-            x: [0, -1, 1, -1, 0],
-            transition: { duration: 0.5, repeat: Infinity, repeatDelay: 3 }
+            x: isInView ? [0, -1, 1, -1, 0] : 0,
+            transition: { duration: 0.5, repeat: Infinity, repeatDelay: 5 }
         },
         medium: {
-            x: [0, -2, 2, -2, 0],
-            transition: { duration: 0.3, repeat: Infinity, repeatDelay: 2 }
+            x: isInView ? [0, -2, 2, -2, 0] : 0,
+            transition: { duration: 0.3, repeat: Infinity, repeatDelay: 3 }
         },
         high: {
-            x: [0, -3, 3, -3, 3, -3, 0],
-            y: [0, 2, -2, 2, -2, 0],
-            transition: { duration: 0.2, repeat: Infinity, repeatDelay: 1 }
+            x: isInView ? [0, -3, 3, -3, 3, -3, 0] : 0,
+            y: isInView ? [0, 2, -2, 2, -2, 0] : 0,
+            transition: { duration: 0.2, repeat: Infinity, repeatDelay: 2 }
         }
     }
 
     return (
         <motion.div
+            ref={ref}
             className="inline-block"
             animate={glitchVariants[intensity]}
+            style={{ willChange: isInView ? 'transform' : 'auto' }}
         >
             <Component
                 className={cn('glitch-text', className)}
