@@ -35,12 +35,12 @@ export default function BlogPage() {
                     <section className="mb-16 text-center">
                         <GlitchText
                             as="h1"
-                            className="text-brutal-6xl md:text-brutal-7xl font-brutal mb-6"
+                            className="text-brutal-5xl md:text-brutal-6xl lg:text-brutal-7xl font-brutal mb-6"
                             intensity="medium"
                         >
                             BLOG
                         </GlitchText>
-                        <p className="text-brutal-lg font-mono text-punk-white/70 max-w-2xl mx-auto">
+                        <p className="text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 max-w-2xl mx-auto px-4">
                             thoughts, tutorials, rants, and everything in between.
                             no SEO bait. no fluff. just real content
                         </p>
@@ -121,19 +121,19 @@ export default function BlogPage() {
 
                     {/* Newsletter CTA */}
                     <ScrollReveal delay={0.2}>
-                        <section className="mt-20 border-brutal border-neon-green bg-punk-gray-100 p-8 md:p-12">
+                        <section className="mt-20 border-brutal border-neon-green bg-punk-gray-100 p-6 md:p-8 lg:p-12">
                             <div className="text-center">
-                                <h2 className="text-brutal-4xl font-brutal mb-4 text-neon-green">
+                                <h2 className="text-brutal-3xl md:text-brutal-4xl font-brutal mb-4 text-neon-green">
                                     STAY UPDATED
                                 </h2>
-                                <p className="font-mono text-brutal-base text-punk-white/70 mb-8 max-w-lg mx-auto">
+                                <p className="font-mono text-brutal-sm md:text-brutal-base text-punk-white/70 mb-8 max-w-lg mx-auto px-4">
                                     no spam. no newsletter BS. just an email when i publish something worth reading
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                                     <input
                                         type="email"
                                         placeholder="your@email.com"
-                                        className="flex-1 px-4 py-3 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-base focus:border-neon-green placeholder:text-punk-white/30"
+                                        className="flex-1 px-4 py-3 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-sm md:text-brutal-base focus:border-neon-green placeholder:text-punk-white/30"
                                     />
                                     <NeonButton href="/contact" variant="green" size="lg">
                                         SUBSCRIBE

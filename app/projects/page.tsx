@@ -44,15 +44,15 @@ export default function ProjectsPage() {
                     <section className="mb-16 text-center">
                         <GlitchText
                             as="h1"
-                            className="text-brutal-6xl md:text-brutal-7xl font-brutal mb-6"
+                            className="text-brutal-5xl md:text-brutal-6xl lg:text-brutal-7xl font-brutal mb-6"
                             intensity="medium"
                         >
                             PROJECTS
                         </GlitchText>
-                        <p className="text-brutal-lg md:text-brutal-xl font-mono text-punk-white/70 max-w-3xl mx-auto mb-4">
+                        <p className="text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 max-w-3xl mx-auto mb-4 px-4">
                             things i've built. from web apps to experiments
                         </p>
-                        <div className="font-mono text-brutal-sm text-punk-white/50">
+                        <div className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/50">
                             <span className="text-neon-yellow">{filteredProjects.length}</span> projects found
                         </div>
                     </section>
@@ -104,36 +104,36 @@ export default function ProjectsPage() {
                     {/* Stats Section */}
                     <ScrollReveal delay={0.2}>
                         <section className="mt-20 border-t-brutal border-punk-white pt-12">
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                                 <div className="text-center">
-                                    <p className="text-brutal-4xl font-brutal text-neon-yellow mb-2">
+                                    <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-yellow mb-2">
                                         {projects.length}
                                     </p>
-                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
                                         total projects
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <p className="text-brutal-4xl font-brutal text-neon-green mb-2">
+                                    <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-green mb-2">
                                         {projects.filter(p => p.status === 'completed').length}
                                     </p>
-                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
                                         completed
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <p className="text-brutal-4xl font-brutal text-neon-pink mb-2">
+                                    <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-pink mb-2">
                                         {projects.filter(p => p.status === 'in-progress').length}
                                     </p>
-                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
                                         in progress
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <p className="text-brutal-4xl font-brutal text-punk-white mb-2">
+                                    <p className=" text-brutal-3xl md:text-brutal-4xl font-brutal text-punk-white mb-2">
                                         {new Date().getFullYear()}
                                     </p>
-                                    <p className="font-mono text-brutal-sm text-punk-white/70">
+                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
                                         current year
                                     </p>
                                 </div>
@@ -143,19 +143,16 @@ export default function ProjectsPage() {
 
                     {/* CTA Section */}
                     <ScrollReveal delay={0.2}>
-                        <section className="mt-20 text-center border-brutal border-neon-yellow p-12 bg-punk-gray-100">
-                            <h2 className="text-brutal-4xl font-brutal mb-6">
+                        <section className="mt-20 text-center border-brutal border-neon-yellow p-8 md:p-12 bg-punk-gray-100">
+                            <h2 className="text-brutal-3xl md:text-brutal-4xl font-brutal mb-4">
                                 GOT A PROJECT IDEA?
                             </h2>
-                            <p className="font-mono text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto">
+                            <p className="font-mono text-brutal-sm md:text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto px-4">
                                 let's build something together
                             </p>
-                            <div className="flex flex-wrap gap-4 justify-center">
-
-                                <NeonButton href="/contact" variant="yellow" size="lg">
-                                    START A PROJECT
-                                </NeonButton>
-                            </div>
+                            <NeonButton href="/contact" variant="yellow" size="lg">
+                                START A PROJECT
+                            </NeonButton>
                         </section>
                     </ScrollReveal>
 

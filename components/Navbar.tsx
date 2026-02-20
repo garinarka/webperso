@@ -37,7 +37,7 @@ export default function PunkNavbar() {
                     {/* Logo */}
                     <Link
                         href="/"
-                        className="font-brutal text-brutal-xl text-punk-white hover:text-neon-yellow transition-colors duration-0"
+                        className="font-brutal text-brutal-lg md:text-brutal-xl text-punk-white hover:text-neon-yellow transition-colors duration-0"
                     >
                         [JJ]
                     </Link>

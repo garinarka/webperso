@@ -44,22 +44,22 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto px-4 text-center relative z-20">
 
             {/* Main Title */}
-            <div className="mb-6">
+            <div className="mb-8">
               <GlitchText
                 as="h1"
-                className="text-brutal-7xl main-title md:text-[6rem] lg:text-[8rem] font-brutal leading-none mb-6"
+                className="text-brutal-5xl md:text-brutal-6xl lg:text-brutal-7xl font-brutal leading-none mb-4 main-title"
                 intensity="high"
               >
                 JxGxDDHxTx
               </GlitchText>
 
-              <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-brutal-xl md:text-brutal-2xl font-mono">
+              <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-brutal-base md:text-brutal-xl font-mono">
                 <TypedText />
               </div>
             </div>
 
             {/* Tagline */}
-            <p className="text-brutal-lg md:text-brutal-xl font-mono text-punk-white/70 mb-12 max-w-3xl mx-auto">
+            <p className="text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 mb-12 max-w-3xl mx-auto px-4">
               breaking conventions. building experiences. no corporate BS.
             </p>
 
