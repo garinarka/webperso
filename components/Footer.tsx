@@ -111,7 +111,6 @@ export default function Footer() {
                     <div className="flex gap-4 font-mono text-brutal-xs text-punk-white/50">
                         <GlitchText
                             as="span"
-                            className="text-neon-yellow"
                             intensity="high"
                         >
                             PUNK
@@ -119,7 +118,6 @@ export default function Footer() {
                         <span>•</span>
                         <GlitchText
                             as="span"
-                            className="text-neon-green"
                             intensity="medium"
                         >
                             BRUTAL
@@ -127,7 +125,6 @@ export default function Footer() {
                         <span>•</span>
                         <GlitchText
                             as="span"
-                            className="text-neon-pink"
                             intensity="low"
                         >
                             DIGITAL
