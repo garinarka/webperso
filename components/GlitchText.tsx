@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 
 interface GlitchTextProps {
     children: string
@@ -11,7 +11,7 @@ interface GlitchTextProps {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
 }
 
-export default function GlitchText({
+function GlitchText({
     children,
     className = '',
     intensity = 'medium',
@@ -54,3 +54,5 @@ export default function GlitchText({
         </motion.div>
     )
 }
+
+export default memo(GlitchText)

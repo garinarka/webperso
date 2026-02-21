@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import type { BlogPost } from '@/data/blog'
+import { memo } from 'react'
 
 interface BlogCardProps {
     post: BlogPost
@@ -10,7 +11,7 @@ interface BlogCardProps {
     featured?: boolean
 }
 
-export default function BlogCard({ post, index, featured = false }: BlogCardProps) {
+function BlogCard({ post, index, featured = false }: BlogCardProps) {
     const categoryColors = {
         tutorial: 'text-neon-green border-neon-green',
         thoughts: 'text-neon-yellow border-neon-yellow',
@@ -115,3 +116,5 @@ export default function BlogCard({ post, index, featured = false }: BlogCardProp
         </motion.article>
     )
 }
+
+export default memo(BlogCard)

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
-import React from 'react'
+import { ReactNode, memo } from 'react'
 
 type Theme = 'yellow' | 'green' | 'pink' | 'red' | 'white'
 type Hover = 'lift' | 'glow' | 'glitch' | 'none'
@@ -11,14 +11,14 @@ type Hover = 'lift' | 'glow' | 'glitch' | 'none'
 interface BrutalCardProps {
     theme?: Theme
     hover?: Hover
-    icon?: React.ReactNode
+    icon?: ReactNode
     title?: string
     description?: string
     tags?: string[]
     className?: string
 }
 
-export default function BrutalCard({
+function BrutalCard({
     theme = 'green',
     hover = 'lift',
     icon,
@@ -144,3 +144,5 @@ export default function BrutalCard({
         </motion.div>
     )
 }
+
+export default memo(BrutalCard)

@@ -2,13 +2,14 @@
 
 import { motion } from 'framer-motion'
 import type { Project } from '@/data/projects'
+import { memo } from 'react'
 
 interface ProjectCardProps {
     project: Project
     index: number
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
+function ProjectCard({ project, index }: ProjectCardProps) {
     const categoryColors = {
         web: 'border-neon-yellow',
         design: 'border-neon-green',
@@ -117,3 +118,5 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </motion.div >
     )
 }
+
+export default memo(ProjectCard)

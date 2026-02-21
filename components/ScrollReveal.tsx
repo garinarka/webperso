@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 
 interface ScrollRevealProps {
     children: ReactNode
@@ -10,7 +10,7 @@ interface ScrollRevealProps {
     className?: string
 }
 
-export default function ScrollReveal({
+function ScrollReveal({
     children,
     delay = 0,
     direction = 'up',
@@ -47,3 +47,5 @@ export default function ScrollReveal({
         </motion.div>
     )
 }
+
+export default memo(ScrollReveal)
