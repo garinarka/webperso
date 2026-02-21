@@ -5,6 +5,7 @@ import ContactForm from '@/components/ContactForm'
 import PageTransition from '@/components/PageTransition'
 import ScrollReveal from '@/components/ScrollReveal'
 import NeonButton from '@/components/NeonButton'
+import BrutalCard from '@/components/BrutalCard'
 
 export const metadata: Metadata = {
     title: 'Contact | Punk Portfolio',
@@ -172,48 +173,36 @@ export default function ContactPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 
                                 {/* FAQ Item 1 */}
-                                <div className="border-brutal border-punk-white p-4 md:p-6 bg-punk-gray-100">
-                                    <h3 className="text-brutal-lg md:text-brutal-xl font-brutal text-neon-yellow mb-3">
-                                        what's your rate?
-                                    </h3>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        depends on the project scope. Send me details and i'll get back with a quote.
-                                        i prefer fixed-price for defined projects
-                                    </p>
-                                </div>
+                                <BrutalCard
+                                    theme="yellow"
+                                    hover="lift"
+                                    title="what's your rate?"
+                                    description="depends on the project scope. Send me details and i'll get back with a quote. i prefer fixed-price for defined projects"
+                                />
 
                                 {/* FAQ Item 2 */}
-                                <div className="border-brutal border-punk-white p-4 md:p-6 bg-punk-gray-100">
-                                    <h3 className="text-brutal-lg md:text-brutal-xl font-brutal text-neon-green mb-3">
-                                        how long does a project take?
-                                    </h3>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        simple landing page: 1-2 weeks. full website: 4-8 weeks.
-                                        complex web app: 2-3 months. timeline varies by scope
-                                    </p>
-                                </div>
+                                <BrutalCard
+                                    theme="green"
+                                    hover="lift"
+                                    title="how long does a project take?"
+                                    description="simple landing page: 1-2 weeks. full website: 4-8 weeks. complex web app: 2-3 months. timeline varies by scope"
+                                />
 
                                 {/* FAQ Item 3 */}
-                                <div className="border-brutal border-punk-white p-4 md:p-6 bg-punk-gray-100">
-                                    <h3 className="text-brutal-lg md:text-brutal-xl font-brutal text-neon-pink mb-3">
-                                        do you do maintenance?
-                                    </h3>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        yes! i offer ongoing support and maintenance packages.
-                                        or i can train your team to manage it themselves
-                                    </p>
-                                </div>
+                                <BrutalCard
+                                    theme="pink"
+                                    hover="lift"
+                                    title="do you maintenance?"
+                                    description="yes! i offer ongoing support and maintenance packages. or i can train your team to manage it themselves"
+                                />
 
                                 {/* FAQ Item 4 */}
-                                <div className="border-brutal border-punk-white p-4 md:p-6 bg-punk-gray-100">
-                                    <h3 className="text-brutal-lg md:text-brutal-xl font-brutal text-punk-white mb-3">
-                                        what if i just have a question?
-                                    </h3>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        ask away! i'm happy to help with quick questions or advice.
-                                        no commitment needed
-                                    </p>
-                                </div>
+                                <BrutalCard
+                                    theme="white"
+                                    hover="lift"
+                                    title="what if i just have a question?"
+                                    description="ask away! i'm happy to help with quick questions or advice. no commitment needed"
+                                />
 
                             </div>
                         </section>
