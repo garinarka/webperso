@@ -1,11 +1,9 @@
 import Link from 'next/link'
 import GlitchText from '@/components/GlitchText'
-import NoiseOverlay from '@/components/NoiseOverlay'
 
 export default function NotFound() {
     return (
         <div className="min-h-screen bg-punk-black text-punk-white relative flex items-center justify-center">
-            <NoiseOverlay opacity={0.05} />
 
             <div className="text-center relative z-20 px-4">
                 {/* 404 Number */}

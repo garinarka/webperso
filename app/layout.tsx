@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import NoiseOverlay from "@/components/NoiseOverlay";
-import ScanLinesOverlay from "@/components/ScanLinesOverlay";
 import PunkNavbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -58,9 +56,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body className="flex flex-col min-h-screen">
-        {/* Background Effects */}
-        <NoiseOverlay />
-        <ScanLinesOverlay />
 
         {/* main navigation */}
         <PunkNavbar />

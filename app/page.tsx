@@ -38,57 +38,57 @@ const aboutCommands: Command[] = [
 export default function HomePage() {
   return (
     <PageTransition>
-      <div className="min-h-screen bg-punk-black text-punk-white relative">
+      <div className="min-h-screen bg-punk-black text-punk-white relative overflow-x-hidden">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center relative">
-          <div className="max-w-6xl mx-auto px-4 text-center relative z-20">
+        <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
+          <div className="max-w-6xl mx-auto w-full text-center relative z-20">
 
             {/* Main Title */}
             <div className="mb-8">
               <GlitchText
                 as="h1"
-                className="text-brutal-5xl md:text-brutal-6xl lg:text-brutal-7xl font-brutal leading-none mb-4 main-title"
+                className="text-brutal-4xl sm:text-brutal-5xl md:text-brutal-6xl lg:text-brutal-7xl font-brutal leading-none mb-4 break-words"
                 intensity="high"
               >
                 JxGxDDHxTx
               </GlitchText>
 
-              <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-brutal-base md:text-brutal-xl font-mono">
+              <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-brutal-sm sm:text-brutal-base md:text-brutal-xl font-mono">
                 <TypedText />
               </div>
             </div>
 
             {/* Tagline */}
-            <p className="text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 mb-12 max-w-3xl mx-auto px-4">
+            <p className="text-brutal-sm sm:text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 mb-12 max-w-3xl mx-auto">
               breaking conventions. building experiences. no corporate BS.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 justify-center mb-16">
-              <NeonButton href="/projects" variant="yellow" size="lg">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-16 max-w-lg mx-auto">
+              <NeonButton href="/projects" variant="yellow" size="lg" className="w-full sm:w-auto">
                 VIEW WORK
               </NeonButton>
-              <NeonButton href="/contact" variant="white" size="lg">
+              <NeonButton href="/contact" variant="white" size="lg" className="w-full sm:w-auto">
                 GET IN TOUCH
               </NeonButton>
             </div>
 
             {/* Scroll Indicator */}
-            <div className="mt-6 flex justify-center animate-bounce">
+            <div className="mt-6 flex flex-col items-center animate-bounce">
               <div className="w-6 h-10 border-brutal border-punk-white flex items-end justify-center pb-2">
                 <div className="w-1 h-3 bg-punk-white animate-pulse"></div>
               </div>
-              <p className="font-mono text-brutal-xs mt-2 text-punk-white/50 ml-2">SCROLL</p>
+              <p className="font-mono text-brutal-xs mt-2 text-punk-white/50">SCROLL</p>
             </div>
           </div>
         </section>
 
         {/* About Section - Terminal Style */}
         <ScrollReveal>
-          <section className="py-20 relative">
-            <div className="max-w-4xl mx-auto px-4 relative z-20">
+          <section className="py-20 relative overflow-hidden px-4">
+            <div className="max-w-4xl mx-auto w-full relative z-20">
 
-              <h2 className="text-brutal-5xl font-brutal text-punk mb-8">
+              <h2 className="text-brutal-3xl sm:text-brutal-4xl md:text-brutal-5xl font-brutal text-punk mb-8">
                 ABOUT.TXT
               </h2>
 
@@ -107,10 +107,10 @@ export default function HomePage() {
 
         {/* What I Do Section */}
         <ScrollReveal delay={0.2}>
-          <section id="whatido" className="py-20 relative">
-            <div className="max-w-6xl mx-auto px-4 relative z-20">
+          <section id="whatido" className="py-20 relative overflow-hidden px-4">
+            <div className="max-w-6xl mx-auto w-full relative z-20">
 
-              <h2 className="text-brutal-5xl font-brutal text-punk mb-12 text-center">
+              <h2 className="text-brutal-3xl sm:text-brutal-4xl md:text-brutal-5xl font-brutal text-punk mb-12 text-center">
                 WHAT I DO
               </h2>
 
@@ -164,15 +164,15 @@ export default function HomePage() {
 
         {/* Tech Stack Section */}
         <ScrollReveal delay={0.2}>
-          <section id="techstack" className="py-20 relative">
-            <div className="max-w-4xl mx-auto px-4 relative z-20">
+          <section id="techstack" className="py-20 relative overflow-hidden px-4">
+            <div className="max-w-4xl mx-auto w-full relative z-20">
 
-              <h2 className="text-brutal-5xl font-brutal text-punk mb-12 text-center">
+              <h2 className="text-brutal-3xl sm:text-brutal-4xl md:text-brutal-5xl font-brutal text-punk mb-12 text-center">
                 TECH STACK
               </h2>
 
-              <div className="border-brutal border-punk-white p-8 bg-punk-gray-100">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="border-brutal border-punk-white p-4 sm:p-6 md:p-8 bg-punk-gray-100">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
 
                   {[
                     'NEXT.JS',
@@ -183,12 +183,12 @@ export default function HomePage() {
                     'FRAMER',
                     'GIT',
                     'FIGMA'
-                  ].map((tech, index) => (
+                  ].map((tech) => (
                     <div
                       key={tech}
-                      className="border border-punk-white/30 p-4 text-center hover:border-neon-yellow hover:text-neon-yellow transition-colors duration-0"
+                      className="border border-punk-white/30 p-3 sm:p-4 text-center hover:border-neon-yellow hover:text-neon-yellow transition-colors duration-0"
                     >
-                      <p className="font-brutal text-brutal-base">{tech}</p>
+                      <p className="font-brutal text-brutal-sm sm:text-brutal-base break-words">{tech}</p>
                     </div>
                   ))}
 
@@ -201,26 +201,25 @@ export default function HomePage() {
 
         {/* CTA Section */}
         <ScrollReveal delay={0.2}>
-          <section id="cta" className="py-32 relative border-t-brutal border-punk-white">
-            <div className="max-w-4xl mx-auto px-4 text-center relative z-20">
+          <section id="cta" className="py-20 sm:py-32 relative border-t-brutal border-punk-white overflow-hidden px-4">
+            <div className="max-w-4xl mx-auto w-full text-center relative z-20">
               <GlitchText
                 as="h2"
-                className="text-brutal-6xl font-brutal mb-6"
+                className="text-brutal-4xl sm:text-brutal-5xl md:text-brutal-6xl font-brutal mb-6 break-words"
                 intensity="medium"
               >
                 LET'S BUILD SOMETHING
               </GlitchText>
 
-              <p className="text-brutal-xl font-mono text-punk-white/70 mb-12">
-                got a project? need a developer who thinks different?<br />
-                let's talk
+              <p className="text-brutal-base sm:text-brutal-lg md:text-brutal-xl font-mono text-punk-white/70 mb-12 max-w-2xl mx-auto">
+                got a project? need a developer who thinks different? let's talk
               </p>
 
-              <div className="flex flex-wrap gap-6 justify-center">
-                <NeonButton href="/contact" variant="yellow" size="lg">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center max-w-lg mx-auto">
+                <NeonButton href="/contact" variant="yellow" size="lg" className="w-full sm:w-auto">
                   START A PROJECT
                 </NeonButton>
-                <NeonButton href="/projects" variant="white" size="lg">
+                <NeonButton href="/projects" variant="white" size="lg" className="w-full sm:w-auto">
                   SEE MY WORK
                 </NeonButton>
               </div>

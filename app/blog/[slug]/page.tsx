@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import GlitchText from '@/components/GlitchText'
-import NoiseOverlay from '@/components/NoiseOverlay'
 import { blogPosts } from '@/data/blog'
 import fs from 'fs'
 import path from 'path'
@@ -71,8 +70,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
     return (
         <div className="min-h-screen bg-punk-black text-punk-white relative">
-            <NoiseOverlay opacity={0.03} />
-
             <div className="max-w-3xl mx-auto px-4 py-20 relative z-20">
 
                 {/* Back Button */}
