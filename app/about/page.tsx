@@ -8,8 +8,8 @@ import PageTransition from '@/components/PageTransition'
 import ScrollReveal from '@/components/ScrollReveal'
 
 export const metadata: Metadata = {
-    title: 'About | Punk Portfolio',
-    description: 'Learn about me, my journey, and what makes me tick.',
+    title: 'ABOUT',
+    description: 'learn about me, my journey, and what makes me tick',
 }
 
 const aboutCommands: Command[] = [

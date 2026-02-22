@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Blog | Punk Portfolio',
-    description: 'Thoughts, tutorials, rants about web development and design.',
+    title: 'BLOG',
+    description: 'thoughts, tutorials, rants about web development, design or anything else',
 }
 
 export default function BlogLayout({

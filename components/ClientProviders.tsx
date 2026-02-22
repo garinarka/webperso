@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import ScrollProgress from './ScrollProgress'
 import BackToTop from './BackToTop'
 import KonamiCode from './KonamiCode'
+import Analytics from './Analytics'
 
 // Lazy load CustomCursor
 const CustomCursor = dynamic(() => import('./CustomCursor'), {
@@ -18,6 +19,7 @@ export default function ClientProviders() {
             <BackToTop />
             <CustomCursor color="yellow" />
             <KonamiCode />
+            <Analytics />
         </>
     )
 }

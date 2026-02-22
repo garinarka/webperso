@@ -8,8 +8,8 @@ import NeonButton from '@/components/NeonButton'
 import BrutalCard from '@/components/BrutalCard'
 
 export const metadata: Metadata = {
-    title: 'Contact | Punk Portfolio',
-    description: 'Get in touch. Let\'s build something different together.',
+    title: 'CONTACT',
+    description: 'get in touch. let\'s build something different together',
 }
 
 export default function ContactPage() {

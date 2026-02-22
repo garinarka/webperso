@@ -9,8 +9,8 @@ import PageTransition from '@/components/PageTransition'
 import ScrollReveal from '@/components/ScrollReveal'
 
 export const metadata: Metadata = {
-  title: 'Home | Punk Portfolio',
-  description: 'Digital rebellion. Built with Next.js, TypeScript, and raw energy.',
+  title: 'HOME | JAGADDHITA',
+  description: 'digital rebellion. built with Next.js, TypeScript, and raw energy',
 }
 
 const aboutCommands: Command[] = [
