@@ -8,6 +8,7 @@ interface NeonButtonProps {
     children: ReactNode
     onClick?: () => void
     href?: string
+    target?: string
     variant?: 'yellow' | 'green' | 'pink' | 'red' | 'white'
     size?: 'sm' | 'md' | 'lg'
     className?: string
@@ -19,6 +20,7 @@ export default function NeonButton({
     children,
     onClick,
     href,
+    target,
     variant = 'yellow',
     size = 'md',
     className = '',
@@ -77,6 +79,7 @@ export default function NeonButton({
         return (
             <motion.a
                 href={href}
+                target={target}
                 className={baseClasses}
                 style={sizeStyles[size]}
                 variants={hoverVariants}
