@@ -38,7 +38,7 @@ const aboutCommands: Command[] = [
 export default function HomePage() {
   return (
     <PageTransition>
-      <div className="min-h-screen bg-punk-black text-punk-white relative overflow-x-hidden">
+      <div className="min-h-screen bg-punk-black text-punk-white relative">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
           <div className="max-w-6xl mx-auto w-full text-center relative z-20">
