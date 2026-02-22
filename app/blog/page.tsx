@@ -62,7 +62,7 @@ export default function BlogPage() {
 
                     {/* Filters */}
                     <section className="mb-8">
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-3 justify-center">
                             {filters.map((filter) => {
                                 const isActive = activeFilter === filter.id
                                 return (
@@ -83,7 +83,7 @@ export default function BlogPage() {
                             })}
 
                             {/* Post Count */}
-                            <div className="flex items-center ml-auto font-mono text-brutal-sm text-punk-white/50">
+                            <div className="flex items-center sm:ml-auto font-mono text-brutal-sm text-punk-white/50">
                                 <span className="text-neon-yellow">{filteredPosts.length}</span>
                                 &nbsp;posts
                             </div>
