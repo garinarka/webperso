@@ -1,15 +1,35 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import GlitchText from '@/components/GlitchText'
 import BlogCard from '@/components/BlogCard'
-import { blogPosts } from '@/data/blog'
 import PageTransition from '@/components/PageTransition'
+import { client } from '@/lib/sanity.client'
+import { publishedPostsQuery } from '@/lib/sanity.queries'
+import type { SanityPost } from '@/lib/sanity.types'
 import ScrollReveal from '@/components/ScrollReveal'
 import NeonButton from '@/components/NeonButton'
 
 export default function BlogPage() {
     const [activeFilter, setActiveFilter] = useState('all')
+    const [posts, setPosts] = useState<SanityPost[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        // Fetch posts from Sanity
+        client.fetch(publishedPostsQuery)
+            .then((data) => {
+                console.log('Fetched posts:', data)
+                setPosts(data)
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.error('Error fetching posts:', error)
+                setError(error.message)
+                setLoading(false)
+            })
+    }, [])
 
     const filters = [
         { id: 'all', label: 'ALL' },
@@ -20,17 +40,51 @@ export default function BlogPage() {
     ]
 
     const filteredPosts = useMemo(() => {
-        const published = blogPosts.filter(p => p.published)
-        if (activeFilter === 'all') return published
-        return published.filter(p => p.category === activeFilter)
-    }, [activeFilter])
+        if (activeFilter === 'all') return posts
+        return posts.filter(p => p.category === activeFilter)
+    }, [activeFilter, posts])
 
-    const featuredPost = blogPosts.find(p => p.featured && p.published)
+    const featuredPost = posts.find(p => p.featured)
+
+    if (loading) {
+        return (
+            <PageTransition>
+                <div className="min-h-screen bg-punk-black text-punk-white relative flex items-center justify-center">
+                    <div className="text-center">
+                        <p className="font-mono text-brutal-xl text-neon-yellow animate-pulse">
+                            Loading posts...
+                        </p>
+                    </div>
+                </div>
+            </PageTransition>
+        )
+    }
+
+    if (error) {
+        return (
+            <PageTransition>
+                <div className="min-h-screen bg-punk-black text-punk-white relative flex items-center justify-center">
+                    <div className="text-center max-w-2xl mx-auto px-4">
+                        <p className="font-mono text-brutal-2xl text-neon-red mb-4">
+                            Error loading posts
+                        </p>
+                        <p className="font-mono text-brutal-sm text-punk-white/70 mb-8">
+                            {error}
+                        </p>
+                        <p className="font-mono text-brutal-xs text-punk-white/50">
+                            Make sure Sanity Studio is running and you have created some posts.
+                        </p>
+                    </div>
+                </div>
+            </PageTransition>
+        )
+    }
 
     return (
         <PageTransition>
-            <div className="min-h-screen bg-punk-black text-punk-white relative">
+            <div className="min-h-screen bg-punk-black text-punk-white relative overflow-x-hidden">
                 <div className="max-w-5xl mx-auto px-4 py-20 relative z-20">
+
                     {/* Hero */}
                     <section className="mb-16 text-center">
                         <GlitchText
@@ -41,8 +95,8 @@ export default function BlogPage() {
                             BLOG
                         </GlitchText>
                         <p className="text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 max-w-2xl mx-auto px-4">
-                            thoughts, tutorials, rants, and everything in between.
-                            no SEO bait. no fluff. just real content
+                            Thoughts, tutorials, rants, and everything in between.
+                            No SEO bait. No fluff. Just real content.
                         </p>
                     </section>
 
@@ -70,12 +124,12 @@ export default function BlogPage() {
                                         key={filter.id}
                                         onClick={() => setActiveFilter(filter.id)}
                                         className={`
-                    font-mono text-brutal-sm px-4 py-2 border-brutal transition-colors duration-0
-                    ${isActive
+                      font-mono text-brutal-sm px-4 py-2 border-brutal transition-colors duration-0
+                      ${isActive
                                                 ? 'bg-neon-yellow text-punk-black border-neon-yellow'
                                                 : 'bg-punk-black text-punk-white border-punk-white hover:border-neon-yellow hover:text-neon-yellow'
                                             }
-                  `}
+                    `}
                                     >
                                         {filter.label}
                                     </button>
@@ -99,7 +153,7 @@ export default function BlogPage() {
                                         .filter(p => activeFilter !== 'all' || !p.featured)
                                         .map((post, index) => (
                                             <BlogCard
-                                                key={post.slug}
+                                                key={post._id}
                                                 post={post}
                                                 index={index}
                                             />
@@ -109,11 +163,14 @@ export default function BlogPage() {
                             ) : (
                                 <div className="text-center py-20">
                                     <p className="text-brutal-3xl font-brutal text-punk-white/30 mb-4">
-                                        NO POSTS FOUND
+                                        NO POSTS YET
                                     </p>
-                                    <p className="font-mono text-brutal-sm text-punk-white/50">
-                                        Check back soon.
+                                    <p className="font-mono text-brutal-sm text-punk-white/50 mb-8">
+                                        Create some posts in Sanity Studio!
                                     </p>
+                                    <NeonButton href="http://localhost:3333" target="_blank" variant="yellow" size="lg">
+                                        OPEN SANITY STUDIO
+                                    </NeonButton>
                                 </div>
                             )}
                         </section>

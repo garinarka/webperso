@@ -73,6 +73,14 @@ export default defineType({
             validation: Rule => Rule.required()
         }),
         defineField({
+            name: 'published',
+            title: 'Published',
+            type: 'boolean',
+            description: 'Set to true to publish this post',
+            initialValue: false,
+            validation: Rule => Rule.required()
+        }),
+        defineField({
             name: 'featured',
             title: 'Featured',
             type: 'boolean',
@@ -89,7 +97,16 @@ export default defineType({
         select: {
             title: 'title',
             media: 'mainImage',
-            subtitle: 'category'
+            subtitle: 'category',
+            published: 'published'
         },
+        prepare(selection) {
+            const { title, media, subtitle, published } = selection
+            return {
+                title: title,
+                subtitle: `${subtitle} ${published ? '✓' : '(draft)'}`,
+                media: media
+            }
+        }
     },
 })

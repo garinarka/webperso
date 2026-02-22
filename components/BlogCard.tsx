@@ -2,16 +2,15 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import type { BlogPost } from '@/data/blog'
-import { memo } from 'react'
+import type { SanityPost } from '@/lib/sanity.types'
 
 interface BlogCardProps {
-    post: BlogPost
+    post: SanityPost
     index: number
     featured?: boolean
 }
 
-function BlogCard({ post, index, featured = false }: BlogCardProps) {
+export default function BlogCard({ post, index, featured = false }: BlogCardProps) {
     const categoryColors = {
         tutorial: 'text-neon-green border-neon-green',
         thoughts: 'text-neon-yellow border-neon-yellow',
@@ -27,11 +26,14 @@ function BlogCard({ post, index, featured = false }: BlogCardProps) {
     }
 
     // Format date
-    const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+    const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
     })
+
+    // Calculate read time (rough estimate)
+    const readTime = Math.ceil(post.excerpt.length / 200) || 3
 
     return (
         <motion.article
@@ -65,12 +67,12 @@ function BlogCard({ post, index, featured = false }: BlogCardProps) {
 
                 {/* Read Time */}
                 <span className="font-mono text-brutal-xs text-punk-white/50">
-                    {post.readTime} min read
+                    {readTime} min read
                 </span>
             </div>
 
             {/* Title */}
-            <Link href={`/blog/${post.slug}`}>
+            <Link href={`/blog/${post.slug.current}`}>
                 <h2 className={`
           text-brutal-2xl font-brutal mb-3
           hover:text-neon-yellow transition-colors duration-0
@@ -87,7 +89,7 @@ function BlogCard({ post, index, featured = false }: BlogCardProps) {
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-6">
-                {post.tags.map((tag) => (
+                {post.tags?.map((tag) => (
                     <span
                         key={tag}
                         className="px-2 py-1 bg-punk-black border border-punk-white/30 text-punk-white text-brutal-xs font-mono"
@@ -104,7 +106,7 @@ function BlogCard({ post, index, featured = false }: BlogCardProps) {
                 </span>
 
                 <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/blog/${post.slug.current}`}
                     className={`
             font-mono text-brutal-sm transition-colors duration-0
             ${categoryColors[post.category]}
@@ -116,5 +118,3 @@ function BlogCard({ post, index, featured = false }: BlogCardProps) {
         </motion.article>
     )
 }
-
-export default memo(BlogCard)

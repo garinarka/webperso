@@ -25,6 +25,8 @@ export default defineType({
                     { title: 'Strong', value: 'strong' },
                     { title: 'Emphasis', value: 'em' },
                     { title: 'Code', value: 'code' },
+                    { title: 'Underline', value: 'underline' },
+                    { title: 'Strike', value: 'strike-through' },
                 ],
                 annotations: [
                     {
@@ -36,7 +38,16 @@ export default defineType({
                                 title: 'URL',
                                 name: 'href',
                                 type: 'url',
+                                validation: Rule => Rule.uri({
+                                    scheme: ['http', 'https', 'mailto', 'tel']
+                                })
                             },
+                            {
+                                title: 'Open in new tab',
+                                name: 'blank',
+                                type: 'boolean',
+                                initialValue: true
+                            }
                         ],
                     },
                 ],
@@ -50,21 +61,14 @@ export default defineType({
                     name: 'alt',
                     type: 'string',
                     title: 'Alternative text',
+                    description: 'Important for SEO and accessibility',
+                },
+                {
+                    name: 'caption',
+                    type: 'string',
+                    title: 'Caption',
                 }
             ]
-        }),
-        defineArrayMember({
-            type: 'code',
-            options: {
-                language: 'typescript',
-                languageAlternatives: [
-                    { title: 'TypeScript', value: 'typescript' },
-                    { title: 'JavaScript', value: 'javascript' },
-                    { title: 'HTML', value: 'html' },
-                    { title: 'CSS', value: 'css' },
-                    { title: 'JSON', value: 'json' },
-                ],
-            }
         }),
     ],
 })
