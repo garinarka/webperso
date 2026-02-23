@@ -74,13 +74,13 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-yellow transition-colors duration-0 font-mono text-brutal-sm">
+                                <Link href="https://linkedin.com/jalugar" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-yellow transition-colors duration-0 font-mono text-brutal-sm">
                                     <span>💼</span>
                                     <span>LinkedIn</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-pink transition-colors duration-0 font-mono text-brutal-sm">
+                                <Link href="https://twitter.com/jjgarinarka" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-pink transition-colors duration-0 font-mono text-brutal-sm">
                                     <span>🐦</span>
                                     <span>Twitter</span>
                                 </Link>

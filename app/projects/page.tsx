@@ -8,6 +8,7 @@ import PageTransition from '@/components/PageTransition'
 import { client } from '@/lib/sanity.client'
 import { projectsQuery } from '@/lib/sanity.queries'
 import type { SanityProject } from '@/lib/sanity.types'
+import NeonButton from '@/components/NeonButton'
 
 export default function ProjectsPage() {
     const [activeFilter, setActiveFilter] = useState('all')
@@ -47,7 +48,7 @@ export default function ProjectsPage() {
                 <div className="min-h-screen bg-punk-black text-punk-white relative flex items-center justify-center">
                     <div className="text-center">
                         <p className="font-mono text-brutal-xl text-neon-yellow animate-pulse">
-                            Loading projects...
+                            loading projects...
                         </p>
                     </div>
                 </div>
@@ -61,13 +62,13 @@ export default function ProjectsPage() {
                 <div className="min-h-screen bg-punk-black text-punk-white relative flex items-center justify-center">
                     <div className="text-center max-w-2xl mx-auto px-4">
                         <p className="font-mono text-brutal-2xl text-neon-red mb-4">
-                            Error loading projects
+                            error loading projects
                         </p>
                         <p className="font-mono text-brutal-sm text-punk-white/70 mb-8">
                             {error}
                         </p>
                         <p className="font-mono text-brutal-xs text-punk-white/50">
-                            Make sure Sanity Studio is running and you have created some projects.
+                            make sure Sanity Studio is running and you have created some projects
                         </p>
                     </div>
                 </div>
@@ -78,7 +79,7 @@ export default function ProjectsPage() {
     return (
         <PageTransition>
             <div className="min-h-screen bg-punk-black text-punk-white relative overflow-x-hidden">
-                <div className="max-w-7xl mx-auto px-4 py-20 relative z-20">
+                <div className="max-w-5xl mx-auto px-4 py-20 relative z-20">
 
                     {/* Hero Section */}
                     <section className="mb-16 text-center">
@@ -90,7 +91,7 @@ export default function ProjectsPage() {
                             PROJECTS
                         </GlitchText>
                         <p className="text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 max-w-3xl mx-auto mb-4 px-4">
-                            Things I've built. From web apps to experiments.
+                            things i've built. from web apps to experiments
                         </p>
                         <div className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/50">
                             <span className="text-neon-yellow">{filteredProjects.length}</span> projects found
@@ -123,7 +124,7 @@ export default function ProjectsPage() {
                                     NO PROJECTS YET
                                 </p>
                                 <p className="font-mono text-brutal-sm text-punk-white/50 mb-4">
-                                    Create some projects in Sanity Studio!
+                                    create some projects in Sanity Studio!
                                 </p>
                                 <a
                                     href="http://localhost:3333"
@@ -145,7 +146,7 @@ export default function ProjectsPage() {
                                     {projects.length}
                                 </p>
                                 <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                    Total Projects
+                                    total projects
                                 </p>
                             </div>
                             <div className="text-center">
@@ -153,7 +154,7 @@ export default function ProjectsPage() {
                                     {projects.filter(p => p.status === 'completed').length}
                                 </p>
                                 <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                    Completed
+                                    completed
                                 </p>
                             </div>
                             <div className="text-center">
@@ -161,7 +162,7 @@ export default function ProjectsPage() {
                                     {projects.filter(p => p.status === 'in-progress').length}
                                 </p>
                                 <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                    In Progress
+                                    in progress
                                 </p>
                             </div>
                             <div className="text-center">
@@ -169,26 +170,24 @@ export default function ProjectsPage() {
                                     {new Date().getFullYear()}
                                 </p>
                                 <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                    Current Year
+                                    current year
                                 </p>
                             </div>
                         </div>
                     </section>
 
                     {/* CTA Section */}
-                    <section className="mt-20 text-center border-brutal border-neon-yellow p-8 md:p-12">
+                    <section className="mt-20 text-center border-brutal bg-punk-gray-100 border-neon-yellow p-8 md:p-12">
                         <h2 className="text-brutal-3xl md:text-brutal-4xl font-brutal mb-4">
                             GOT A PROJECT IDEA?
                         </h2>
                         <p className="font-mono text-brutal-sm md:text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto px-4">
-                            Let's build something together.
+                            let's build something together
                         </p>
 
-                        <a href="/contact"
-                            className="bg-neon-yellow text-punk-black px-6 md:px-8 py-3 md:py-4 font-brutal text-brutal-base md:text-brutal-lg border-brutal border-punk-black hover:bg-punk-black hover:text-neon-yellow hover:border-neon-yellow transition-colors duration-0 inline-block"
-                        >
+                        <NeonButton href="/contact" variant="yellow" size="lg" className="w-full sm:w-auto">
                             START A PROJECT
-                        </a>
+                        </NeonButton>
                     </section>
 
                 </div>

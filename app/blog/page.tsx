@@ -201,7 +201,7 @@ export default function BlogPage() {
                                             NO RESULTS
                                         </p>
                                         <p className="font-mono text-brutal-sm text-punk-white/50 mb-6">
-                                            Try different keywords or clear the search
+                                            try different keywords or clear the search
                                         </p>
                                         <button
                                             onClick={() => setSearchQuery('')}
@@ -216,7 +216,7 @@ export default function BlogPage() {
                                             NO POSTS YET
                                         </p>
                                         <p className="font-mono text-brutal-sm text-punk-white/50 mb-4">
-                                            Create some posts in Sanity Studio!
+                                            create some posts in Sanity Studio!
                                         </p>
                                         <a
                                             href="http://localhost:3333"
@@ -239,7 +239,7 @@ export default function BlogPage() {
                                 STAY UPDATED
                             </h2>
                             <p className="font-mono text-brutal-sm md:text-brutal-base text-punk-white/70 mb-8 max-w-lg mx-auto px-4">
-                                No spam. No newsletter BS. Just an email when I publish something worth reading.
+                                no spam. no newsletter BS. just an email when I publish something worth reading
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                                 <input
@@ -247,9 +247,9 @@ export default function BlogPage() {
                                     placeholder="your@email.com"
                                     className="flex-1 px-4 py-3 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-sm md:text-brutal-base focus:border-neon-green placeholder:text-punk-white/30"
                                 />
-                                <button className="px-4 md:px-6 py-3 bg-neon-green text-punk-black font-brutal text-brutal-sm md:text-brutal-base border-brutal border-punk-black hover:bg-punk-black hover:text-neon-green hover:border-neon-green transition-colors duration-0 whitespace-nowrap">
+                                <NeonButton variant="green" size="lg" className="w-full sm:w-auto">
                                     SUBSCRIBE
-                                </button>
+                                </NeonButton>
                             </div>
                         </div>
                     </section>

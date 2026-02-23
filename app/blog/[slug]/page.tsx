@@ -9,6 +9,7 @@ import { client } from '@/lib/sanity.client'
 import { postBySlugQuery, previousPostQuery, nextPostQuery } from '@/lib/sanity.queries'
 import { portableTextComponents } from '@/components/PortableTextComponents'
 import type { SanityPost } from '@/lib/sanity.types'
+import NeonButton from '@/components/NeonButton'
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>
@@ -182,7 +183,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                         {/* Author */}
                         <div className="flex items-center gap-4 mb-8 p-6 border-brutal border-punk-white/30">
-                            <div className="w-16 h-16 border-brutal border-neon-yellow flex items-center justify-center text-brutal-3xl flex-shrink-0">
+                            <div className="w-16 h-16 border-brutal border-neon-yellow flex items-center justify-center text-brutal-3xl shrink-0">
                                 👤
                             </div>
                             <div>
@@ -202,21 +203,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                             </p>
                             <div className="flex flex-wrap gap-4">
 
-                                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${typeof window !== 'undefined' ? window.location.href : ''}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-2 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-sm hover:bg-punk-white hover:text-punk-black"
-                                >
-                                    Twitter
-                                </a>
+                                <NeonButton href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${typeof window !== 'undefined' ? window.location.href : ''}`} target="_blank" variant="pink" size="lg" className="w-full sm:w-auto">
+                                    TWITTER
+                                </NeonButton>
 
-                                <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${typeof window !== 'undefined' ? window.location.href : ''}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-2 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-sm hover:bg-punk-white hover:text-punk-black"
-                                >
-                                    LinkedIn
-                                </a>
+                                <NeonButton href={`https://www.linkedin.com/sharing/share-offsite/?url=${typeof window !== 'undefined' ? window.location.href : ''}`} target="_blank" variant="yellow" size="lg" className="w-full sm:w-auto">
+                                    LINKEDIN
+                                </NeonButton>
                             </div>
                         </div>
 

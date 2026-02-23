@@ -58,7 +58,7 @@ export default function ContactPage() {
                                     <div>
                                         <p className="text-punk-white/50 mb-1">EMAIL</p>
                                         <a
-                                            href="mailto:hello@yourdomain.com"
+                                            href="mailto:jagaddhitajalu@gmail.com"
                                             className="text-neon-green hover:text-punk-white transition-colors duration-0"
                                         >
                                             jagaddhitajalu@gmail.com
@@ -110,7 +110,7 @@ export default function ContactPage() {
                                     </a>
 
 
-                                    <a href="https://linkedin.com/in/"
+                                    <a href="https://linkedin.com/in/jalugar"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-3 font-mono text-brutal-sm text-punk-white hover:text-neon-yellow transition-colors duration-0"
@@ -120,7 +120,7 @@ export default function ContactPage() {
                                     </a>
 
 
-                                    <a href="https://twitter.com/"
+                                    <a href="https://twitter.com/jjgarinarka"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-3 font-mono text-brutal-sm text-punk-white hover:text-neon-pink transition-colors duration-0"
@@ -130,14 +130,14 @@ export default function ContactPage() {
                                     </a>
 
 
-                                    <a href="https://instagram.com/"
+                                    {/* <a href="https://instagram.com/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-3 font-mono text-brutal-sm text-punk-white hover:text-neon-pink transition-colors duration-0"
                                     >
                                         <span className="text-brutal-2xl">📷</span>
                                         <span>Instagram</span>
-                                    </a>
+                                    </a> */}
                                 </div>
                             </div>
 
@@ -177,7 +177,7 @@ export default function ContactPage() {
                                     theme="yellow"
                                     hover="lift"
                                     title="what's your rate?"
-                                    description="depends on the project scope. Send me details and i'll get back with a quote. i prefer fixed-price for defined projects"
+                                    description="depends on the project scope. send me details and i'll get back with a quote. i prefer fixed-price for defined projects"
                                 />
 
                                 {/* FAQ Item 2 */}
@@ -224,11 +224,11 @@ export default function ContactPage() {
                                     EMAIL ME
                                 </NeonButton>
 
-                                <NeonButton href="https://cal.com/" variant="yellow" size="lg">
+                                {/* <NeonButton href="https://cal.com/" variant="yellow" size="lg">
                                     SCHEDULE CALL
-                                </NeonButton>
+                                </NeonButton> */}
 
-                                <NeonButton href="https://twitter.com/" variant="white" size="lg">
+                                <NeonButton href="https://twitter.com/jjgarinarka" variant="white" size="lg">
                                     DM ON TWITTER
                                 </NeonButton>
                             </div>
