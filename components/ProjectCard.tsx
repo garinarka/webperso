@@ -1,15 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import type { Project } from '@/data/projects'
-import { memo } from 'react'
+import Image from 'next/image'
+import type { SanityProject } from '@/lib/sanity.types'
 
 interface ProjectCardProps {
-    project: Project
+    project: SanityProject
     index: number
 }
 
-function ProjectCard({ project, index }: ProjectCardProps) {
+export default function ProjectCard({ project, index }: ProjectCardProps) {
     const categoryColors = {
         web: 'border-neon-yellow',
         design: 'border-neon-green',
@@ -23,6 +23,13 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         archived: 'text-punk-white/50'
     }
 
+    const categoryEmojis = {
+        web: '🌐',
+        design: '🎨',
+        mobile: '📱',
+        experiment: '⚡'
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -30,7 +37,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             transition={{ delay: index * 0.05, duration: 0 }}
             className={`
         bg-punk-gray-100 border-brutal p-6
-        hover:translate-y-[-4px] transition-transform duration-0
+        hover:translate-y-1 transition-transform duration-0
         ${categoryColors[project.category]}
       `}
         >
@@ -43,18 +50,21 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                 </div>
             )}
 
-            {/* Image Placeholder */}
-            {project.image ? (
+            {/* Image or Placeholder */}
+            {project.imageUrl ? (
                 <div className="mb-4 aspect-video bg-punk-black border border-punk-white/30 overflow-hidden">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                    <Image
+                        src={project.imageUrl}
+                        alt={project.imageAlt || project.title}
+                        width={400}
+                        height={225}
+                        className="w-full h-full object-cover"
+                    />
                 </div>
             ) : (
                 <div className="mb-4 aspect-video bg-punk-black border border-punk-white/30 flex items-center justify-center">
                     <span className="text-brutal-5xl opacity-30">
-                        {project.category === 'web' && '🌐'}
-                        {project.category === 'design' && '🎨'}
-                        {project.category === 'mobile' && '📱'}
-                        {project.category === 'experiment' && '⚡'}
+                        {categoryEmojis[project.category]}
                     </span>
                 </div>
             )}
@@ -76,7 +86,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-4">
-                {project.tags.map((tag) => (
+                {project.tags?.map((tag) => (
                     <span
                         key={tag}
                         className="px-2 py-1 bg-punk-black border border-punk-white/30 text-punk-white text-brutal-xs font-mono"
@@ -118,5 +128,3 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         </motion.div >
     )
 }
-
-export default memo(ProjectCard)

@@ -1,45 +1,85 @@
 'use client'
 
-import { useState, useMemo } from 'react'
-import type { Metadata } from 'next'
+import { useState, useMemo, useEffect } from 'react'
 import GlitchText from '@/components/GlitchText'
 import ProjectFilter from '@/components/ProjectFilter'
 import ProjectCard from '@/components/ProjectCard'
-import NeonButton from '@/components/NeonButton'
-import { projects } from '@/data/projects'
 import PageTransition from '@/components/PageTransition'
-import ScrollReveal from '@/components/ScrollReveal'
+import { client } from '@/lib/sanity.client'
+import { projectsQuery } from '@/lib/sanity.queries'
+import type { SanityProject } from '@/lib/sanity.types'
 
 export default function ProjectsPage() {
     const [activeFilter, setActiveFilter] = useState('all')
-    const [searchQuery, setSearchQuery] = useState('')
+    const [projects, setProjects] = useState<SanityProject[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
 
+    useEffect(() => {
+        // Fetch projects from Sanity
+        client.fetch(projectsQuery)
+            .then((data) => {
+                console.log('Fetched projects:', data)
+                setProjects(data)
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.error('Error fetching projects:', error)
+                setError(error.message)
+                setLoading(false)
+            })
+    }, [])
+
+    // Filter projects
     const filteredProjects = useMemo(() => {
-        let filtered = projects
-
-        // Filter by category/featured
-        if (activeFilter !== 'all') {
-            filtered = activeFilter === 'featured'
-                ? filtered.filter(p => p.featured)
-                : filtered.filter(p => p.category === activeFilter)
+        if (activeFilter === 'all') {
+            return projects
         }
-
-        // Filter by search
-        if (searchQuery) {
-            filtered = filtered.filter(p =>
-                p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                p.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-            )
+        if (activeFilter === 'featured') {
+            return projects.filter(p => p.featured)
         }
+        return projects.filter(p => p.category === activeFilter)
+    }, [activeFilter, projects])
 
-        return filtered
-    }, [activeFilter, searchQuery])
+    if (loading) {
+        return (
+            <PageTransition>
+                <div className="min-h-screen bg-punk-black text-punk-white relative flex items-center justify-center">
+                    <div className="text-center">
+                        <p className="font-mono text-brutal-xl text-neon-yellow animate-pulse">
+                            Loading projects...
+                        </p>
+                    </div>
+                </div>
+            </PageTransition>
+        )
+    }
+
+    if (error) {
+        return (
+            <PageTransition>
+                <div className="min-h-screen bg-punk-black text-punk-white relative flex items-center justify-center">
+                    <div className="text-center max-w-2xl mx-auto px-4">
+                        <p className="font-mono text-brutal-2xl text-neon-red mb-4">
+                            Error loading projects
+                        </p>
+                        <p className="font-mono text-brutal-sm text-punk-white/70 mb-8">
+                            {error}
+                        </p>
+                        <p className="font-mono text-brutal-xs text-punk-white/50">
+                            Make sure Sanity Studio is running and you have created some projects.
+                        </p>
+                    </div>
+                </div>
+            </PageTransition>
+        )
+    }
 
     return (
         <PageTransition>
-            <div className="min-h-screen bg-punk-black text-punk-white relative">
+            <div className="min-h-screen bg-punk-black text-punk-white relative overflow-x-hidden">
                 <div className="max-w-7xl mx-auto px-4 py-20 relative z-20">
+
                     {/* Hero Section */}
                     <section className="mb-16 text-center">
                         <GlitchText
@@ -50,7 +90,7 @@ export default function ProjectsPage() {
                             PROJECTS
                         </GlitchText>
                         <p className="text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 max-w-3xl mx-auto mb-4 px-4">
-                            things i've built. from web apps to experiments
+                            Things I've built. From web apps to experiments.
                         </p>
                         <div className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/50">
                             <span className="text-neon-yellow">{filteredProjects.length}</span> projects found
@@ -59,16 +99,6 @@ export default function ProjectsPage() {
 
                     {/* Filter Section */}
                     <section className="mb-12">
-                        <div className="max-w-md mx-auto mb-8">
-                            <input
-                                type="text"
-                                placeholder="Search projects..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full px-4 py-3 bg-punk-black border-brutal border-punk-white text-punk-white font-mono text-brutal-base focus:border-neon-yellow"
-                            />
-                        </div>
-
                         <ProjectFilter
                             activeFilter={activeFilter}
                             onFilterChange={setActiveFilter}
@@ -76,88 +106,93 @@ export default function ProjectsPage() {
                     </section>
 
                     {/* Projects Grid */}
-                    <ScrollReveal>
-                        <section>
-                            {filteredProjects.length > 0 ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {filteredProjects.map((project, index) => (
-                                        <ProjectCard
-                                            key={project.id}
-                                            project={project}
-                                            index={index}
-                                        />
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="text-center py-20">
-                                    <p className="text-brutal-3xl font-brutal text-punk-white/30 mb-4">
-                                        NO PROJECTS FOUND
-                                    </p>
-                                    <p className="font-mono text-brutal-sm text-punk-white/50">
-                                        try a different filter
-                                    </p>
-                                </div>
-                            )}
-                        </section>
-                    </ScrollReveal>
+                    <section>
+                        {filteredProjects.length > 0 ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {filteredProjects.map((project, index) => (
+                                    <ProjectCard
+                                        key={project._id}
+                                        project={project}
+                                        index={index}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center py-20">
+                                <p className="text-brutal-3xl font-brutal text-punk-white/30 mb-4">
+                                    NO PROJECTS YET
+                                </p>
+                                <p className="font-mono text-brutal-sm text-punk-white/50 mb-4">
+                                    Create some projects in Sanity Studio!
+                                </p>
+                                <a
+                                    href="http://localhost:3333"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block px-6 py-3 bg-neon-yellow text-punk-black font-brutal text-brutal-base border-brutal border-punk-black hover:bg-punk-black hover:text-neon-yellow hover:border-neon-yellow"
+                                >
+                                    OPEN SANITY STUDIO
+                                </a>
+                            </div>
+                        )}
+                    </section>
 
                     {/* Stats Section */}
-                    <ScrollReveal delay={0.2}>
-                        <section className="mt-20 border-t-brutal border-punk-white pt-12">
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                                <div className="text-center">
-                                    <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-yellow mb-2">
-                                        {projects.length}
-                                    </p>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        total projects
-                                    </p>
-                                </div>
-                                <div className="text-center">
-                                    <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-green mb-2">
-                                        {projects.filter(p => p.status === 'completed').length}
-                                    </p>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        completed
-                                    </p>
-                                </div>
-                                <div className="text-center">
-                                    <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-pink mb-2">
-                                        {projects.filter(p => p.status === 'in-progress').length}
-                                    </p>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        in progress
-                                    </p>
-                                </div>
-                                <div className="text-center">
-                                    <p className=" text-brutal-3xl md:text-brutal-4xl font-brutal text-punk-white mb-2">
-                                        {new Date().getFullYear()}
-                                    </p>
-                                    <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
-                                        current year
-                                    </p>
-                                </div>
+                    <section className="mt-20 border-t-brutal border-punk-white pt-12">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <div className="text-center">
+                                <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-yellow mb-2">
+                                    {projects.length}
+                                </p>
+                                <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
+                                    Total Projects
+                                </p>
                             </div>
-                        </section>
-                    </ScrollReveal>
+                            <div className="text-center">
+                                <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-green mb-2">
+                                    {projects.filter(p => p.status === 'completed').length}
+                                </p>
+                                <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
+                                    Completed
+                                </p>
+                            </div>
+                            <div className="text-center">
+                                <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-pink mb-2">
+                                    {projects.filter(p => p.status === 'in-progress').length}
+                                </p>
+                                <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
+                                    In Progress
+                                </p>
+                            </div>
+                            <div className="text-center">
+                                <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-punk-white mb-2">
+                                    {new Date().getFullYear()}
+                                </p>
+                                <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
+                                    Current Year
+                                </p>
+                            </div>
+                        </div>
+                    </section>
 
                     {/* CTA Section */}
-                    <ScrollReveal delay={0.2}>
-                        <section className="mt-20 text-center border-brutal border-neon-yellow p-8 md:p-12 bg-punk-gray-100">
-                            <h2 className="text-brutal-3xl md:text-brutal-4xl font-brutal mb-4">
-                                GOT A PROJECT IDEA?
-                            </h2>
-                            <p className="font-mono text-brutal-sm md:text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto px-4">
-                                let's build something together
-                            </p>
-                            <NeonButton href="/contact" variant="yellow" size="lg">
-                                START A PROJECT
-                            </NeonButton>
-                        </section>
-                    </ScrollReveal>
+                    <section className="mt-20 text-center border-brutal border-neon-yellow p-8 md:p-12">
+                        <h2 className="text-brutal-3xl md:text-brutal-4xl font-brutal mb-4">
+                            GOT A PROJECT IDEA?
+                        </h2>
+                        <p className="font-mono text-brutal-sm md:text-brutal-lg text-punk-white/70 mb-8 max-w-2xl mx-auto px-4">
+                            Let's build something together.
+                        </p>
+
+                        <a href="/contact"
+                            className="bg-neon-yellow text-punk-black px-6 md:px-8 py-3 md:py-4 font-brutal text-brutal-base md:text-brutal-lg border-brutal border-punk-black hover:bg-punk-black hover:text-neon-yellow hover:border-neon-yellow transition-colors duration-0 inline-block"
+                        >
+                            START A PROJECT
+                        </a>
+                    </section>
 
                 </div>
-            </div >
-        </PageTransition>
+            </div>
+        </PageTransition >
     )
 }
