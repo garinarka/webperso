@@ -1,61 +1,233 @@
 import type { Metadata } from 'next'
-import Button from '@/components/Button'
+import GlitchText from '@/components/GlitchText'
+import NeonButton from '@/components/NeonButton'
+import TerminalBox from '@/components/TerminalBox'
+import TerminalTyping, { Command } from '@/components/TerminalTyping'
+import TypedText from '@/components/TypedText'
+import BrutalCard from '@/components/BrutalCard'
+import PageTransition from '@/components/PageTransition'
+import ScrollReveal from '@/components/ScrollReveal'
 
 export const metadata: Metadata = {
-  title: 'Home | King Jagad',
-  description: 'Welcome to my personal website. Built with Next.js, TypeScript, and Tailwind CSS.',
+  title: 'HOME | JAGADDHITA',
+  description: 'digital rebellion. built with Next.js, TypeScript, and raw energy',
 }
+
+const aboutCommands: Command[] = [
+  {
+    prompt: '$ whoami',
+    output: [
+      "hola! i'm jagaddhita",
+      "my role is full-stack developer(?)",
+      "i'm located at YKC",
+      "i'm available for projects, btw"
+    ],
+    color: 'text-neon-yellow'
+  },
+  {
+    prompt: '$ echo $vibe',
+    output: [
+      "i mix punk aesthetics with serious code",
+      "ignore rules that restrict self-expression",
+      "no templates, no corporate BS"
+    ],
+    color: 'text-neon-pink'
+  }
+]
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-black">
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Selamat Datang di Website King Jagad
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Saya sedang belajar web development dengan Next.js, TypeScript, dan Tailwind CSS.
-            Ini adalah langkah pertama saya dalam membangun kehadiran digital.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button href="/about" variant="primary">
-              Tentang Saya
-            </Button>
-            <Button href="/projects" variant="secondary">
-              Lihat Projects
-            </Button>
-          </div>
-        </div>
+    <PageTransition>
+      <div className="min-h-screen bg-punk-black text-punk-white relative">
+        {/* Hero Section */}
+        <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
+          <div className="max-w-6xl mx-auto w-full text-center relative z-20">
 
-        {/* Features Section */}
-        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
-            <div className="text-3xl mb-4">⚡</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Fast Performance</h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Dibangun dengan Next.js untuk performa optimal dan loading cepat.
-            </p>
-          </div>
+            {/* Main Title */}
+            <div className="mb-8">
+              <GlitchText
+                as="h1"
+                className="text-brutal-4xl sm:text-brutal-5xl md:text-brutal-6xl lg:text-brutal-7xl font-brutal leading-none mb-4 break-words"
+                intensity="high"
+              >
+                JxGxDDHxTx
+              </GlitchText>
 
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
-            <div className="text-3xl mb-4">🎨</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Modern Design</h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Menggunakan Tailwind CSS untuk tampilan yang clean dan modern.
-            </p>
-          </div>
+              <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-brutal-sm sm:text-brutal-base md:text-brutal-xl font-mono">
+                <TypedText />
+              </div>
+            </div>
 
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
-            <div className="text-3xl mb-4">🔧</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">TypeScript</h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Type-safe development untuk code yang lebih maintainable.
+            {/* Tagline */}
+            <p className="text-brutal-sm sm:text-brutal-base md:text-brutal-lg font-mono text-punk-white/70 mb-12 max-w-3xl mx-auto">
+              breaking conventions. building experiences. no corporate BS.
             </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-16 max-w-lg mx-auto">
+              <NeonButton href="/projects" variant="yellow" size="lg" className="w-full sm:w-auto">
+                VIEW WORK
+              </NeonButton>
+              <NeonButton href="/contact" variant="white" size="lg" className="w-full sm:w-auto">
+                GET IN TOUCH
+              </NeonButton>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="mt-6 flex flex-col items-center animate-bounce">
+              <div className="w-6 h-10 border-brutal border-punk-white flex items-end justify-center pb-2">
+                <div className="w-1 h-3 bg-punk-white animate-pulse"></div>
+              </div>
+              <p className="font-mono text-brutal-xs mt-2 text-punk-white/50">SCROLL</p>
+            </div>
           </div>
-        </div>
+        </section>
+
+        {/* About Section - Terminal Style */}
+        <ScrollReveal>
+          <section className="py-20 relative overflow-hidden px-4">
+            <div className="max-w-4xl mx-auto w-full relative z-20">
+
+              <h2 className="text-brutal-3xl sm:text-brutal-4xl md:text-brutal-5xl font-brutal text-punk mb-8">
+                ABOUT.TXT
+              </h2>
+
+              <TerminalBox title="BIO.SH" prompt=">>">
+                <TerminalTyping
+                  commands={aboutCommands}
+                  typingSpeed={30}
+                  lineDelay={500}
+                  commandDelay={1000}
+                />
+              </TerminalBox>
+
+            </div>
+          </section>
+        </ScrollReveal>
+
+        {/* What I Do Section */}
+        <ScrollReveal delay={0.2}>
+          <section id="whatido" className="py-20 relative overflow-hidden px-4">
+            <div className="max-w-6xl mx-auto w-full relative z-20">
+
+              <h2 className="text-brutal-3xl sm:text-brutal-4xl md:text-brutal-5xl font-brutal text-punk mb-12 text-center">
+                WHAT I DO
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                {/* Development */}
+                <BrutalCard
+                  theme="yellow"
+                  hover="glow"
+                  icon="⚡"
+                  title="DEVELOPMENT"
+                  description="Full-stack web apps with modern tech. React, Next.js, TypeScript, Node.js."
+                  tags={[
+                    'Responsive web applications',
+                    'API development',
+                    'Performance optimization'
+                  ]}
+                />
+
+                {/* Design */}
+                <BrutalCard
+                  theme="green"
+                  hover="glow"
+                  icon="🎨"
+                  title="DESIGN"
+                  description="Interfaces that don't look like everyone else's. Bold, functional, memorable."
+                  tags={[
+                    'UI/UX design',
+                    'Design systems',
+                    'Brutalist aesthetics'
+                  ]}
+                />
+
+                {/* Creative Coding */}
+                <BrutalCard
+                  theme="pink"
+                  hover="glow"
+                  icon="✨"
+                  title="CREATIVE CODE"
+                  description="Experimental projects, animations, interactive experiences."
+                  tags={[
+                    'Generative art',
+                    'WebGL experiments',
+                    'Interactive installations'
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
+
+        {/* Tech Stack Section */}
+        <ScrollReveal delay={0.2}>
+          <section id="techstack" className="py-20 relative overflow-hidden px-4">
+            <div className="max-w-4xl mx-auto w-full relative z-20">
+
+              <h2 className="text-brutal-3xl sm:text-brutal-4xl md:text-brutal-5xl font-brutal text-punk mb-12 text-center">
+                TECH STACK
+              </h2>
+
+              <div className="border-brutal border-punk-white p-4 sm:p-6 md:p-8 bg-punk-gray-100">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+
+                  {[
+                    'NEXT.JS',
+                    'REACT',
+                    'TYPESCRIPT',
+                    'NODE.JS',
+                    'TAILWIND',
+                    'FRAMER',
+                    'GIT',
+                    'FIGMA'
+                  ].map((tech) => (
+                    <div
+                      key={tech}
+                      className="border border-punk-white/30 p-3 sm:p-4 text-center hover:border-neon-yellow hover:text-neon-yellow transition-colors duration-0"
+                    >
+                      <p className="font-brutal text-brutal-sm sm:text-brutal-base break-words">{tech}</p>
+                    </div>
+                  ))}
+
+                </div>
+              </div>
+
+            </div>
+          </section>
+        </ScrollReveal>
+
+        {/* CTA Section */}
+        <ScrollReveal delay={0.2}>
+          <section id="cta" className="py-20 sm:py-32 relative border-t-brutal border-punk-white overflow-hidden px-4">
+            <div className="max-w-4xl mx-auto w-full text-center relative z-20">
+              <GlitchText
+                as="h2"
+                className="text-brutal-4xl sm:text-brutal-5xl md:text-brutal-6xl font-brutal mb-6 break-words"
+                intensity="medium"
+              >
+                LET'S BUILD SOMETHING
+              </GlitchText>
+
+              <p className="text-brutal-base sm:text-brutal-lg md:text-brutal-xl font-mono text-punk-white/70 mb-12 max-w-2xl mx-auto">
+                got a project? need a developer who thinks different? let's talk
+              </p>
+
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center max-w-lg mx-auto">
+                <NeonButton href="/contact" variant="yellow" size="lg" className="w-full sm:w-auto">
+                  START A PROJECT
+                </NeonButton>
+                <NeonButton href="/projects" variant="white" size="lg" className="w-full sm:w-auto">
+                  SEE MY WORK
+                </NeonButton>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
+
       </div>
-    </div>
+    </PageTransition>
   )
 }

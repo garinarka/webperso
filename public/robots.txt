@@ -1,0 +1,6 @@
+# allow all crawlers
+User-agent: *
+Allow: /
+
+# sitemap
+Sitemap: https://jgarinarka.vercel.app/sitemap.xml

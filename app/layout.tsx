@@ -1,30 +1,74 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import PunkNavbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import ClientProviders from "@/components/ClientProviders";
 
-const inter = Inter({ subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: "King Jagad's Personal Website",
-  description: "Combination of Next.js, TypeScript, and Tailwind CSS",
-  metadataBase: new URL('https://jgarinarka.vercel.app/'),
+  metadataBase: new URL('https://jgarinarka.vercel.app'),
+  title: {
+    default: 'JAGADDHITA | wannabe developer',
+    template: '%s | JAGADDHITA'
+  },
+  description: 'full-stack developer wannabe. breaking conventions, building experiences. no templates, no corporate BS',
+  keywords: ['web developer', 'full-stack', 'next.js', 'react', 'typescript', 'portfolio', 'brutalist design'],
+  authors: [{ name: 'jagaddhita' }],
+  creator: 'jagaddhita',
   openGraph: {
-    title: "King Jagad's Personal Website",
-    description: "Combination of Next.js, TypeScript, and Tailwind CSS",
-    url: 'https://jgarinarka.vercel.app/',
-    siteName: 'King Jagad',
-    locale: 'id_ID',
     type: 'website',
+    locale: 'id_ID',
+    url: 'https://jgarinarka.vercel.app',
+    title: 'JAGADDHITA | wannabe developer',
+    description: 'full-stack developer wannabe. breaking conventions, building experiences. no templates, no corporate BS',
+    siteName: 'JAGADDHITA PORTFOLIO',
+    // images: [
+    //   {
+    //     url: '/og-image.png',
+    //     width: 1200,
+    //     height: 630,
+    //     alt: 'JAGADDHITA PORTFOLIO'
+    //   }
+    // ],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: "King Jagad's Personal Website",
-    description: "Combination of Next.js, TypeScript, and Tailwind CSS",
+  // twitter: {
+  //   card: 'summary_large_image',
+  //   title: 'JAGADDHITA | wannabe developer',
+  //   description: 'full-stack developer wannabe. breaking conventions, building experiences. no templates, no corporate BS',
+  //   images: ['/og-image.png'],
+  //   creator: '@mytwitterhandle'
+  // },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
+  // icons: {
+  //   icon: '/favicon.ico',
+  //   apple: '/apple-touch-icon.png',
+  // },
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+  themeColor: "#000000",
   verification: {
     google: 'gMYC1Q1nQW9hg2eHsWm58lKeXF0NqrasHEsGQbaIynA',
   },
@@ -36,13 +80,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
-      <body className={`${inter.className} flex flex-col min-h-screen`}>
-        <Navbar />
-        <main className="flex-grow">
+    <html lang="id" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        {/* performance hints */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      </head>
+      <body className="flex flex-col min-h-screen">
+        {/* skip to main content - accessibility */}
+        <a href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 bg-neon-yellow text-punk-black font-brutal"
+        >
+          skip to main content
+        </a>
+
+        {/* main navigation */}
+        <PunkNavbar />
+
+        {/* main content */}
+        <main id="main-content" className="flex-grow pt-16">
           {children}
         </main>
+
+        {/* footer */}
         <Footer />
+
+        {/* client-side only components */}
+        <ClientProviders />
+
+        {/* vercel analytics */}
         <SpeedInsights />
         <Analytics />
       </body>

@@ -1,123 +1,117 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import GlitchText from './GlitchText'
+import { cn } from '@/lib/utils'
 
-export default function Navbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+export default function PunkNavbar() {
+    const [isOpen, setIsOpen] = useState(false)
+    const pathname = usePathname()
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen)
+        setIsOpen(!isOpen)
     }
 
     const closeMenu = () => {
-        setIsMenuOpen(false)
+        setIsOpen(false)
     }
 
+    // Navigation links
+    const navLinks = [
+        { href: '/', label: 'HOME' },
+        { href: '/about', label: 'ABOUT' },
+        { href: '/projects', label: 'PROJECTS' },
+        { href: '/blog', label: 'BLOG' },
+        { href: '/contact', label: 'CONTACT' },
+    ]
+
     return (
-        <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
+        <>
+            {/* Top Bar - Always Visible */}
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-punk-black border-b-brutal border-punk-white">
+                <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+
                     {/* Logo */}
-                    <div className="flex-shrink-0">
-                        <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white">
-                            KING JAGAD
-                        </Link>
-                    </div>
+                    <Link
+                        href="/"
+                        className="font-brutal text-brutal-lg md:text-brutal-xl text-punk-white hover:text-neon-yellow transition-colors duration-0"
+                    >
+                        [JJ]
+                    </Link>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex space-x-8">
-                        <Link
-                            href="/"
-                            className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium"
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            href="/about"
-                            className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium"
-                        >
-                            About
-                        </Link>
-                        <Link
-                            href="/projects"
-                            className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium"
-                        >
-                            Projects
-                        </Link>
-                        <Link
-                            href="/contact"
-                            className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium"
-                        >
-                            Contact
-                        </Link>
-                    </div>
+                    {/* Hamburger Button */}
+                    <button
+                        onClick={toggleMenu}
+                        className="font-mono text-brutal-base text-punk-white hover:text-neon-yellow border-brutal border-punk-white px-4 py-2 hover:border-neon-yellow transition-colors duration-0"
+                        aria-label="Toggle menu"
+                    >
+                        {isOpen ? '[CLOSE]' : '[MENU]'}
+                    </button>
 
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden">
-                        <button
-                            onClick={toggleMenu}
-                            className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none p-2"
-                            aria-label="Toggle menu"
-                            aria-expanded={isMenuOpen}
-                        >
-                            <svg
-                                className="h-6 w-6 transition-transform duration-300"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                style={{ transform: isMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}
-                            >
-                                {isMenuOpen ? (
-                                    <path d="M6 18L18 6M6 6l12 12" />
-                                ) : (
-                                    <path d="M4 6h16M4 12h16M4 18h16" />
-                                )}
-                            </svg>
-                        </button>
-                    </div>
                 </div>
+            </nav>
 
-                {/* Mobile Menu with smooth slide animation */}
-                <div
-                    className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-                        }`}
-                >
-                    <div className="pb-4 pt-2 space-y-1">
-                        <Link
-                            href="/"
-                            className="block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium"
-                            onClick={closeMenu}
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            href="/about"
-                            className="block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium"
-                            onClick={closeMenu}
-                        >
-                            About
-                        </Link>
-                        <Link
-                            href="/projects"
-                            className="block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium"
-                            onClick={closeMenu}
-                        >
-                            Projects
-                        </Link>
-                        <Link
-                            href="/contact"
-                            className="block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium"
-                            onClick={closeMenu}
-                        >
-                            Contact
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </nav>
+            {/* Full-Screen Menu Overlay */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0 }}
+                        className="fixed inset-0 z-40 bg-punk-black"
+                    >
+
+                        {/* Menu Content */}
+                        <div className="relative z-50 min-h-[calc(100vh-4rem)] mt-16 flex items-center justify-center">
+                            <nav className="w-full max-w-4xl px-4">
+
+                                {/* Navigation Links */}
+                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-20 text-center mb-16">
+                                    {navLinks.map((link, index) => {
+                                        const isActive = pathname === link.href
+                                        const isLastOdd = navLinks.length % 2 !== 0 && index === navLinks.length - 1
+
+                                        return (
+                                            <motion.li
+                                                key={link.href}
+                                                className={cn(
+                                                    isLastOdd && 'md:col-span-2 md:flex md:justify-center'
+                                                )}
+                                                initial={{ opacity: 0, x: -50 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: index * 0.05, duration: 0 }}
+                                            >
+                                                <Link
+                                                    href={link.href}
+                                                    onClick={closeMenu}
+                                                    className={`
+                            font-brutal text-brutal-5xl md:text-brutal-6xl block
+                            hover:text-neon-yellow transition-colors duration-0
+                            ${isActive ? 'text-neon-yellow' : 'text-punk-white'}
+                          `}
+                                                >
+                                                    {isActive ? (
+                                                        <GlitchText intensity="medium">
+                                                            {link.label}
+                                                        </GlitchText>
+                                                    ) : (
+                                                        link.label
+                                                    )}
+                                                </Link>
+                                            </motion.li>
+                                        )
+                                    })}
+                                </ul>
+                            </nav>
+                        </div >
+                    </motion.div >
+                )
+                }
+            </AnimatePresence >
+        </>
     )
 }

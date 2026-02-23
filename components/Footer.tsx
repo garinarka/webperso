@@ -1,84 +1,142 @@
 import Link from 'next/link'
+import GlitchText from './GlitchText'
+import VisitCounter from './VisitCounter'
 
 export default function Footer() {
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className="bg-gray-900 dark:bg-black text-white mt-auto">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* About Section */}
+        <footer className="bg-punk-gray-100 border-t-brutal border-punk-white text-punk-white mt-auto">
+            <div className="max-w-7xl mx-auto px-4 py-12">
+
+                {/* Main Footer Content */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+
+                    {/* About */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4">KING JAGAD</h3>
-                        <p className="text-gray-400 dark:text-gray-500">
-                            Personal website untuk showcase projects dan berbagi pengalaman dalam web development.
+                        <h3 className="text-brutal-xl font-brutal mb-4 text-neon-yellow">
+                            [JxGxDDHxTx]
+                        </h3>
+                        <p className="font-mono text-brutal-sm text-punk-white/70">
+                            student • developer(?) • punk!!!!!
+                        </p>
+                        <p className="font-mono text-brutal-xs text-punk-white/50 mt-2">
+                            breaking conventions.<br />
+                            building experiences.<br />
+                            no corporate BS.
                         </p>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4">Quick Links</h3>
-                        <ul className="space-y-2">
+                        <h3 className="text-brutal-xl font-brutal mb-4 text-neon-green">
+                            NAVIGATE
+                        </h3>
+                        <ul className="space-y-2 font-mono text-brutal-sm">
                             <li>
-                                <Link href="/" className="text-gray-400 dark:text-gray-500 hover:text-white">
-                                    Home
+                                <Link href="/" className="text-punk-white/70 hover:text-neon-yellow transition-colors duration-0">
+                                    &gt; Home
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/about" className="text-gray-400 dark:text-gray-500 hover:text-white">
-                                    About
+                                <Link href="/about" className="text-punk-white/70 hover:text-neon-yellow transition-colors duration-0">
+                                    &gt; About
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/projects" className="text-gray-400 dark:text-gray-500 hover:text-white">
-                                    Projects
+                                <Link href="/projects" className="text-punk-white/70 hover:text-neon-yellow transition-colors duration-0">
+                                    &gt; Projects
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contact" className="text-gray-400 dark:text-gray-500 hover:text-white">
-                                    Contact
+                                <Link href="/blog" className="text-punk-white/70 hover:text-neon-yellow transition-colors duration-0">
+                                    &gt; Blog
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/contact" className="text-punk-white/70 hover:text-neon-yellow transition-colors duration-0">
+                                    &gt; Contact
                                 </Link>
                             </li>
                         </ul>
                     </div>
 
-                    {/* Social Links */}
+                    {/* Connect */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4">Connect</h3>
-                        <div className="flex space-x-4">
-                            <a
-                                href="https://github.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 dark:text-gray-500 hover:text-white"
-                            >
-                                <span className="text-2xl">💻</span>
-                            </a>
-                            <a
-                                href="https://linkedin.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 dark:text-gray-500 hover:text-white"
-                            >
-                                <span className="text-2xl">💼</span>
-                            </a>
-                            <a
-                                href="https://twitter.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 dark:text-gray-500 hover:text-white"
-                            >
-                                <span className="text-2xl">🐦</span>
-                            </a>
-                        </div>
+                        <h3 className="text-brutal-xl font-brutal mb-4 text-neon-pink">
+                            CONNECT
+                        </h3>
+                        <ul className="space-y-3">
+                            <li>
+                                <Link href="https://github.com/garinarka" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-green transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>💻</span>
+                                    <span>GitHub</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="https://linkedin.com/jalugar" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-yellow transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>💼</span>
+                                    <span>LinkedIn</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="https://twitter.com/jjgarinarka" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-pink transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>🐦</span>
+                                    <span>Twitter</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="mailto:jagaddhitajalu@gmail.com" target="_blank" rel="noopener noreferrer" className="gap-2 text-punk-white/70 hover:text-neon-cyan transition-colors duration-0 font-mono text-brutal-sm">
+                                    <span>📧</span>
+                                    <span>Email</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                {/* Bottom Bar */}
+                <div className="border-t border-punk-white/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-center font-mono text-brutal-xs text-punk-white/50">
+                        &copy; {currentYear} <a
+                            href="https://github.com/garinarka"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-neon-green transition-colors duration-0"
+                        >
+                            garinarka</a>.
+                        built with Next.js & raw energy
+                    </p>
+                    <div className="flex gap-4 font-mono text-brutal-xs text-punk-white/50">
+                        <GlitchText
+                            as="span"
+                            intensity="high"
+                        >
+                            PUNK
+                        </GlitchText>
+                        <span>•</span>
+                        <GlitchText
+                            as="span"
+                            intensity="medium"
+                        >
+                            BRUTAL
+                        </GlitchText>
+                        <span>•</span>
+                        <GlitchText
+                            as="span"
+                            intensity="low"
+                        >
+                            DIGITAL
+                        </GlitchText>
                     </div>
                 </div>
 
-                {/* Copyright */}
-                <div className="border-t border-gray-800 dark:border-gray-900 mt-8 pt-8 text-center text-gray-400 dark:text-gray-500">
-                    <p>&copy; {currentYear} JGDT. All rights reserved.</p>
-                    <p className="text-sm mt-2">jgarinarka.vercel.app</p>
+                {/* visit counter */}
+                <div className="text-center mt-4">
+                    <VisitCounter />
                 </div>
+
             </div>
         </footer>
     )
