@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 import GlitchText from '@/components/GlitchText'
+import NeonButton from '@/components/NeonButton'
 
 export default function Error({
     error,
@@ -47,18 +48,12 @@ export default function Error({
 
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button
-                        onClick={reset}
-                        className="px-6 py-3 bg-neon-yellow text-punk-black font-brutal text-brutal-base border-brutal border-punk-black hover:bg-punk-black hover:text-neon-yellow hover:border-neon-yellow"
-                    >
+                    <NeonButton onClick={reset} variant="yellow" size="lg" className="w-full sm:w-auto">
                         TRY AGAIN
-                    </button>
-                    <Link
-                        href="/"
-                        className="px-6 py-3 bg-punk-black text-punk-white font-brutal text-brutal-base border-brutal border-punk-white hover:bg-punk-white hover:text-punk-black"
-                    >
-                        GO HOME
-                    </Link>
+                    </NeonButton>
+                    <NeonButton href="/" variant="white" size="lg" className="w-full sm:w-auto">
+                        GET IN TOUCH
+                    </NeonButton>
                 </div>
 
                 {/* Support Link */}

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import ClientProviders from "@/components/ClientProviders";
+import type { Viewport } from "next";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -18,6 +19,10 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  themeColor: 'black',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://jgarinarka.vercel.app'),
@@ -67,8 +72,6 @@ export const metadata: Metadata = {
   //   icon: '/favicon.ico',
   //   apple: '/apple-touch-icon.png',
   // },
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
-  themeColor: "#000000",
   verification: {
     google: 'gMYC1Q1nQW9hg2eHsWm58lKeXF0NqrasHEsGQbaIynA',
   },
