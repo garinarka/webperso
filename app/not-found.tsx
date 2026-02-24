@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import GlitchText from '@/components/GlitchText'
+import NeonButton from '@/components/NeonButton'
 
 export default function NotFound() {
     return (
@@ -21,8 +22,8 @@ export default function NotFound() {
                 </h2>
 
                 <p className="font-mono text-brutal-lg text-punk-white/70 mb-8 max-w-lg mx-auto">
-                    This page doesn't exist. Maybe it never did. Maybe it's from an alternate dimension.
-                    Either way, you're lost.
+                    this page doesn't exist. maybe it never did. maybe it's from an alternate dimension.
+                    either way, you're lost
                 </p>
 
                 {/* ASCII Art */}
@@ -34,23 +35,17 @@ export default function NotFound() {
 
                 {/* Actions */}
                 <div className="flex flex-wrap gap-4 justify-center">
-                    <Link
-                        href="/"
-                        className="px-6 py-3 bg-neon-yellow text-punk-black font-brutal text-brutal-base border-brutal border-punk-black hover:bg-punk-black hover:text-neon-yellow hover:border-neon-yellow transition-colors duration-0"
-                    >
+                    <NeonButton href="/" variant="yellow" size="lg" className="w-full sm:w-auto">
                         GO HOME
-                    </Link>
-                    <Link
-                        href="/projects"
-                        className="px-6 py-3 bg-punk-black text-punk-white font-brutal text-brutal-base border-brutal border-punk-white hover:bg-punk-white hover:text-punk-black transition-colors duration-0"
-                    >
+                    </NeonButton>
+                    <NeonButton href="/" variant="white" size="lg" className="w-full sm:w-auto">
                         VIEW PROJECTS
-                    </Link>
+                    </NeonButton>
                 </div>
 
                 {/* Fun fact */}
                 <p className="font-mono text-brutal-xs text-punk-white/50 my-12">
-                    Fun fact: This 404 page has glitch effects. Try selecting the text.
+                    fun fact: this 404 page has glitch effects. try selecting the text
                 </p>
             </div>
         </div>
