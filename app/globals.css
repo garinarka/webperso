@@ -74,6 +74,11 @@
   --foreground: #ffffff;
 }
 
+/* Smooth scrolling for TOC anchor navigation */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -703,4 +708,25 @@ a:not(.no-underline):not(button):not([class*="Neon"]):hover::after {
     animation-duration: 1s;
     animation-iteration-count: 3;
   }
+}
+
+/* ── Comment form textarea ─────────────────────────────────── */
+/* Prevent default blue outline, use neon-yellow on focus (handled inline) */
+textarea:focus,
+input[type="text"]:focus {
+  outline: none;
+}
+
+/* ── Scrollbar styling for TOC ─────────────────────────────── */
+.toc-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.toc-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.toc-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+.toc-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 0, 0.5);
 }

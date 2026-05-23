@@ -1,6 +1,7 @@
-import { groq } from 'next-sanity'
+import { groq } from "next-sanity";
 
-// Blog Post Queries
+// ─── Blog Post Queries ────────────────────────────────────────────────────────
+
 export const postsQuery = groq`
   *[_type == "post"] | order(publishedAt desc) {
     _id,
@@ -15,7 +16,7 @@ export const postsQuery = groq`
     "imageUrl": mainImage.asset->url,
     "imageAlt": mainImage.alt
   }
-`
+`;
 
 export const publishedPostsQuery = groq`
   *[_type == "post" && published == true] | order(publishedAt desc) {
@@ -30,7 +31,7 @@ export const publishedPostsQuery = groq`
     "imageUrl": mainImage.asset->url,
     "imageAlt": mainImage.alt
   }
-`
+`;
 
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
@@ -44,10 +45,12 @@ export const postBySlugQuery = groq`
     featured,
     published,
     body,
+    commentsEnabled,
+    pinnedCommentId,
     "imageUrl": mainImage.asset->url,
     "imageAlt": mainImage.alt
   }
-`
+`;
 
 export const featuredPostQuery = groq`
   *[_type == "post" && featured == true && published == true][0] {
@@ -61,7 +64,7 @@ export const featuredPostQuery = groq`
     "imageUrl": mainImage.asset->url,
     "imageAlt": mainImage.alt
   }
-`
+`;
 
 export const previousPostQuery = groq`
   *[_type == "post" && published == true && publishedAt < $publishedAt] | order(publishedAt desc)[0] {
@@ -70,7 +73,7 @@ export const previousPostQuery = groq`
     slug,
     category
   }
-`
+`;
 
 export const nextPostQuery = groq`
   *[_type == "post" && published == true && publishedAt > $publishedAt] | order(publishedAt asc)[0] {
@@ -79,9 +82,18 @@ export const nextPostQuery = groq`
     slug,
     category
   }
-`
+`;
 
-// Project Queries - same as before
+// Used by sitemap.ts
+export const allPostSlugsQuery = groq`
+  *[_type == "post" && published == true] {
+    "slug": slug.current,
+    publishedAt
+  }
+`;
+
+// ─── Project Queries (unchanged) ─────────────────────────────────────────────
+
 export const projectsQuery = groq`
   *[_type == "project"] | order(order asc, year desc) {
     _id,
@@ -100,7 +112,7 @@ export const projectsQuery = groq`
     "imageUrl": mainImage.asset->url,
     "imageAlt": mainImage.alt
   }
-`
+`;
 
 export const projectBySlugQuery = groq`
   *[_type == "project" && slug.current == $slug][0] {
@@ -123,7 +135,7 @@ export const projectBySlugQuery = groq`
       alt
     }
   }
-`
+`;
 
 export const featuredProjectsQuery = groq`
   *[_type == "project" && featured == true] | order(order asc, year desc) {
@@ -140,4 +152,4 @@ export const featuredProjectsQuery = groq`
     "imageUrl": mainImage.asset->url,
     "imageAlt": mainImage.alt
   }
-`
+`;

@@ -10,37 +10,47 @@ import type { Viewport } from "next";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: '--font-space-grotesk',
-  display: 'swap',
+  variable: "--font-space-grotesk",
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: '--font-jetbrains-mono',
-  display: 'swap',
+  variable: "--font-jetbrains-mono",
+  display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: 'black',
-}
+  themeColor: "black",
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://jgarinarka.vercel.app'),
+  metadataBase: new URL("https://jgarinarka.vercel.app"),
   title: {
-    default: 'JAGADDHITA | wannabe developer',
-    template: '%s | JAGADDHITA'
+    default: "JAGADDHITA | wannabe developer",
+    template: "%s | JAGADDHITA",
   },
-  description: 'full-stack developer wannabe. breaking conventions, building experiences. no templates, no corporate BS',
-  keywords: ['web developer', 'full-stack', 'next.js', 'react', 'typescript', 'portfolio', 'brutalist design'],
-  authors: [{ name: 'jagaddhita' }],
-  creator: 'jagaddhita',
+  description:
+    "full-stack developer wannabe. breaking conventions, building experiences. no templates, no corporate BS",
+  keywords: [
+    "web developer",
+    "full-stack",
+    "next.js",
+    "react",
+    "typescript",
+    "portfolio",
+    "brutalist design",
+  ],
+  authors: [{ name: "jagaddhita" }],
+  creator: "jagaddhita",
   openGraph: {
-    type: 'website',
-    locale: 'id_ID',
-    url: 'https://jgarinarka.vercel.app',
-    title: 'JAGADDHITA | wannabe developer',
-    description: 'full-stack developer wannabe. breaking conventions, building experiences. no templates, no corporate BS',
-    siteName: 'JAGADDHITA PORTFOLIO',
+    type: "website",
+    locale: "id_ID",
+    url: "https://jgarinarka.vercel.app",
+    title: "JAGADDHITA | wannabe developer",
+    description:
+      "full-stack developer wannabe. breaking conventions, building experiences. no templates, no corporate BS",
+    siteName: "JAGADDHITA PORTFOLIO",
     // images: [
     //   {
     //     url: '/og-image.png',
@@ -63,9 +73,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   // icons: {
@@ -73,7 +83,7 @@ export const metadata: Metadata = {
   //   apple: '/apple-touch-icon.png',
   // },
   verification: {
-    google: 'gMYC1Q1nQW9hg2eHsWm58lKeXF0NqrasHEsGQbaIynA',
+    google: "gMYC1Q1nQW9hg2eHsWm58lKeXF0NqrasHEsGQbaIynA",
   },
 };
 
@@ -83,15 +93,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="id"
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
         {/* performance hints */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+        {/* RSS Feed */}
+        <link rel="alternate" type="application/rss+xml" href="/api/rss" />
       </head>
       <body className="flex flex-col min-h-screen">
         {/* skip to main content - accessibility */}
-        <a href="#main-content"
+        <a
+          href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 bg-neon-yellow text-punk-black font-brutal"
         >
           skip to main content
