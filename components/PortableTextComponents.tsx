@@ -2,7 +2,6 @@ import type {
   PortableTextComponents,
   PortableTextComponentProps,
   PortableTextMarkComponentProps,
-  PortableTextListItemComponentProps,
 } from "@portabletext/react";
 import { createImageUrlBuilder } from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
