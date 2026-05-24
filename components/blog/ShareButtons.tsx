@@ -1,153 +1,230 @@
-'use client'
+"use client";
 
-/**
- * components/blog/ShareButtons.tsx
- *
- * Replaces the broken share section in the original blog detail page.
- * The original used `window.location.href` in a server component — crashes.
- * This is a client component that builds URLs correctly.
- *
- * Features:
- * - WhatsApp, Twitter/X, Facebook, Telegram, LinkedIn
- * - Copy link button with feedback
- * - Native Web Share API if supported (mobile)
- */
-
-import { useState } from 'react'
-import { Share2, Copy, Check } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { useState, CSSProperties } from "react";
+import { motion } from "framer-motion";
+import { Share2, Copy, Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ShareButtonsProps {
-  title: string
-  excerpt: string
-  slug: string
+  title: string;
+  excerpt: string;
+  slug: string;
+  variant?: "yellow" | "green" | "pink" | "red" | "white";
 }
 
-export default function ShareButtons({ title, excerpt, slug }: ShareButtonsProps) {
-  const [copied, setCopied] = useState(false)
-  const [nativeShared, setNativeShared] = useState(false)
+export default function ShareButtons({
+  title,
+  excerpt,
+  slug,
+  variant = "white",
+}: ShareButtonsProps) {
+  const [copied, setCopied] = useState(false);
+  const [nativeShared, setNativeShared] = useState(false);
 
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://jgarinarka.vercel.app'}/blog/${slug}`
-  const encodedUrl = encodeURIComponent(url)
-  const encodedTitle = encodeURIComponent(title)
-  const encodedText = encodeURIComponent(`${title} — ${excerpt.slice(0, 100)}`)
+  const url = `${
+    process.env.NEXT_PUBLIC_SITE_URL || "https://jgarinarka.vercel.app"
+  }/blog/${slug}`;
 
-  const shareLinks = [
+  const encodedUrl = encodeURIComponent(url);
+  const encodedTitle = encodeURIComponent(title);
+  const encodedText = encodeURIComponent(`${title} — ${excerpt.slice(0, 100)}`);
+
+  const sizeStyles: CSSProperties = {
+    padding: "0.75rem 1.5rem",
+    fontSize: "1rem",
+  };
+
+  const hoverVariants = {
+    hover: {
+      scale: 1.02,
+      transition: { duration: 0 },
+    },
+    tap: {
+      scale: 0.98,
+      transition: { duration: 0 },
+    },
+  };
+
+  // Variant classes
+  const variantClasses = {
+    yellow:
+      "bg-punk-black text-neon-yellow border-neon-yellow hover:bg-neon-yellow hover:text-punk-black hover:shadow-neon-yellow",
+    green:
+      "bg-punk-black text-neon-green border-neon-green hover:bg-neon-green hover:text-punk-black hover:shadow-neon-green",
+    pink: "bg-punk-black text-neon-pink border-neon-pink hover:bg-neon-pink hover:text-punk-black hover:shadow-neon-pink",
+    red: "bg-punk-black text-neon-red border-neon-red hover:bg-neon-red hover:text-punk-black hover:shadow-neon-red",
+    white:
+      "bg-punk-black text-punk-white border-punk-white hover:bg-punk-white hover:text-punk-black hover:shadow-neon-white",
+  };
+
+  const baseButtonClasses = cn(
+    "border-brutal font-brutal text-punk uppercase tracking-wider",
+    "cursor-pointer select-none inline-flex items-center gap-2",
+    "active:translate-x-[2px] active:translate-y-[2px]",
+    "transition-colors duration-0",
+  );
+
+  const shareLinks: {
+    label: string;
+    href: string;
+    variant: keyof typeof variantClasses;
+  }[] = [
     {
-      label: 'TWITTER/X',
+      label: "TWITTER/X",
       href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
-      variant: 'pink' as const,
+      variant: "pink",
     },
     {
-      label: 'WHATSAPP',
+      label: "WHATSAPP",
       href: `https://wa.me/?text=${encodedText}%20${encodedUrl}`,
-      variant: 'green' as const,
+      variant: "green",
     },
     {
-      label: 'TELEGRAM',
+      label: "TELEGRAM",
       href: `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`,
-      variant: 'yellow' as const,
+      variant: "yellow",
     },
     {
-      label: 'LINKEDIN',
+      label: "LINKEDIN",
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-      variant: 'white' as const,
+      variant: "white",
     },
     {
-      label: 'FACEBOOK',
+      label: "FACEBOOK",
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-      variant: 'white' as const,
+      variant: "white",
     },
-  ]
+  ];
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(url)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(url);
+
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
     } catch {
-      // Fallback for older browsers
-      const input = document.createElement('input')
-      input.value = url
-      document.body.appendChild(input)
-      input.select()
-      document.execCommand('copy')
-      document.body.removeChild(input)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      // fallback browser tua yang masih hidup entah kenapa
+      const input = document.createElement("input");
+
+      input.value = url;
+
+      document.body.appendChild(input);
+
+      input.select();
+
+      document.execCommand("copy");
+
+      document.body.removeChild(input);
+
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
     }
   }
 
   async function handleNativeShare() {
-    if (!navigator.share) return
+    if (!navigator.share) return;
+
     try {
-      await navigator.share({ title, text: excerpt, url })
-      setNativeShared(true)
-      setTimeout(() => setNativeShared(false), 2000)
+      await navigator.share({
+        title,
+        text: excerpt,
+        url,
+      });
+
+      setNativeShared(true);
+
+      setTimeout(() => {
+        setNativeShared(false);
+      }, 2000);
     } catch {
-      // User cancelled or not supported — do nothing
+      // user cancel share
     }
   }
 
-  const hasNativeShare = typeof navigator !== 'undefined' && Boolean(navigator.share)
+  const hasNativeShare =
+    typeof navigator !== "undefined" && Boolean(navigator.share);
 
   return (
-    <div className="mb-8 p-6 border-brutal border-neon-green">
-      <p className="font-brutal text-brutal-xl text-neon-green mb-4">
+    <div
+      className={cn(
+        "mb-8 p-6 border-brutal",
+        variant === "yellow" && "border-neon-yellow",
+        variant === "green" && "border-neon-green",
+        variant === "pink" && "border-neon-pink",
+        variant === "red" && "border-neon-red",
+        variant === "white" && "border-punk-white",
+      )}
+    >
+      <p
+        className={cn(
+          "font-brutal text-brutal-xl mb-4 uppercase tracking-wider",
+          variant === "yellow" && "text-neon-yellow",
+          variant === "green" && "text-neon-green",
+          variant === "pink" && "text-neon-pink",
+          variant === "red" && "text-neon-red",
+          variant === "white" && "text-punk-white",
+        )}
+      >
         SHARE THIS POST
       </p>
 
       <div className="flex flex-wrap gap-3">
-        {/* Native share (mobile) */}
+        {/* Native Share */}
         {hasNativeShare && (
-          <button
+          <motion.button
             onClick={handleNativeShare}
-            className={cn(
-              'border-brutal px-4 py-2 font-brutal text-brutal-sm',
-              'border-neon-cyan text-neon-cyan',
-              'hover:bg-neon-cyan hover:text-punk-black transition-colors duration-0',
-              'flex items-center gap-2'
-            )}
+            className={cn(baseButtonClasses, variantClasses[variant])}
+            style={sizeStyles}
+            variants={hoverVariants}
+            whileHover="hover"
+            whileTap="tap"
           >
             <Share2 size={16} />
-            {nativeShared ? 'SHARED!' : 'SHARE'}
-          </button>
+
+            {nativeShared ? "SHARED!" : "SHARE"}
+          </motion.button>
         )}
 
-        {shareLinks.map(link => (
-          <a
+        {/* Social Links */}
+        {shareLinks.map((link) => (
+          <motion.a
             key={link.label}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(
-              'border-brutal px-4 py-2 font-brutal text-brutal-sm inline-block',
-              'transition-colors duration-0',
-              link.variant === 'pink' && 'border-neon-pink text-neon-pink hover:bg-neon-pink hover:text-punk-black',
-              link.variant === 'green' && 'border-neon-green text-neon-green hover:bg-neon-green hover:text-punk-black',
-              link.variant === 'yellow' && 'border-neon-yellow text-neon-yellow hover:bg-neon-yellow hover:text-punk-black',
-              link.variant === 'white' && 'border-punk-white text-punk-white hover:bg-punk-white hover:text-punk-black',
-            )}
+            className={cn(baseButtonClasses, variantClasses[link.variant])}
+            style={sizeStyles}
+            variants={hoverVariants}
+            whileHover="hover"
+            whileTap="tap"
           >
             {link.label}
-          </a>
+          </motion.a>
         ))}
 
-        {/* Copy link */}
-        <button
+        {/* Copy Link */}
+        <motion.button
           onClick={handleCopy}
           className={cn(
-            'border-brutal px-4 py-2 font-brutal text-brutal-sm',
-            'flex items-center gap-2 transition-colors duration-0',
-            copied
-              ? 'border-neon-green text-neon-green bg-neon-green/10'
-              : 'border-punk-white/30 text-punk-white/50 hover:border-punk-white hover:text-punk-white'
+            baseButtonClasses,
+            copied ? variantClasses.green : variantClasses[variant],
           )}
+          style={sizeStyles}
+          variants={hoverVariants}
+          whileHover="hover"
+          whileTap="tap"
         >
           {copied ? <Check size={14} /> : <Copy size={14} />}
-          {copied ? 'COPIED!' : 'COPY LINK'}
-        </button>
+
+          {copied ? "COPIED!" : "COPY LINK"}
+        </motion.button>
       </div>
     </div>
-  )
+  );
 }

@@ -270,7 +270,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </div>
                     <div>
                       <p className="font-brutal text-brutal-base text-punk-white">
-                        jagaddhita
+                        <a
+                          href="https://jgarinarka.vercel.app"
+                          target="_self"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-neon-yellow transition-colors duration-0"
+                        >
+                          jagaddhita
+                        </a>
                       </p>
                       <p className="font-mono text-brutal-xs text-punk-white/70">
                         student • developer(?) • punk!!!!!
