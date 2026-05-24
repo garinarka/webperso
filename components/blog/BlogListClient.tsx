@@ -31,7 +31,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
 
   const featuredPost = posts.find(p => p.featured)
 
-  const filteredPosts = useMemo(() => {
+  const filteredPosts = useMemo<SanityPost[]>(() => {
     let result = posts
 
     if (activeFilter !== 'all') {
@@ -57,7 +57,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
       {featuredPost && activeFilter === 'all' && !searchQuery && (
         <div className="mb-10">
           <p className="font-mono text-brutal-xs text-neon-yellow mb-3">★ FEATURED</p>
-          <BlogCard post={featuredPost} featured />
+          <BlogCard post={featuredPost} index={0} featured />
         </div>
       )}
 
@@ -98,8 +98,8 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredPosts.map(post => (
-            <BlogCard key={post._id} post={post} />
+          {filteredPosts.map((post, i) => (
+            <BlogCard key={post._id} post={post} index={i} />
           ))}
         </div>
       )}

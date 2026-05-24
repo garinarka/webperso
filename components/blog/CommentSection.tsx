@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react'
+
 /**
  * components/blog/CommentSection.tsx
  *
@@ -200,7 +202,7 @@ function CommentItem({
           <textarea
             ref={textareaRef}
             value={editText}
-            onChange={e => setEditText(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setEditText(e.target.value)}
             className="w-full bg-punk-black border-brutal border-punk-white/30 p-3 font-mono text-brutal-sm text-punk-white resize-none focus:border-neon-yellow outline-none"
             rows={3}
             maxLength={2000}
@@ -260,7 +262,7 @@ function CommentItem({
                 {comment.replies.map(reply => (
                   <CommentItem
                     key={reply.id}
-                    comment={{ ...reply, replies: [] }}
+                    comment={{ ...reply, replies: [] } as CommentThread}
                     postId={postId}
                     clientFp={clientFp}
                     onReply={onReply}
@@ -362,7 +364,7 @@ function CommentForm({
         type="text"
         placeholder="Your name (optional)"
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
         maxLength={60}
         className="w-full bg-punk-black border-brutal border-punk-white/20 px-3 py-2 font-mono text-brutal-sm text-punk-white placeholder:text-punk-white/30 focus:border-neon-yellow outline-none mb-3"
       />
@@ -370,7 +372,7 @@ function CommentForm({
       <textarea
         placeholder={replyTo ? `Reply to ${replyTo.name}...` : 'Write a comment...'}
         value={text}
-        onChange={e => setText(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
         rows={4}
         maxLength={2000}
         className="w-full bg-punk-black border-brutal border-punk-white/20 px-3 py-2 font-mono text-brutal-sm text-punk-white placeholder:text-punk-white/30 focus:border-neon-yellow outline-none resize-none mb-3"
@@ -406,7 +408,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
   const [comments, setComments] = useState<Comment[]>([])
   const [loading, setLoading] = useState(true)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
-  const [clientFp] = useState(() => getClientFingerprint())
+  const [clientFp] = useState<string>(() => getClientFingerprint())
 
   const fetchComments = useCallback(async () => {
     try {
@@ -425,7 +427,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
   }, [fetchComments])
 
   function handleNewComment(comment: Comment) {
-    setComments(prev => [comment, ...prev])
+    setComments((prev: Comment[]) => [comment, ...prev])
     setReplyTo(null)
   }
 
@@ -433,15 +435,15 @@ export default function CommentSection({ postId }: CommentSectionProps) {
     fetch(`/api/blog/${postId}/comments/${id}`, { method: 'DELETE' })
       .then(res => {
         if (res.ok) {
-          setComments(prev => prev.filter(c => c.id !== id))
+          setComments((prev: Comment[]) => prev.filter((c: Comment) => c.id !== id))
         }
       })
       .catch(() => {})
   }
 
   function handleEdit(id: string, newText: string) {
-    setComments(prev =>
-      prev.map(c => c.id === id ? { ...c, text: newText, updatedAt: new Date().toISOString() } : c)
+    setComments((prev: Comment[]) =>
+      prev.map((c: Comment) => c.id === id ? { ...c, text: newText, updatedAt: new Date().toISOString() } : c)
     )
   }
 
@@ -503,7 +505,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
                 comment={thread}
                 postId={postId}
                 clientFp={clientFp}
-                onReply={(id, name) => setReplyTo({ id, name })}
+                onReply={(id: string, name: string) => setReplyTo({ id, name })}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
               />

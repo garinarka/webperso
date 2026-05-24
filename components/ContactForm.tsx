@@ -31,7 +31,7 @@ export default function ContactForm() {
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        setFormData(prev => ({
+        setFormData((prev: FormData) => ({
             ...prev,
             [e.target.name]: e.target.value
         }))

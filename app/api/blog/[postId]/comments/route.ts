@@ -51,7 +51,7 @@ export async function GET(_request: Request, { params }: RouteParams) {
       .filter(
         (c): c is StoredComment => c !== null && (c.approved || autoApprove),
       )
-      .sort((a, b) => {
+      .sort((a: StoredComment, b: StoredComment) => {
         if (a.pinned && !b.pinned) return -1;
         if (!a.pinned && b.pinned) return 1;
         return (
@@ -60,7 +60,7 @@ export async function GET(_request: Request, { params }: RouteParams) {
       });
 
     // Strip fingerprint from public response
-    const safe = visible.map(({ authorFingerprint: _f, ...rest }) => rest);
+    const safe = visible.map(({ authorFingerprint: _f, ...rest }: StoredComment) => rest);
 
     return NextResponse.json({
       comments: safe,

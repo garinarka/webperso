@@ -53,7 +53,7 @@ export default function RecentCommentsWidget({ limit = 5 }: RecentCommentsWidget
         </div>
       ) : (
         <ul className="space-y-3">
-          {comments.map(comment => (
+          {comments.map((comment: RecentComment) => (
             <li key={comment.id}>
               <Link
                 href={`/blog/${comment.postId}#comments`}

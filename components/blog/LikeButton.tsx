@@ -57,7 +57,7 @@ export default function LikeButton({ postId, className }: LikeButtonProps) {
     const wasLiked = liked
     const delta = wasLiked ? -1 : 1
     setLiked(!wasLiked)
-    setCount(c => c + delta)
+    setCount((c: number) => c + delta)
     setAnimating(true)
     setTimeout(() => setAnimating(false), 600)
 
@@ -74,7 +74,7 @@ export default function LikeButton({ postId, className }: LikeButtonProps) {
       if (!res.ok) {
         // Revert
         setLiked(wasLiked)
-        setCount(c => c - delta)
+        setCount((c: number) => c - delta)
         if (wasLiked) localStorage.setItem(storageKey, 'true')
         else localStorage.removeItem(storageKey)
       } else {
@@ -87,7 +87,7 @@ export default function LikeButton({ postId, className }: LikeButtonProps) {
     } catch {
       // Revert on network failure
       setLiked(wasLiked)
-      setCount(c => c - delta)
+      setCount((c: number) => c - delta)
     }
   }, [liked, loading, postId, storageKey])
 

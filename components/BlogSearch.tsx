@@ -32,7 +32,7 @@ export default function BlogSearch({
         ref={inputRef}
         type="search"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
         placeholder="search posts..."
         className="w-full bg-punk-black pl-10 pr-10 py-3 font-mono text-brutal-sm text-punk-white placeholder:text-punk-white/30 focus:outline-none"
         aria-label="Search blog posts"

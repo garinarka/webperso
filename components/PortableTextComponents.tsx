@@ -1,7 +1,13 @@
-import { PortableTextComponents } from "@portabletext/react";
+import type {
+  PortableTextComponents,
+  PortableTextComponentProps,
+  PortableTextMarkComponentProps,
+  PortableTextListItemComponentProps,
+} from "@portabletext/react";
 import { createImageUrlBuilder } from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
 import Image from "next/image";
+import type { PortableTextBlock } from "@portabletext/types";
 
 const builder = createImageUrlBuilder(client);
 
@@ -21,13 +27,13 @@ function slugify(text: string): string {
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
-    image: ({ value }) => {
+    image: ({ value }: { value: { asset?: { _ref?: string }; alt?: string } & Record<string, unknown> }) => {
       if (!value?.asset?._ref) return null;
       return (
         <div className="my-8">
           <Image
             src={urlFor(value).width(800).url()}
-            alt={value.alt || "Blog image"}
+            alt={(value.alt as string) || "Blog image"}
             width={800}
             height={450}
             className="border-brutal border-punk-white w-full"
@@ -42,7 +48,7 @@ export const portableTextComponents: PortableTextComponents = {
     },
 
     // Code block (Sanity blockContent often includes a code type)
-    code: ({ value }) => {
+    code: ({ value }: { value: { code?: string; language?: string; filename?: string } }) => {
       if (!value?.code) return null;
       return (
         <div className="my-6 overflow-x-auto">
@@ -73,7 +79,7 @@ export const portableTextComponents: PortableTextComponents = {
   },
 
   marks: {
-    link: ({ children, value }) => {
+    link: ({ children, value }: PortableTextMarkComponentProps) => {
       const rel = !value.href.startsWith("/")
         ? "noreferrer noopener"
         : undefined;
@@ -91,7 +97,7 @@ export const portableTextComponents: PortableTextComponents = {
     },
 
     // Inline code
-    code: ({ children }) => (
+    code: ({ children }: PortableTextMarkComponentProps) => (
       <code className="font-mono text-brutal-sm text-neon-green bg-punk-gray-200 px-2 py-0.5 border border-punk-white/10">
         {children}
       </code>
@@ -100,7 +106,7 @@ export const portableTextComponents: PortableTextComponents = {
 
   block: {
     // ── Headings with IDs for TOC ─────────────────────────────────────────────
-    h2: ({ children }) => {
+    h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => {
       const text = Array.isArray(children)
         ? children.map((c) => (typeof c === "string" ? c : "")).join("")
         : String(children || "");
@@ -115,7 +121,7 @@ export const portableTextComponents: PortableTextComponents = {
       );
     },
 
-    h3: ({ children }) => {
+    h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => {
       const text = Array.isArray(children)
         ? children.map((c) => (typeof c === "string" ? c : "")).join("")
         : String(children || "");
@@ -130,7 +136,7 @@ export const portableTextComponents: PortableTextComponents = {
       );
     },
 
-    h4: ({ children }) => {
+    h4: ({ children }: PortableTextComponentProps<PortableTextBlock>) => {
       const text = Array.isArray(children)
         ? children.map((c) => (typeof c === "string" ? c : "")).join("")
         : String(children || "");
@@ -145,19 +151,19 @@ export const portableTextComponents: PortableTextComponents = {
       );
     },
 
-    h1: ({ children }) => (
+    h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
       <h1 className="text-brutal-4xl font-brutal text-punk-white mb-6 mt-8">
         {children}
       </h1>
     ),
 
-    blockquote: ({ children }) => (
+    blockquote: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
       <blockquote className="border-l-brutal border-neon-yellow pl-6 py-2 my-6 italic text-punk-white/80">
         {children}
       </blockquote>
     ),
 
-    normal: ({ children }) => (
+    normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
       <p className="font-mono text-brutal-base text-punk-white/80 mb-4 leading-relaxed">
         {children}
       </p>
@@ -165,22 +171,22 @@ export const portableTextComponents: PortableTextComponents = {
   },
 
   list: {
-    bullet: ({ children }) => (
+    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
       <ul className="list-none ml-6 mb-6 space-y-2">{children}</ul>
     ),
-    number: ({ children }) => (
+    number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
       <ol className="list-none ml-6 mb-6 space-y-2">{children}</ol>
     ),
   },
 
   listItem: {
-    bullet: ({ children }) => (
+    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
       <li className="font-mono text-brutal-base text-punk-white/80 flex items-start">
         <span className="text-neon-yellow mr-3 shrink-0 mt-0.5">→</span>
         <span>{children}</span>
       </li>
     ),
-    number: ({ children, index }) => (
+    number: ({ children, index }: PortableTextListItemComponentProps) => (
       <li className="font-mono text-brutal-base text-punk-white/80 flex items-start">
         <span className="text-neon-green mr-3 shrink-0 w-5 text-right">
           {(index || 0) + 1}.

@@ -16,7 +16,6 @@
 import { useState } from 'react'
 import { Share2, Copy, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import NeonButton from '@/components/NeonButton'
 
 interface ShareButtonsProps {
   title: string
@@ -116,15 +115,22 @@ export default function ShareButtons({ title, excerpt, slug }: ShareButtonsProps
         )}
 
         {shareLinks.map(link => (
-          <NeonButton
+          <a
             key={link.label}
             href={link.href}
             target="_blank"
-            variant={link.variant}
-            size="sm"
+            rel="noopener noreferrer"
+            className={cn(
+              'border-brutal px-4 py-2 font-brutal text-brutal-sm inline-block',
+              'transition-colors duration-0',
+              link.variant === 'pink' && 'border-neon-pink text-neon-pink hover:bg-neon-pink hover:text-punk-black',
+              link.variant === 'green' && 'border-neon-green text-neon-green hover:bg-neon-green hover:text-punk-black',
+              link.variant === 'yellow' && 'border-neon-yellow text-neon-yellow hover:bg-neon-yellow hover:text-punk-black',
+              link.variant === 'white' && 'border-punk-white text-punk-white hover:bg-punk-white hover:text-punk-black',
+            )}
           >
             {link.label}
-          </NeonButton>
+          </a>
         ))}
 
         {/* Copy link */}

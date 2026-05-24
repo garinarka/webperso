@@ -57,7 +57,7 @@ export default function TrendingWidget({ limit = 5, title = 'TRENDING' }: Trendi
         </div>
       ) : (
         <ol className="space-y-3">
-          {posts.map((post, index) => (
+          {posts.map((post: TrendingPost, index: number) => (
             <li key={post._id}>
               <Link
                 href={`/blog/${post.slug.current}`}

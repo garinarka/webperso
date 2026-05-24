@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react'
+
 /**
  * components/blog/TableOfContents.tsx
  *
@@ -108,7 +110,7 @@ function TocList({ items, activeId }: { items: TocItem[]; activeId: string }) {
         >
           <a
             href={`#${item.id}`}
-            onClick={e => {
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
               e.preventDefault()
               document.getElementById(item.id)?.scrollIntoView({
                 behavior: 'smooth',
