@@ -25,7 +25,7 @@ export default function BlogSidebar({
      *   and sticky would position relative to the aside, not the page.
      */
     <aside
-      className="hidden lg:flex flex-col gap-4 sticky top-24 self-start"
+      className="hidden lg:block sticky top-24 space-y-4"
       aria-label="Article sidebar"
     >
       {toc.length >= 2 && <TableOfContents items={toc} mode="sidebar" />}

@@ -25,17 +25,6 @@ interface ShareButtonsProps {
 // ─── Static variant maps ──────────────────────────────────────────────────────
 // These are defined outside the component so they're never recreated per render.
 
-/** Border colour of the wrapper card + section heading */
-const VARIANT_BORDER: Record<ShareVariant, string> = {
-  yellow: "border-neon-yellow",
-  green: "border-neon-green",
-  pink: "border-neon-pink",
-  red: "border-neon-red",
-  white: "border-punk-white",
-  blue: "border-neon-blue",
-  cyan: "border-neon-cyan",
-};
-
 /** Heading text colour */
 const VARIANT_TEXT: Record<ShareVariant, string> = {
   yellow: "text-neon-yellow",
@@ -175,7 +164,7 @@ export default function ShareButtons({
     <div
       className={cn(
         "border-brutal",
-        VARIANT_BORDER[variant],
+        VARIANT_TEXT[variant], // sets currentColor → border-brutal uses it
         asAside ? "p-3" : "mb-8 p-6",
       )}
     >
