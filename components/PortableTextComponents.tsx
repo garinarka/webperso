@@ -199,7 +199,7 @@ export const portableTextComponents: PortableTextComponents = {
         <span>{children}</span>
       </li>
     ),
-    number: ({ children, index }: PortableTextListItemComponentProps) => (
+    number: ({ children, index }: PortableTextComponentProps<PortableTextBlock>) => (
       <li className="font-mono text-brutal-base text-punk-white/80 flex items-start">
         <span className="text-neon-green mr-3 shrink-0 w-5 text-right">
           {(index || 0) + 1}.
