@@ -16,6 +16,7 @@
   --color-neon-pink: #ff00ff;
   --color-neon-red: #ff0000;
   --color-neon-cyan: #00ffff;
+  --color-neon-blue: #0066ff;
 
   /* Typography */
   --font-sans: var(--font-space-grotesk), sans-serif;
@@ -48,6 +49,8 @@
   --shadow-neon-pink: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
   --shadow-neon-red: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
   --shadow-neon-white: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+  --shadow-neon-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  --shadow-neon-blue: 0 0 10px #0066ff, 0 0 20px #0066ff, 0 0 30px #0066ff;
 }
 
 /* Responsive Font Scaling */
@@ -711,6 +714,40 @@ a:not(.no-underline):not(button):not([class*="Neon"]):hover::after {
 }
 
 /* ── Comment form textarea ─────────────────────────────────── */
+
+/* ==================== NEON BLUE UTILITIES ==================== */
+.text-neon-blue {
+  color: var(--color-neon-blue);
+}
+.border-neon-blue {
+  border-color: var(--color-neon-blue);
+}
+.bg-neon-blue {
+  background-color: var(--color-neon-blue);
+}
+.hover\:bg-neon-blue:hover {
+  background-color: var(--color-neon-blue);
+}
+.hover\:text-neon-blue:hover {
+  color: var(--color-neon-blue);
+}
+.hover\:border-neon-blue:hover {
+  border-color: var(--color-neon-blue);
+}
+.hover\:shadow-neon-blue:hover {
+  box-shadow: var(--shadow-neon-blue);
+}
+
+/* ==================== NEON CYAN SHADOW UTILITY ==================== */
+.hover\:shadow-neon-cyan:hover {
+  box-shadow: var(--shadow-neon-cyan);
+}
+
+/* ==================== POPOVER ARROW ==================== */
+.border-t-neon-yellow {
+  border-top-color: var(--color-neon-yellow);
+}
+
 /* Prevent default blue outline, use neon-yellow on focus (handled inline) */
 textarea:focus,
 input[type="text"]:focus {

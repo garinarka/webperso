@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+
 import GlitchText from "@/components/GlitchText";
 import PageTransition from "@/components/PageTransition";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -15,17 +16,32 @@ import {
 } from "@/lib/sanity.queries";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import type { SanityPost } from "@/lib/sanity.types";
+
+// Blog-specific components
 import LikeButton from "@/components/blog/LikeButton";
 import ShareButtons from "@/components/blog/ShareButtons";
 import CommentSection from "@/components/blog/CommentSection";
 import RelatedPosts from "@/components/blog/RelatedPosts";
-import TableOfContents from "@/components/blog/TableOfContents";
-import { calculateReadingTime, extractToc } from "@/lib/reading-time";
+import BlogSidebar from "@/components/blog/BlogSidebar";
+import AuthorPopover from "@/components/blog/AuthorPopover";
 import ViewTracker from "@/components/blog/ViewTracker";
 import ReadingStats from "@/components/blog/ReadingStats";
 
+import { calculateReadingTime, extractToc } from "@/lib/reading-time";
+
+// ─── Constants ────────────────────────────────────────────────────────────────
+
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://jgarinarka.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://jgarinarka.vercel.app";
+
+const CATEGORY_COLORS: Record<string, string> = {
+  tutorial: "text-neon-green",
+  thoughts: "text-neon-yellow",
+  project: "text-neon-pink",
+  rant: "text-neon-red",
+};
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -38,7 +54,7 @@ interface AdjacentPost {
   category: "tutorial" | "thoughts" | "project" | "rant";
 }
 
-// ─── ISR: revalidate every 60 seconds ────────────────────────────────────────
+// ─── ISR ─────────────────────────────────────────────────────────────────────
 export const revalidate = 60;
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
@@ -47,17 +63,13 @@ export async function generateMetadata({
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await client.fetch<SanityPost>(postBySlugQuery, { slug });
-
   if (!post) return { title: "Post Not Found" };
 
   const url = `${SITE_URL}/blog/${slug}`;
-
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: {
-      canonical: url,
-    },
+    alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -78,17 +90,19 @@ export async function generateMetadata({
   };
 }
 
-// ─── Static Params ────────────────────────────────────────────────────────────
+// ─── Static params ────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
   const posts = await client.fetch<Pick<SanityPost, "slug">[]>(
     `*[_type == "post" && published == true]{ slug }`,
   );
-  return posts.map((p) => ({ slug: p.slug.current }));
+  return posts.map((p: Pick<SanityPost, "slug">) => ({ slug: p.slug.current }));
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
+
+  // All data-fetches in parallel
   const [post, allPosts] = await Promise.all([
     client.fetch<SanityPost>(postBySlugQuery, { slug }),
     client.fetch<SanityPost[]>(publishedPostsQuery),
@@ -105,12 +119,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }),
   ]);
 
-  const categoryColors: Record<string, string> = {
-    tutorial: "text-neon-green",
-    thoughts: "text-neon-yellow",
-    project: "text-neon-pink",
-    rant: "text-neon-red",
-  };
+  const readTime = post.body ? calculateReadingTime(post.body) : 3;
+  const toc = post.body ? extractToc(post.body) : [];
 
   const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
     year: "numeric",
@@ -118,13 +128,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     day: "numeric",
   });
 
-  // Accurate reading time from body
-  const readTime = post.body ? calculateReadingTime(post.body) : 3;
-
-  // Table of contents
-  const toc = post.body ? extractToc(post.body) : [];
-
-  // JSON-LD structured data
+  // JSON-LD — serialized once on the server, never re-rendered
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -143,14 +147,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       url: SITE_URL,
     },
     url: `${SITE_URL}/blog/${slug}`,
-    image: post.imageUrl || undefined,
+    image: post.imageUrl ?? undefined,
     keywords: post.tags?.join(", "),
     articleSection: post.category,
   };
 
   return (
     <PageTransition>
-      {/* JSON-LD */}
+      {/* Structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -160,9 +164,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <ScrollProgress />
 
       <div className="min-h-screen bg-punk-black text-punk-white relative overflow-x-hidden">
-        {/* Wide container for 2-col layout on desktop */}
         <div className="max-w-6xl mx-auto px-4 py-20 relative z-20">
-          {/* Back Button */}
+          {/* Back */}
           <div className="mb-8">
             <Link
               href="/blog"
@@ -172,18 +175,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </Link>
           </div>
 
-          {/* Two-column layout: article + TOC sidebar */}
-          <div className="lg:grid lg:grid-cols-[1fr_260px] lg:gap-12">
-            {/* ── Main article column ──────────────────────────────────── */}
+          {/*
+           * Three-column grid on desktop:
+           *   [article (1fr)]  [sidebar (260px)]
+           *
+           * On ≤ lg: sidebar is hidden, mobile Share rendered inside footer.
+           */}
+          <div className="lg:grid lg:grid-cols-[1fr_260px] lg:gap-12 lg:items-start">
+            {/* ── Main column ──────────────────────────────────────────── */}
             <div className="min-w-0">
-              {/* View tracker — fires once per session */}
+              {/* Invisible view tracker — fires once per session */}
               <ViewTracker postId={post._id} />
 
-              {/* Post Header */}
+              {/* ── Header ── */}
               <header className="mb-12">
                 <div className="flex flex-wrap items-center gap-4 mb-6">
                   <span
-                    className={`font-mono text-brutal-sm font-bold ${categoryColors[post.category] || "text-punk-white"}`}
+                    className={`font-mono text-brutal-sm font-bold ${CATEGORY_COLORS[post.category] ?? "text-punk-white"}`}
                   >
                     [{post.category.toUpperCase()}]
                   </span>
@@ -212,7 +220,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                 {post.tags && post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-6">
-                    {post.tags.map((tag) => (
+                    {post.tags.map((tag: string) => (
                       <span
                         key={tag}
                         className="px-3 py-1 bg-punk-black border border-punk-white/30 text-punk-white text-brutal-xs font-mono"
@@ -227,7 +235,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <div className="mt-8 overflow-hidden">
                     <Image
                       src={post.imageUrl}
-                      alt={post.imageAlt || post.title}
+                      alt={post.imageAlt ?? post.title}
                       width={800}
                       height={450}
                       className="w-full h-auto"
@@ -237,10 +245,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 )}
               </header>
 
-              {/* Mobile TOC (collapsible) */}
-              <TableOfContents items={toc} />
-
-              {/* Post Content */}
+              {/* ── Post body ── */}
               <article className="prose prose-invert max-w-none mb-16">
                 {post.body ? (
                   <div className="font-mono text-punk-white">
@@ -257,51 +262,53 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 )}
               </article>
 
-              {/* Post Footer */}
+              {/* ── Footer ── */}
               <footer>
                 <div className="border-t-brutal border-punk-white mb-8" />
 
-                {/* Like + Author row */}
+                {/* Author + Like */}
                 <div className="flex flex-wrap items-center gap-4 mb-8">
-                  {/* Author */}
                   <div className="flex items-center gap-4 p-4 border-brutal border-punk-white/30 flex-1 min-w-[200px]">
-                    <div className="w-14 h-14 border-brutal border-neon-yellow flex items-center justify-center text-brutal-2xl shrink-0">
+                    <div
+                      className="w-14 h-14 border-brutal border-neon-yellow flex items-center justify-center text-brutal-2xl shrink-0"
+                      aria-hidden="true"
+                    >
                       👤
                     </div>
                     <div>
-                      <p className="font-brutal text-brutal-base text-punk-white">
-                        <a
-                          href="https://jgarinarka.vercel.app"
-                          target="_self"
-                          rel="noopener noreferrer"
-                          className="underline hover:text-neon-yellow transition-colors duration-0"
-                        >
-                          jagaddhita
-                        </a>
-                      </p>
-                      <p className="font-mono text-brutal-xs text-punk-white/70">
+                      {/*
+                       * AuthorPopover wraps the name in a <button> that shows
+                       * a profile card on hover / focus.
+                       */}
+                      <AuthorPopover />
+                      <p className="font-mono text-brutal-xs text-punk-white/70 mt-0.5">
                         student • developer(?) • punk!!!!!
                       </p>
                     </div>
                   </div>
 
-                  {/* Like button */}
                   <div className="relative">
                     <LikeButton postId={post._id} />
                   </div>
                 </div>
 
-                {/* Share */}
-                <ShareButtons
-                  title={post.title}
-                  excerpt={post.excerpt}
-                  slug={post.slug.current}
-                />
+                {/*
+                 * Mobile-only Share section.
+                 * On desktop the sidebar handles this — hidden via lg:hidden.
+                 */}
+                <div className="lg:hidden">
+                  <ShareButtons
+                    title={post.title}
+                    excerpt={post.excerpt}
+                    slug={post.slug.current}
+                    variant="white"
+                  />
+                </div>
 
-                {/* Related Posts */}
+                {/* Related */}
                 <RelatedPosts currentPost={post} allPosts={allPosts} />
 
-                {/* Prev / Next Navigation */}
+                {/* Prev / Next */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-12">
                   {previousPost ? (
                     <Link
@@ -315,7 +322,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         {previousPost.title}
                       </p>
                       <p
-                        className={`font-mono text-brutal-xs mt-2 ${categoryColors[previousPost.category] || ""}`}
+                        className={`font-mono text-brutal-xs mt-2 ${CATEGORY_COLORS[previousPost.category] ?? ""}`}
                       >
                         [{previousPost.category.toUpperCase()}]
                       </p>
@@ -343,7 +350,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         {nextPost.title}
                       </p>
                       <p
-                        className={`font-mono text-brutal-xs mt-2 ${categoryColors[nextPost.category] || ""}`}
+                        className={`font-mono text-brutal-xs mt-2 ${CATEGORY_COLORS[nextPost.category] ?? ""}`}
                       >
                         [{nextPost.category.toUpperCase()}]
                       </p>
@@ -360,10 +367,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   )}
                 </div>
 
-                {/* Comment Section */}
+                {/* Comments */}
                 <CommentSection postId={post._id} />
 
-                {/* Back to Blog */}
                 <div className="text-center mt-12">
                   <Link
                     href="/blog"
@@ -375,10 +381,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </footer>
             </div>
 
-            {/* ── Desktop TOC Sidebar ──────────────────────────────────── */}
-            <div className="hidden lg:block">
-              <TableOfContents items={toc} />
-            </div>
+            {/* ── Desktop sidebar: TOC + sticky Share ─────────────────── */}
+            <BlogSidebar
+              toc={toc}
+              title={post.title}
+              excerpt={post.excerpt}
+              slug={post.slug.current}
+            />
           </div>
         </div>
       </div>
