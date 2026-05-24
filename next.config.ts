@@ -71,11 +71,6 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // ─── Experimental ────────────────────────────────────────────────────────
-  experimental: {
-    optimizeCss: true,
-  },
-
   // ─── Output ──────────────────────────────────────────────────────────────
   compress: true,
   poweredByHeader: false,

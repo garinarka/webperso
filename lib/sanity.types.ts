@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import { PortableTextBlock } from "@portabletext/react";
 
 export interface SanityPost {
@@ -46,22 +47,22 @@ export interface SanityProject {
 
 export interface PortableTextComponents {
   types?: {
-    image?: React.ComponentType<any>;
-    code?: React.ComponentType<any>;
+    image?: ComponentType<any>;
+    code?: ComponentType<any>;
   };
   marks?: {
-    link?: React.ComponentType<any>;
+    link?: ComponentType<any>;
   };
   block?: {
-    h1?: React.ComponentType<any>;
-    h2?: React.ComponentType<any>;
-    h3?: React.ComponentType<any>;
-    h4?: React.ComponentType<any>;
-    blockquote?: React.ComponentType<any>;
-    normal?: React.ComponentType<any>;
+    h1?: ComponentType<any>;
+    h2?: ComponentType<any>;
+    h3?: ComponentType<any>;
+    h4?: ComponentType<any>;
+    blockquote?: ComponentType<any>;
+    normal?: ComponentType<any>;
   };
   list?: {
-    bullet?: React.ComponentType<any>;
-    number?: React.ComponentType<any>;
+    bullet?: ComponentType<any>;
+    number?: ComponentType<any>;
   };
 }

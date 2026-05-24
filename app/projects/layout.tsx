@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
     title: 'PROJECTS',
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function ProjectsLayout({
     children,
 }: {
-    children: React.ReactNode
+    children: ReactNode
 }) {
     return children
 }
