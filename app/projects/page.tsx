@@ -19,7 +19,7 @@ export default function ProjectsPage() {
     useEffect(() => {
         // Fetch projects from Sanity
         client.fetch(projectsQuery)
-            .then((data: unknown) => {
+            .then((data: SanityProject[]) => {
                 console.log('Fetched projects:', data)
                 setProjects(data)
                 setLoading(false)
