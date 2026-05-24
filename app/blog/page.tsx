@@ -40,29 +40,15 @@ export default async function BlogPage() {
             </p>
           </div>
 
-          {/* Two-column: posts list + sidebar */}
+          {/* Layout */}
           <div className="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10 lg:items-start">
-            {/* Blog list with client-side filter/search */}
+            {/* Blog list */}
             <BlogListClient posts={posts} />
 
             {/* Sidebar */}
-            <aside className="mt-12 lg:mt-0 space-y-6">
+            <aside className="mt-12 lg:mt-0 space-y-6 sticky top-24 self-start">
+              {/* Trending */}
               <TrendingWidget limit={5} title="TRENDING" />
-
-              {/* RSS link */}
-              <div className="border-brutal border-punk-white/20 p-4">
-                <p className="font-mono text-brutal-xs text-punk-white/50 mb-3">
-                  SUBSCRIBE
-                </p>
-                <a
-                  href="/api/rss"
-                  className="flex items-center gap-2 font-mono text-brutal-sm text-neon-yellow hover:text-punk-white transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  ▶ RSS FEED
-                </a>
-              </div>
 
               {/* Category breakdown */}
               <div className="border-brutal border-punk-white/20 p-4">
