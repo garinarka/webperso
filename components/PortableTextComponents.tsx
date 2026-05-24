@@ -26,7 +26,14 @@ function slugify(text: string): string {
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
-    image: ({ value }: { value: { asset?: { _ref?: string }; alt?: string } & Record<string, unknown> }) => {
+    image: ({
+      value,
+    }: {
+      value: { asset?: { _ref?: string }; alt?: string } & Record<
+        string,
+        unknown
+      >;
+    }) => {
       if (!value?.asset?._ref) return null;
       return (
         <div className="my-8">
@@ -47,7 +54,11 @@ export const portableTextComponents: PortableTextComponents = {
     },
 
     // Code block (Sanity blockContent often includes a code type)
-    code: ({ value }: { value: { code?: string; language?: string; filename?: string } }) => {
+    code: ({
+      value,
+    }: {
+      value: { code?: string; language?: string; filename?: string };
+    }) => {
       if (!value?.code) return null;
       return (
         <div className="my-6 overflow-x-auto">
@@ -79,13 +90,14 @@ export const portableTextComponents: PortableTextComponents = {
 
   marks: {
     link: ({ children, value }: PortableTextMarkComponentProps) => {
-      const rel = !value.href.startsWith("/")
+      const rel = !value?.href?.startsWith("/")
         ? "noreferrer noopener"
         : undefined;
-      const target = !value.href.startsWith("/") ? "_blank" : undefined;
+      const target = !value?.href?.startsWith("/") ? "_blank" : undefined;
+
       return (
         <a
-          href={value.href}
+          href={value?.href || "#"}
           rel={rel}
           target={target}
           className="text-neon-yellow hover:text-punk-white underline"
@@ -156,7 +168,9 @@ export const portableTextComponents: PortableTextComponents = {
       </h1>
     ),
 
-    blockquote: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+    blockquote: ({
+      children,
+    }: PortableTextComponentProps<PortableTextBlock>) => (
       <blockquote className="border-l-brutal border-neon-yellow pl-6 py-2 my-6 italic text-punk-white/80">
         {children}
       </blockquote>
