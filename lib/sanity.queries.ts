@@ -28,6 +28,7 @@ export const publishedPostsQuery = groq`
     category,
     tags,
     featured,
+    body,
     "imageUrl": mainImage.asset->url,
     "imageAlt": mainImage.alt
   }

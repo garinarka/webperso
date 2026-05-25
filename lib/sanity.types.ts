@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react'
+import type { ComponentType } from "react";
 import { PortableTextBlock } from "@portabletext/react";
 
 export interface SanityPost {
@@ -16,6 +16,7 @@ export interface SanityPost {
   body?: PortableTextBlock[];
   imageUrl?: string;
   imageAlt?: string;
+  readTime?: number;
   // New fields
   commentsEnabled?: boolean; // defaults to true if absent
   pinnedCommentId?: string; // optional: Redis comment ID to pin

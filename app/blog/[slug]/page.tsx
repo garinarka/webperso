@@ -22,10 +22,10 @@ import LikeButton from "@/components/blog/LikeButton";
 import ShareButtons from "@/components/blog/ShareButtons";
 import CommentSection from "@/components/blog/CommentSection";
 import RelatedPosts from "@/components/blog/RelatedPosts";
-import BlogSidebar from "@/components/blog/BlogSidebar";
 import AuthorPopover from "@/components/blog/AuthorPopover";
 import ViewTracker from "@/components/blog/ViewTracker";
 import ReadingStats from "@/components/blog/ReadingStats";
+import TableOfContents from "@/components/blog/TableOfContents";
 
 import { calculateReadingTime, extractToc } from "@/lib/reading-time";
 
@@ -163,7 +163,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Reading progress bar */}
       <ScrollProgress />
 
-      <div className="min-h-screen bg-punk-black text-punk-white relative overflow-x-hidden">
+      <div className="min-h-screen bg-punk-black text-punk-white relative">
         <div className="max-w-6xl mx-auto px-4 py-20 relative z-20">
           {/* Back */}
           <div className="mb-8">
@@ -381,13 +381,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </footer>
             </div>
 
-            {/* ── Desktop sidebar: TOC + sticky Share ─────────────────── */}
-            <BlogSidebar
-              toc={toc}
-              title={post.title}
-              excerpt={post.excerpt}
-              slug={post.slug.current}
-            />
+            {/* ── Desktop sidebar ─────────────────────────────────────── */}
+            <aside
+              className="hidden lg:block lg:mt-0 lg:space-y-6 sticky top-24 self-start"
+              aria-label="Article sidebar"
+            >
+              <TableOfContents items={toc} mode="sidebar" />
+              <ShareButtons
+                title={post.title}
+                excerpt={post.excerpt}
+                slug={post.slug.current}
+                variant="white"
+                asAside
+              />
+            </aside>
           </div>
         </div>
       </div>
