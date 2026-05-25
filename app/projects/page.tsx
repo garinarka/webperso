@@ -19,27 +19,27 @@ export default function ProjectsPage() {
     useEffect(() => {
         // Fetch projects from Sanity
         client.fetch(projectsQuery)
-            .then((data) => {
+            .then((data: SanityProject[]) => {
                 console.log('Fetched projects:', data)
                 setProjects(data)
                 setLoading(false)
             })
-            .catch((error) => {
-                console.error('Error fetching projects:', error)
-                setError(error.message)
+            .catch((error: unknown) => {
+                console.error('Error fetching projects:', error instanceof Error ? error.message : error)
+                setError(error instanceof Error ? error.message : String(error))
                 setLoading(false)
             })
     }, [])
 
     // Filter projects
-    const filteredProjects = useMemo(() => {
+    const filteredProjects = useMemo<SanityProject[]>(() => {
         if (activeFilter === 'all') {
             return projects
         }
         if (activeFilter === 'featured') {
-            return projects.filter(p => p.featured)
+            return projects.filter((p: SanityProject) => p.featured)
         }
-        return projects.filter(p => p.category === activeFilter)
+        return projects.filter((p: SanityProject) => p.category === activeFilter)
     }, [activeFilter, projects])
 
     if (loading) {
@@ -151,7 +151,7 @@ export default function ProjectsPage() {
                             </div>
                             <div className="text-center">
                                 <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-green mb-2">
-                                    {projects.filter(p => p.status === 'completed').length}
+                                    {projects.filter((p: SanityProject) => p.status === 'completed').length}
                                 </p>
                                 <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
                                     completed
@@ -159,7 +159,7 @@ export default function ProjectsPage() {
                             </div>
                             <div className="text-center">
                                 <p className="text-brutal-3xl md:text-brutal-4xl font-brutal text-neon-pink mb-2">
-                                    {projects.filter(p => p.status === 'in-progress').length}
+                                    {projects.filter((p: SanityProject) => p.status === 'in-progress').length}
                                 </p>
                                 <p className="font-mono text-brutal-xs md:text-brutal-sm text-punk-white/70">
                                     in progress

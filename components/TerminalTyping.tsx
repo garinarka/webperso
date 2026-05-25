@@ -36,7 +36,7 @@ export default function TerminalTyping({
         if (!currentLine) {
             if (currentCommandIndex < commands.length - 1) {
                 const timeout = setTimeout(() => {
-                    setCurrentCommandIndex(prev => prev + 1)
+                    setCurrentCommandIndex((prev) => prev + 1)
                     setCurrentOutputIndex(0)
                     setDisplayedText('')
                 }, commandDelay)
@@ -59,7 +59,7 @@ export default function TerminalTyping({
 
         // Next line
         const timeout = setTimeout(() => {
-            setCurrentOutputIndex(prev => prev + 1)
+            setCurrentOutputIndex((prev) => prev + 1)
             setDisplayedText('')
         }, lineDelay)
 

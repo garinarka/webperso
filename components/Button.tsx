@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 
 interface ButtonProps {
-    children: React.ReactNode
+    children: ReactNode
     href?: string
     onClick?: () => void
     variant?: 'primary' | 'secondary'
