@@ -368,7 +368,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
 
                 {/* Comments */}
-                <CommentSection postId={post._id} />
+                {/* <CommentSection postId={post._id} /> */}
 
                 <div className="text-center mt-12">
                   <Link
