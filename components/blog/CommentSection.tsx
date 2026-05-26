@@ -7,13 +7,11 @@ import React from 'react'
  *
  * Full comment system:
  * - Post new comment / reply
- * - Nested replies (1 level deep — keeps UI simple)
- * - Edit own comment (within 15 min window)
- * - Delete own comment
+ * - Nested replies (1 level deep)
+ * - Edit own comment (within 15 min window) — hidden from admin viewing others' comments
+ * - Delete own comment OR admin can delete any comment
+ * - Admin: auto-approved, default name "jagaddhita (admin)", no pending
  * - Optimistic UI
- *
- * "Own" is determined by matching localStorage fingerprint.
- * The server re-derives fingerprint from the request for actual auth.
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react'
@@ -28,11 +26,13 @@ interface Comment {
   postId: string
   text: string
   authorName: string
+  authorFingerprint?: string
   parentId: string | null
   approved: boolean
   pinned: boolean
   createdAt: string
   updatedAt: string
+  ownerFp?: string // returned only for own comments
 }
 
 interface CommentThread extends Comment {
@@ -49,10 +49,7 @@ function buildThreads(comments: Comment[]): CommentThread[] {
   const roots: CommentThread[] = []
   const map = new Map<string, CommentThread>()
 
-  // First pass: create all threads
   comments.forEach(c => map.set(c.id, { ...c, replies: [] }))
-
-  // Second pass: attach replies
   comments.forEach(c => {
     const thread = map.get(c.id)!
     if (c.parentId && map.has(c.parentId)) {
@@ -71,6 +68,7 @@ function CommentItem({
   comment,
   postId,
   clientFp,
+  isAdmin,
   onReply,
   onDelete,
   onEdit,
@@ -79,6 +77,7 @@ function CommentItem({
   comment: CommentThread
   postId: string
   clientFp: string
+  isAdmin: boolean
   onReply: (parentId: string, parentName: string) => void
   onDelete: (id: string, parentId: string | null) => void
   onEdit: (id: string, newText: string) => void
@@ -94,12 +93,14 @@ function CommentItem({
   const age = Date.now() - new Date(comment.createdAt).getTime()
   const canEdit = age < 15 * 60 * 1000 // 15 minutes
 
-  // Determine ownership: localStorage fingerprint matches (heuristic only — server validates)
-  // We can't verify on client side since server uses IP+UA hash, not this random UUID.
-  // So we expose edit/delete for all users on client, let server reject unauthorized.
-  // In practice: this means UI shows edit/delete buttons to everyone, but server blocks it.
-  // For a personal blog where you're likely the main commenter, this is fine.
-  // If you want stricter UI: store a session token after posting.
+  // Ownership: server stores ownerFp per comment for the requesting user
+  const isOwner = !!(comment.ownerFp && comment.ownerFp === clientFp)
+
+  // Button visibility:
+  // - Edit: only owner (not admin editing others' comments)
+  // - Delete: owner OR admin
+  const showEdit = isOwner && canEdit && !editing
+  const showDelete = isOwner || isAdmin
 
   async function submitEdit() {
     if (!editText.trim() || editText === comment.text) {
@@ -168,32 +169,36 @@ function CommentItem({
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2 shrink-0">
-          {canEdit && !editing && (
-            <button
-              onClick={() => {
-                setEditing(true)
-                setTimeout(() => textareaRef.current?.focus(), 50)
-              }}
-              className="text-punk-white/30 hover:text-neon-yellow transition-colors"
-              title="Edit comment"
-            >
-              <Edit2 size={13} />
-            </button>
-          )}
-          <button
-            onClick={() => {
-              if (confirm('Delete this comment?')) {
-                onDelete(comment.id, comment.parentId)
-              }
-            }}
-            className="text-punk-white/30 hover:text-neon-red transition-colors"
-            title="Delete comment"
-          >
-            <Trash2 size={13} />
-          </button>
-        </div>
+        {/* Actions — only shown to owner or admin */}
+        {(showEdit || showDelete) && (
+          <div className="flex items-center gap-2 shrink-0">
+            {showEdit && (
+              <button
+                onClick={() => {
+                  setEditing(true)
+                  setTimeout(() => textareaRef.current?.focus(), 50)
+                }}
+                className="text-punk-white/30 hover:text-neon-yellow transition-colors"
+                title="Edit comment"
+              >
+                <Edit2 size={13} />
+              </button>
+            )}
+            {showDelete && (
+              <button
+                onClick={() => {
+                  if (confirm('Delete this comment?')) {
+                    onDelete(comment.id, comment.parentId)
+                  }
+                }}
+                className="text-punk-white/30 hover:text-neon-red transition-colors"
+                title="Delete comment"
+              >
+                <Trash2 size={13} />
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -265,6 +270,7 @@ function CommentItem({
                     comment={{ ...reply, replies: [] } as CommentThread}
                     postId={postId}
                     clientFp={clientFp}
+                    isAdmin={isAdmin}
                     onReply={onReply}
                     onDelete={onDelete}
                     onEdit={onEdit}
@@ -287,21 +293,32 @@ function CommentForm({
   replyTo,
   onCancel,
   onSubmit,
+  isAdmin,
 }: {
   postId: string
   replyTo?: { id: string; name: string } | null
   onCancel?: () => void
   onSubmit: (comment: Comment) => void
+  isAdmin: boolean
 }) {
+  const ADMIN_NAME = 'jagaddhita (admin)'
+
   const [text, setText] = useState('')
-  const [name, setName] = useState(() =>
-    typeof window !== 'undefined'
-      ? localStorage.getItem('comment_name') || ''
-      : ''
-  )
+  const [name, setName] = useState(() => {
+    if (isAdmin) return ADMIN_NAME
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('comment_name') || ''
+    }
+    return ''
+  })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+
+  // Sync name when isAdmin changes (e.g. after hydration)
+  useEffect(() => {
+    if (isAdmin) setName(ADMIN_NAME)
+  }, [isAdmin])
 
   async function submit() {
     if (!text.trim()) return
@@ -326,8 +343,7 @@ function CommentForm({
       if (!res.ok) {
         setError(data.error || 'Failed to post comment')
       } else {
-        // Persist name
-        if (name) localStorage.setItem('comment_name', name)
+        if (!isAdmin && name) localStorage.setItem('comment_name', name)
 
         setSuccess(data.message || 'Posted!')
         setText('')
@@ -364,9 +380,15 @@ function CommentForm({
         type="text"
         placeholder="Your name (optional)"
         value={name}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          if (!isAdmin) setName(e.target.value)
+        }}
+        readOnly={isAdmin}
         maxLength={60}
-        className="w-full bg-punk-black border-brutal border-punk-white/20 px-3 py-2 font-mono text-brutal-sm text-punk-white placeholder:text-punk-white/30 focus:border-neon-yellow outline-none mb-3"
+        className={cn(
+          "w-full bg-punk-black border-brutal border-punk-white/20 px-3 py-2 font-mono text-brutal-sm text-punk-white placeholder:text-punk-white/30 focus:border-neon-yellow outline-none mb-3",
+          isAdmin && "opacity-60 cursor-not-allowed"
+        )}
       />
 
       <textarea
@@ -409,6 +431,15 @@ export default function CommentSection({ postId }: CommentSectionProps) {
   const [loading, setLoading] = useState(true)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
   const [clientFp] = useState<string>(() => getClientFingerprint())
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  // Check admin status on mount
+  useEffect(() => {
+    fetch('/api/admin/me')
+      .then(r => r.json())
+      .then(d => setIsAdmin(!!d.isAdmin))
+      .catch(() => {})
+  }, [])
 
   const fetchComments = useCallback(async () => {
     try {
@@ -461,6 +492,11 @@ export default function CommentSection({ postId }: CommentSectionProps) {
             ({comments.length})
           </span>
         )}
+        {isAdmin && (
+          <span className="font-mono text-brutal-xs text-neon-yellow border border-neon-yellow px-2 py-0.5">
+            ADMIN
+          </span>
+        )}
       </h2>
 
       {/* Post new comment */}
@@ -469,6 +505,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
           <CommentForm
             postId={postId}
             onSubmit={handleNewComment}
+            isAdmin={isAdmin}
           />
         </div>
       )}
@@ -481,6 +518,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
             replyTo={replyTo}
             onCancel={() => setReplyTo(null)}
             onSubmit={handleNewComment}
+            isAdmin={isAdmin}
           />
         </div>
       )}
@@ -505,6 +543,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
                 comment={thread}
                 postId={postId}
                 clientFp={clientFp}
+                isAdmin={isAdmin}
                 onReply={(id: string, name: string) => setReplyTo({ id, name })}
                 onDelete={handleDelete}
                 onEdit={handleEdit}

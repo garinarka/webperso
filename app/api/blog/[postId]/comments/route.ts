@@ -23,7 +23,7 @@ export interface StoredComment {
 }
 
 // GET /api/blog/[postId]/comments
-export async function GET(_request: Request, { params }: RouteParams) {
+export async function GET(request: Request, { params }: RouteParams) {
   const { postId } = await params;
 
   try {
@@ -59,8 +59,14 @@ export async function GET(_request: Request, { params }: RouteParams) {
         );
       });
 
-    // Strip fingerprint from public response
-    const safe = visible.map(({ authorFingerprint: _f, ...rest }: StoredComment) => rest);
+    // Get requester fingerprint to mark their own comments
+    const requesterFp = await getServerFingerprint(request);
+
+    // Strip raw fingerprint; add ownerFp only for the requester's own comments
+    const safe = visible.map(({ authorFingerprint, ...rest }: StoredComment) => ({
+      ...rest,
+      ownerFp: authorFingerprint === requesterFp ? requesterFp : undefined,
+    }));
 
     return NextResponse.json({
       comments: safe,
@@ -106,7 +112,14 @@ export async function POST(request: Request, { params }: RouteParams) {
 
   const { text, authorName, parentId } = validation.sanitized;
   const fingerprint = await getServerFingerprint(request);
-  const autoApprove = process.env.AUTO_APPROVE_COMMENTS === "true";
+
+  const adminSecret = process.env.ADMIN_SECRET;
+  const cookieHeader = request.headers.get("cookie") ?? "";
+  const cookieMatch = cookieHeader.match(/admin_token=([^;]+)/);
+  const isAdminRequest = adminSecret && cookieMatch?.[1] === adminSecret;
+
+  const autoApprove =
+    isAdminRequest || process.env.AUTO_APPROVE_COMMENTS === "true";
 
   // Validate parentId exists if provided
   if (parentId) {
