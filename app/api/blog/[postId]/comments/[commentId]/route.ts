@@ -9,10 +9,13 @@ interface RouteParams {
 }
 
 function isAdmin(request: Request): boolean {
-  const secret = request.headers.get("x-admin-secret");
-  return Boolean(
-    process.env.ADMIN_SECRET && secret === process.env.ADMIN_SECRET,
-  );
+  const secret = process.env.ADMIN_SECRET;
+  if (!secret) return false;
+  const headerSecret = request.headers.get("x-admin-secret");
+  if (headerSecret === secret) return true;
+  const cookieHeader = request.headers.get("cookie") ?? "";
+  const match = cookieHeader.match(/admin_token=([^;]+)/);
+  return match?.[1] === secret;
 }
 
 // PATCH /api/blog/[postId]/comments/[commentId]

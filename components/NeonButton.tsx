@@ -14,6 +14,7 @@ interface NeonButtonProps {
     className?: string
     disabled?: boolean
     type?: 'button' | 'submit' | 'reset'
+    formAction?: string
 }
 
 export default function NeonButton({
@@ -25,7 +26,8 @@ export default function NeonButton({
     size = 'md',
     className = '',
     disabled = false,
-    type = 'button'
+    type = 'button',
+    formAction
 }: NeonButtonProps) {
 
     // Size styles (inline untuk guarantee aplikasi)
