@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import ClientProviders from "@/components/ClientProviders";
+import SessionWrapper from "@/components/SessionWrapper";
 import type { Viewport } from "next";
 
 const spaceGrotesk = Space_Grotesk({
@@ -120,7 +121,7 @@ export default function RootLayout({
 
         {/* main content */}
         <main id="main-content" className="flex-grow pt-16">
-          {children}
+          <SessionWrapper>{children}</SessionWrapper>
         </main>
 
         {/* footer */}

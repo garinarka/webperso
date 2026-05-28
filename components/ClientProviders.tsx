@@ -6,7 +6,6 @@ import BackToTop from './BackToTop'
 import KonamiCode from './KonamiCode'
 import Analytics from './Analytics'
 
-// Lazy load CustomCursor
 const CustomCursor = dynamic(() => import('./CustomCursor'), {
     ssr: false,
     loading: () => null
