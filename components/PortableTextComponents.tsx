@@ -100,7 +100,7 @@ export const portableTextComponents: PortableTextComponents = {
           href={value?.href || "#"}
           rel={rel}
           target={target}
-          className="text-neon-yellow hover:text-punk-white underline"
+          className="text-neon-yellow hover:text-punk-white underline break-all"
         >
           {children}
         </a>
