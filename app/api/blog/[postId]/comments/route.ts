@@ -59,10 +59,20 @@ export async function GET(request: Request, { params }: RouteParams) {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       });
 
+<<<<<<< HEAD
     // Strip sensitive fields; expose isOwner flag based on session
     const safe = visible.map(({ authorId, authorEmail: _e, ...rest }) => ({
       ...rest,
       isOwner: currentUserId !== null && authorId === currentUserId,
+=======
+    // Get requester fingerprint to mark their own comments
+    const requesterFp = await getServerFingerprint(request);
+
+    // Strip raw fingerprint; add ownerFp only for the requester's own comments
+    const safe = visible.map(({ authorFingerprint, ...rest }: StoredComment) => ({
+      ...rest,
+      ownerFp: authorFingerprint === requesterFp ? requesterFp : undefined,
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
     }));
 
     return NextResponse.json({ comments: safe, count: safe.length });
@@ -105,6 +115,7 @@ export async function POST(request: Request, { params }: RouteParams) {
     return NextResponse.json({ error: validation.error }, { status: 400 });
   }
 
+<<<<<<< HEAD
   const { text, parentId } = validation.sanitized;
 
   const isAdmin = isAdminCookie(request);
@@ -115,6 +126,18 @@ export async function POST(request: Request, { params }: RouteParams) {
   const authorName = isAdmin
     ? ADMIN_NAME
     : session.user.name ?? session.user.email?.split("@")[0] ?? "anonymous";
+=======
+  const { text, authorName, parentId } = validation.sanitized;
+  const fingerprint = await getServerFingerprint(request);
+
+  const adminSecret = process.env.ADMIN_SECRET;
+  const cookieHeader = request.headers.get("cookie") ?? "";
+  const cookieMatch = cookieHeader.match(/admin_token=([^;]+)/);
+  const isAdminRequest = adminSecret && cookieMatch?.[1] === adminSecret;
+
+  const autoApprove =
+    isAdminRequest || process.env.AUTO_APPROVE_COMMENTS === "true";
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
 
   if (parentId) {
     const parent = await redis.get<StoredComment>(keys.comment(parentId));

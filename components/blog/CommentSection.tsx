@@ -1,7 +1,25 @@
 'use client'
 
+<<<<<<< HEAD
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
+=======
+import React from 'react'
+
+/**
+ * components/blog/CommentSection.tsx
+ *
+ * Full comment system:
+ * - Post new comment / reply
+ * - Nested replies (1 level deep)
+ * - Edit own comment (within 15 min window) — hidden from admin viewing others' comments
+ * - Delete own comment OR admin can delete any comment
+ * - Admin: auto-approved, default name "jagaddhita (admin)", no pending
+ * - Optimistic UI
+ */
+
+import { useState, useEffect, useCallback, useRef } from 'react'
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquare, Reply, Trash2, Edit2, Check, X, ChevronDown, ChevronUp, LogIn, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -12,12 +30,17 @@ interface Comment {
   postId: string
   text: string
   authorName: string
+  authorFingerprint?: string
   parentId: string | null
   approved: boolean
   pinned: boolean
   createdAt: string
   updatedAt: string
+<<<<<<< HEAD
   isOwner: boolean // set by server based on session
+=======
+  ownerFp?: string // returned only for own comments
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
 }
 
 interface CommentThread extends Comment {
@@ -27,6 +50,10 @@ interface CommentThread extends Comment {
 function buildThreads(comments: Comment[]): CommentThread[] {
   const roots: CommentThread[] = []
   const map = new Map<string, CommentThread>()
+<<<<<<< HEAD
+=======
+
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
   comments.forEach(c => map.set(c.id, { ...c, replies: [] }))
   comments.forEach(c => {
     const thread = map.get(c.id)!
@@ -44,6 +71,10 @@ function buildThreads(comments: Comment[]): CommentThread[] {
 function CommentItem({
   comment,
   postId,
+<<<<<<< HEAD
+=======
+  clientFp,
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
   isAdmin,
   onReply,
   onDelete,
@@ -52,6 +83,10 @@ function CommentItem({
 }: {
   comment: CommentThread
   postId: string
+<<<<<<< HEAD
+=======
+  clientFp: string
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
   isAdmin: boolean
   onReply: (parentId: string, parentName: string) => void
   onDelete: (id: string, parentId: string | null) => void
@@ -68,9 +103,20 @@ function CommentItem({
   const age = Date.now() - new Date(comment.createdAt).getTime()
   const canEdit = comment.isOwner && age < 15 * 60 * 1000
 
+<<<<<<< HEAD
   // isOwner comes from server (session-based) — immune to browser profile switching
   const showEdit = canEdit && !editing
   const showDelete = comment.isOwner || isAdmin
+=======
+  // Ownership: server stores ownerFp per comment for the requesting user
+  const isOwner = !!(comment.ownerFp && comment.ownerFp === clientFp)
+
+  // Button visibility:
+  // - Edit: only owner (not admin editing others' comments)
+  // - Delete: owner OR admin
+  const showEdit = isOwner && canEdit && !editing
+  const showDelete = isOwner || isAdmin
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
 
   async function submitEdit() {
     if (!editText.trim() || editText === comment.text) {
@@ -130,11 +176,22 @@ function CommentItem({
           </div>
         </div>
 
+<<<<<<< HEAD
+=======
+        {/* Actions — only shown to owner or admin */}
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
         {(showEdit || showDelete) && (
           <div className="flex items-center gap-2 shrink-0">
             {showEdit && (
               <button
+<<<<<<< HEAD
                 onClick={() => { setEditing(true); setTimeout(() => textareaRef.current?.focus(), 50) }}
+=======
+                onClick={() => {
+                  setEditing(true)
+                  setTimeout(() => textareaRef.current?.focus(), 50)
+                }}
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
                 className="text-punk-white/30 hover:text-neon-yellow transition-colors"
                 title="Edit comment"
               >
@@ -143,7 +200,15 @@ function CommentItem({
             )}
             {showDelete && (
               <button
+<<<<<<< HEAD
                 onClick={() => { if (confirm('Delete this comment?')) onDelete(comment.id, comment.parentId) }}
+=======
+                onClick={() => {
+                  if (confirm('Delete this comment?')) {
+                    onDelete(comment.id, comment.parentId)
+                  }
+                }}
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
                 className="text-punk-white/30 hover:text-neon-red transition-colors"
                 title="Delete comment"
               >
@@ -217,6 +282,10 @@ function CommentItem({
                     key={reply.id}
                     comment={{ ...reply, replies: [] } as CommentThread}
                     postId={postId}
+<<<<<<< HEAD
+=======
+                    clientFp={clientFp}
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
                     isAdmin={isAdmin}
                     onReply={onReply}
                     onDelete={onDelete}
@@ -241,19 +310,42 @@ function CommentForm({
   onCancel,
   onSubmit,
   isAdmin,
+<<<<<<< HEAD
   userName,
+=======
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
 }: {
   postId: string
   replyTo?: { id: string; name: string } | null
   onCancel?: () => void
   onSubmit: (comment: Comment) => void
   isAdmin: boolean
+<<<<<<< HEAD
   userName: string
+=======
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
 }) {
+  const ADMIN_NAME = 'jagaddhita (admin)'
+
   const [text, setText] = useState('')
+<<<<<<< HEAD
+=======
+  const [name, setName] = useState(() => {
+    if (isAdmin) return ADMIN_NAME
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('comment_name') || ''
+    }
+    return ''
+  })
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+
+  // Sync name when isAdmin changes (e.g. after hydration)
+  useEffect(() => {
+    if (isAdmin) setName(ADMIN_NAME)
+  }, [isAdmin])
 
   async function submit() {
     if (!text.trim()) return
@@ -270,6 +362,11 @@ function CommentForm({
       if (!res.ok) {
         setError(data.error || 'Failed to post comment')
       } else {
+<<<<<<< HEAD
+=======
+        if (!isAdmin && name) localStorage.setItem('comment_name', name)
+
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
         setSuccess(data.message || 'Posted!')
         setText('')
         onSubmit(data.comment)
@@ -295,6 +392,7 @@ function CommentForm({
         </div>
       )}
 
+<<<<<<< HEAD
       <div className="flex items-center gap-2 mb-3 px-1">
         <div className="w-6 h-6 border border-neon-yellow flex items-center justify-center font-brutal text-brutal-xs bg-punk-black shrink-0">
           {userName.charAt(0).toUpperCase()}
@@ -304,6 +402,22 @@ function CommentForm({
           {isAdmin && <span className="ml-1 text-neon-yellow">[ADMIN]</span>}
         </span>
       </div>
+=======
+      <input
+        type="text"
+        placeholder="Your name (optional)"
+        value={name}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          if (!isAdmin) setName(e.target.value)
+        }}
+        readOnly={isAdmin}
+        maxLength={60}
+        className={cn(
+          "w-full bg-punk-black border-brutal border-punk-white/20 px-3 py-2 font-mono text-brutal-sm text-punk-white placeholder:text-punk-white/30 focus:border-neon-yellow outline-none mb-3",
+          isAdmin && "opacity-60 cursor-not-allowed"
+        )}
+      />
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
 
       <textarea
         placeholder={replyTo ? `Reply to ${replyTo.name}...` : 'Write a comment...'}
@@ -334,11 +448,23 @@ export default function CommentSection({ postId }: { postId: string }) {
   const [comments, setComments] = useState<Comment[]>([])
   const [loading, setLoading] = useState(true)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
+<<<<<<< HEAD
 
   // Check admin via cookie separately (session doesn't carry admin cookie)
   const [isAdmin, setIsAdmin] = useState(false)
   useEffect(() => {
     fetch('/api/admin/me').then(r => r.json()).then(d => setIsAdmin(!!d.isAdmin)).catch(() => {})
+=======
+  const [clientFp] = useState<string>(() => getClientFingerprint())
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  // Check admin status on mount
+  useEffect(() => {
+    fetch('/api/admin/me')
+      .then(r => r.json())
+      .then(d => setIsAdmin(!!d.isAdmin))
+      .catch(() => {})
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
   }, [])
 
   const fetchComments = useCallback(async () => {
@@ -393,8 +519,14 @@ export default function CommentSection({ postId }: { postId: string }) {
         {isAdmin && (
           <span className="font-mono text-brutal-xs text-neon-yellow border border-neon-yellow px-2 py-0.5">ADMIN</span>
         )}
+        {isAdmin && (
+          <span className="font-mono text-brutal-xs text-neon-yellow border border-neon-yellow px-2 py-0.5">
+            ADMIN
+          </span>
+        )}
       </h2>
 
+<<<<<<< HEAD
       {/* Auth gate */}
       {status === 'unauthenticated' && (
         <div className="border-brutal border-punk-white/20 p-6 mb-8 flex items-center justify-between gap-4">
@@ -440,6 +572,30 @@ export default function CommentSection({ postId }: { postId: string }) {
             </div>
           )}
         </>
+=======
+      {/* Post new comment */}
+      {!replyTo && (
+        <div className="mb-8">
+          <CommentForm
+            postId={postId}
+            onSubmit={handleNewComment}
+            isAdmin={isAdmin}
+          />
+        </div>
+      )}
+
+      {/* Reply form */}
+      {replyTo && (
+        <div className="mb-8">
+          <CommentForm
+            postId={postId}
+            replyTo={replyTo}
+            onCancel={() => setReplyTo(null)}
+            onSubmit={handleNewComment}
+            isAdmin={isAdmin}
+          />
+        </div>
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
       )}
 
       {/* Comment list */}
@@ -457,9 +613,16 @@ export default function CommentSection({ postId }: { postId: string }) {
                 key={thread.id}
                 comment={thread}
                 postId={postId}
+<<<<<<< HEAD
                 isAdmin={isAdmin}
                 onReply={(id, name) => setReplyTo({ id, name })}
                 onDelete={(id) => handleDelete(id)}
+=======
+                clientFp={clientFp}
+                isAdmin={isAdmin}
+                onReply={(id: string, name: string) => setReplyTo({ id, name })}
+                onDelete={handleDelete}
+>>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
                 onEdit={handleEdit}
               />
             ))}
