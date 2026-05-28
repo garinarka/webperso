@@ -122,7 +122,7 @@ export async function POST(request: Request, { params }: RouteParams) {
   const autoApprove = isAdmin || process.env.AUTO_APPROVE_COMMENTS === "true";
 
   // Admin uses fixed display name; others use their Google/email name
-  const ADMIN_NAME = "jagaddhita (admin)";
+  const ADMIN_NAME = "jagaddhita";
   const authorName = isAdmin
     ? ADMIN_NAME
     : (session.user.name ?? session.user.email?.split("@")[0] ?? "anonymous");

@@ -442,7 +442,7 @@ export default function CommentSection({ postId }: { postId: string }) {
 
   const threads = buildThreads(comments);
   const userName = isAdmin
-    ? "jagaddhita (admin)"
+    ? "jagaddhita"
     : (session?.user?.name ?? session?.user?.email?.split("@")[0] ?? "");
 
   return (
