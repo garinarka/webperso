@@ -10,16 +10,16 @@ import type { NextConfig } from "next";
 //
 const ContentSecurityPolicy = [
   "default-src 'self'",
-  // Scripts: self + Next.js runtime + Vercel analytics + Vercel Speed Insights
-  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://cdn.vercel-insights.com",
+  // Scripts: self + Next.js runtime + Vercel analytics + Google Tag Manager
+  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://cdn.vercel-insights.com https://www.googletagmanager.com https://www.google-analytics.com",
   // Styles: self + inline (required by Next.js App Router)
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   // Fonts
   "font-src 'self' https://fonts.gstatic.com",
   // Images: self + Sanity CDN + data URIs
   "img-src 'self' data: blob: https://cdn.sanity.io",
-  // XHR / fetch: self + Sanity + Upstash (Redis REST API)
-  "connect-src 'self' https://api.sanity.io https://*.upstash.io https://va.vercel-scripts.com",
+  // XHR / fetch: self + Sanity (both api and apicdn CDN) + Upstash + Vercel + GA
+  "connect-src 'self' https://api.sanity.io https://*.api.sanity.io https://*.apicdn.sanity.io https://*.upstash.io https://va.vercel-scripts.com https://www.google-analytics.com https://region1.google-analytics.com",
   // Iframes: none
   "frame-src 'none'",
   // Objects: none (no Flash, no PDFs embedded)
