@@ -39,40 +39,38 @@ export async function GET(request: Request, { params }: RouteParams) {
   const currentUserId = session?.user?.id ?? null;
 
   try {
-    const commentIds = await redis.zrange(keys.comments(postId), 0, -1, { rev: true });
+    const commentIds = await redis.zrange(keys.comments(postId), 0, -1, {
+      rev: true,
+    });
 
     if (!commentIds || commentIds.length === 0) {
       return NextResponse.json({ comments: [], count: 0 });
     }
 
     const commentDataList = await Promise.all(
-      commentIds.map((id) => redis.get<StoredComment>(keys.comment(id as string))),
+      commentIds.map((id) =>
+        redis.get<StoredComment>(keys.comment(id as string)),
+      ),
     );
 
     const autoApprove = process.env.AUTO_APPROVE_COMMENTS === "true";
 
     const visible = commentDataList
-      .filter((c): c is StoredComment => c !== null && (c.approved || autoApprove))
+      .filter(
+        (c): c is StoredComment => c !== null && (c.approved || autoApprove),
+      )
       .sort((a, b) => {
         if (a.pinned && !b.pinned) return -1;
         if (!a.pinned && b.pinned) return 1;
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
       });
 
-<<<<<<< HEAD
     // Strip sensitive fields; expose isOwner flag based on session
     const safe = visible.map(({ authorId, authorEmail: _e, ...rest }) => ({
       ...rest,
       isOwner: currentUserId !== null && authorId === currentUserId,
-=======
-    // Get requester fingerprint to mark their own comments
-    const requesterFp = await getServerFingerprint(request);
-
-    // Strip raw fingerprint; add ownerFp only for the requester's own comments
-    const safe = visible.map(({ authorFingerprint, ...rest }: StoredComment) => ({
-      ...rest,
-      ownerFp: authorFingerprint === requesterFp ? requesterFp : undefined,
->>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
     }));
 
     return NextResponse.json({ comments: safe, count: safe.length });
@@ -89,7 +87,10 @@ export async function POST(request: Request, { params }: RouteParams) {
   // Must be authenticated
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "You must be signed in to comment." }, { status: 401 });
+    return NextResponse.json(
+      { error: "You must be signed in to comment." },
+      { status: 401 },
+    );
   }
 
   const ip = getClientIp(request);
@@ -115,7 +116,6 @@ export async function POST(request: Request, { params }: RouteParams) {
     return NextResponse.json({ error: validation.error }, { status: 400 });
   }
 
-<<<<<<< HEAD
   const { text, parentId } = validation.sanitized;
 
   const isAdmin = isAdminCookie(request);
@@ -125,24 +125,15 @@ export async function POST(request: Request, { params }: RouteParams) {
   const ADMIN_NAME = "jagaddhita (admin)";
   const authorName = isAdmin
     ? ADMIN_NAME
-    : session.user.name ?? session.user.email?.split("@")[0] ?? "anonymous";
-=======
-  const { text, authorName, parentId } = validation.sanitized;
-  const fingerprint = await getServerFingerprint(request);
-
-  const adminSecret = process.env.ADMIN_SECRET;
-  const cookieHeader = request.headers.get("cookie") ?? "";
-  const cookieMatch = cookieHeader.match(/admin_token=([^;]+)/);
-  const isAdminRequest = adminSecret && cookieMatch?.[1] === adminSecret;
-
-  const autoApprove =
-    isAdminRequest || process.env.AUTO_APPROVE_COMMENTS === "true";
->>>>>>> aaca07ecb61bcc20f65d2244bfcf196924353781
+    : (session.user.name ?? session.user.email?.split("@")[0] ?? "anonymous");
 
   if (parentId) {
     const parent = await redis.get<StoredComment>(keys.comment(parentId));
     if (!parent || parent.postId !== postId) {
-      return NextResponse.json({ error: "Invalid parent comment" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid parent comment" },
+        { status: 400 },
+      );
     }
   }
 
@@ -181,13 +172,18 @@ export async function POST(request: Request, { params }: RouteParams) {
         comment: { ...safeComment, isOwner: true },
         approved: autoApprove,
         remaining,
-        message: autoApprove ? "Comment posted!" : "Comment submitted for review.",
+        message: autoApprove
+          ? "Comment posted!"
+          : "Comment submitted for review.",
       },
       { status: 201 },
     );
   } catch (err) {
     console.error("[comments POST]", err);
-    return NextResponse.json({ error: "Failed to post comment" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to post comment" },
+      { status: 500 },
+    );
   }
 }
 
