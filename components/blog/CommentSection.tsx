@@ -464,8 +464,8 @@ export default function CommentSection({ postId }: { postId: string }) {
         )}
       </h2>
 
-      {/* Auth gate */}
-      {status === "unauthenticated" && (
+      {/* Auth gate — hide if admin or already authenticated */}
+      {status === "unauthenticated" && !isAdmin && (
         <div className="border-brutal border-punk-white/20 p-6 mb-8 flex items-center justify-between gap-4">
           <p className="font-mono text-brutal-sm text-punk-white/60">
             // sign in to leave a comment
@@ -479,17 +479,19 @@ export default function CommentSection({ postId }: { postId: string }) {
         </div>
       )}
 
-      {/* Comment form — only when authenticated */}
-      {status === "authenticated" && (
+      {/* Comment form — authenticated user OR admin */}
+      {(status === "authenticated" || isAdmin) && (
         <>
-          <div className="flex items-center justify-end mb-2">
-            <button
-              onClick={() => signOut()}
-              className="flex items-center gap-1 font-mono text-brutal-xs text-punk-white/30 hover:text-punk-white/60 transition-colors"
-            >
-              <LogOut size={12} /> sign out
-            </button>
-          </div>
+          {status === "authenticated" && (
+            <div className="flex items-center justify-end mb-2">
+              <button
+                onClick={() => signOut()}
+                className="flex items-center gap-1 font-mono text-brutal-xs text-punk-white/30 hover:text-punk-white/60 transition-colors"
+              >
+                <LogOut size={12} /> sign out
+              </button>
+            </div>
+          )}
 
           {!replyTo && (
             <div className="mb-8">
