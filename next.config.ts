@@ -19,7 +19,7 @@ const ContentSecurityPolicy = [
   // Images: self + Sanity CDN + data URIs
   "img-src 'self' data: blob: https://cdn.sanity.io",
   // XHR / fetch: self + Sanity (both api and apicdn CDN) + Upstash + Vercel + GA
-  "connect-src 'self' https://api.sanity.io https://*.api.sanity.io https://*.apicdn.sanity.io https://*.upstash.io https://va.vercel-scripts.com https://www.google-analytics.com https://region1.google-analytics.com",
+  "connect-src 'self' https://api.sanity.io https://*.api.sanity.io https://*.apicdn.sanity.io https://*.upstash.io https://va.vercel-scripts.com https://www.google-analytics.com https://region1.google-analytics.com https://api.github.com",
   // Iframes: none
   "frame-src 'none'",
   // Objects: none (no Flash, no PDFs embedded)
