@@ -11,7 +11,8 @@ export default function AdminDashboardLayout({
   return (
     <div className="flex min-h-screen bg-punk-black text-punk-white">
       <AdminSidebar />
-      <main className="flex-1 overflow-auto">{children}</main>
+      {/* pt-14 on mobile offsets the fixed admin top bar; md:pt-0 because sidebar is static */}
+      <main className="flex-1 overflow-auto pt-14 md:pt-0">{children}</main>
     </div>
   );
 }
