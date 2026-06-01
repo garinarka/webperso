@@ -67,13 +67,13 @@ export default function PunkNavbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0 }}
-            className="fixed inset-0 z-40 bg-punk-black"
+            className="fixed inset-0 z-40 bg-punk-black overflow-y-auto"
           >
             {/* Menu Content */}
-            <div className="relative z-50 min-h-[calc(100vh-4rem)] mt-16 flex items-center justify-center">
-              <nav className="w-full max-w-4xl px-4">
+            <div className="min-h-screen pt-16 flex items-center justify-center px-6 py-8">
+              <nav className="w-full max-w-3xl">
                 {/* Navigation Links */}
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-20 text-center mb-16">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-12 text-center mb-12">
                   {navLinks.map((link, index) => {
                     const isActive = pathname === link.href;
                     const isLastOdd =
@@ -85,7 +85,7 @@ export default function PunkNavbar() {
                         key={link.href}
                         className={cn(
                           isLastOdd &&
-                            "md:col-span-2 md:flex md:justify-center",
+                            "sm:col-span-2 sm:flex sm:justify-center",
                         )}
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -95,7 +95,7 @@ export default function PunkNavbar() {
                           href={link.href}
                           onClick={closeMenu}
                           className={`
-                            font-brutal text-brutal-5xl md:text-brutal-6xl block
+                            font-brutal text-brutal-4xl sm:text-brutal-5xl md:text-brutal-6xl block leading-tight
                             hover:text-neon-yellow transition-colors duration-0
                             ${isActive ? "text-neon-yellow" : "text-punk-white"}
                           `}
